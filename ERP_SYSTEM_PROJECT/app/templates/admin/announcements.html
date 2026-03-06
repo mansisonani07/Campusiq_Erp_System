@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h2>Announcements</h2>
+    {% if can_manage %}
+    <form method="post" action="/admin/announcements" class="grid three">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        <label>Title<input name="title" required></label>
+        <label>Audience
+            <select name="audience">
+                <option value="all">All</option>
+                <option value="students">Students</option>
+                <option value="teachers">Teachers</option>
+            </select>
+        </label>
+        <label>Body<textarea name="body" rows="3" required></textarea></label>
+        <button class="btn primary" type="submit">Publish</button>
+    </form>
+    {% else %}
+    <p class="muted">Read-only access for your role.</p>
+    {% endif %}
+</section>
+<section class="panel">
+    {% for item in items %}
+    <article class="notice">
+        <h4>{{ item.title }}</h4>
+        <p>{{ item.body }}</p>
+        <small>{{ item.audience }} | {{ item.created_at }}</small>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}

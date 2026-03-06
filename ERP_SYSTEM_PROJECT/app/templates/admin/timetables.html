@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="portal-home">
+    <section class="panel portal-head">
+        <p class="hero-tag">Admin Panel</p>
+        <h2>Timetable Upload</h2>
+        <p class="muted">Upload timetables for specific branches and semesters</p>
+    </section>
+
+    <!-- Upload Timetable Form -->
+    <section class="panel">
+        <h3>Upload New Timetable</h3>
+        <form method="post" action="/admin/timetables">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="branch_id">Branch</label>
+                    <select id="branch_id" name="branch_id" required>
+                        <option value="">-- Select Branch --</option>
+                        {% for branch in branches %}
+                        <option value="{{ branch.id }}">{{ branch.name }} ({{ branch.code }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="semester_id">Semester</label>
+                    <select id="semester_id" name="semester_id" required>
+                        <option value="">-- Select Semester --</option>
+                        {% for sem in semesters %}
+                        <option value="{{ sem.id }}">{{ sem.branch.name }} - Semester {{ sem.semester_number }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="file_name">File Name</label>
+                    <input type="text" id="file_name" name="file_name" placeholder="e.g., timetable_fall_2025.pdf" required>
+                </div>
+                <div class="form-group">
+                    <label for="file_path">File Path (URL or upload path)</label>
+                    <input type="text" id="file_path" name="file_path" placeholder="/static/uploads/timetable.pdf" required>
+                </div>
+            </div>
+            <button type="submit" class="btn primary">Upload Timetable</button>
+        </form>
+    </section>
+
+    <!-- Timetables List -->
+    <section class="panel">
+        <h3>Uploaded Timetables</h3>
+        {% if timetables %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Branch</th>
+                    <th>Semester</th>
+                    <th>File Name</th>
+                    <th>Uploaded Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for timetable in timetables %}
+                <tr>
+                    <td>{{ timetable.id }}</td>
+                    <td>{{ timetable.branch.name if timetable.branch else '-' }}</td>
+                    <td>{{ 'Semester ' ~ timetable.semester.semester_number if timetable.semester else '-' }}</td>
+                    <td>{{ timetable.file_name }}</td>
+                    <td>{{ timetable.uploaded_at.strftime('%Y-%m-%d') if timetable.uploaded_at else '-' }}</td>
+                    <td>
+                        <form method="post" action="/admin/timetables/{{ timetable.id }}/delete" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                            <button type="submit" class="btn danger" onclick="return confirm('Delete this timetable?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="muted">No timetables uploaded yet.</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

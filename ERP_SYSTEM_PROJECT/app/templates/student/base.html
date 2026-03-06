@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Student Portal - CampusIQ{% endblock %}
+
+{% block navbar %}
+<nav class="navbar">
+    <div class="nav-brand">
+        <a href="/student/dashboard">
+            <img src="/static/icons/nova-erp-icon.svg" alt="CampusIQ" class="brand-icon">
+            <span class="brand-text">CampusIQ</span>
+        </a>
+    </div>
+    <div class="nav-user">
+        <span class="user-name">{{ request.session.get('name') or (profile.user.name if profile and profile.user else 'Student') }}</span>
+        <span class="user-role">STUDENT</span>
+        <a href="/logout" class="btn secondary">Logout</a>
+    </div>
+</nav>
+{% endblock %}
+
+{% block sidebar %}
+<aside class="app-sidebar panel" aria-label="Primary menu">
+    <h3>Student Portal</h3>
+    {% if branch_name and semester_num %}
+    <p class="muted">{{ branch_name }} - Semester {{ semester_num }}</p>
+    {% endif %}
+    <nav class="app-menu">
+        <a class="app-menu-link{% if request.url.path == '/student/dashboard' %} active{% endif %}" href="/student/dashboard">Dashboard</a>
+        <a class="app-menu-link{% if request.url.path == '/student/attendance' %} active{% endif %}" href="/student/attendance">My Attendance</a>
+        <a class="app-menu-link{% if request.url.path == '/student/fees' %} active{% endif %}" href="/student/fees">My Fees</a>
+        <a class="app-menu-link{% if request.url.path == '/student/results' %} active{% endif %}" href="/student/results">My Results</a>
+        <a class="app-menu-link{% if request.url.path == '/student/timetable' %} active{% endif %}" href="/student/timetable">Timetable</a>
+        <a class="app-menu-link{% if request.url.path == '/student/exam-schedule' %} active{% endif %}" href="/student/exam-schedule">Exam Schedule</a>
+        <a class="app-menu-link{% if request.url.path == '/student/notices' %} active{% endif %}" href="/student/notices">Notices</a>
+        <a class="app-menu-link{% if request.url.path == '/student/circulars' %} active{% endif %}" href="/student/circulars">Circulars</a>
+        <a class="app-menu-link{% if request.url.path == '/student/transport' %} active{% endif %}" href="/student/transport">Transport</a>
+        <a class="app-menu-link{% if request.url.path == '/student/hostel' %} active{% endif %}" href="/student/hostel">Hostel</a>
+        <a class="app-menu-link{% if request.url.path == '/student/study-materials' %} active{% endif %}" href="/student/study-materials">Study Materials</a>
+        <a class="app-menu-link{% if request.url.path == '/student/leave' %} active{% endif %}" href="/student/leave">Leave Application</a>
+        <a class="app-menu-link{% if request.url.path == '/student/profile' %} active{% endif %}" href="/student/profile">My Profile</a>
+    </nav>
+</aside>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    /* Student-specific styles */
+    .user-role {
+        background: #10b981;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-right: 1rem;
+    }
+    
+    .app-menu-link.active {
+        background: #10b981;
+        border-color: #10b981;
+        color: #ffffff;
+    }
+</style>
+{% endblock %}

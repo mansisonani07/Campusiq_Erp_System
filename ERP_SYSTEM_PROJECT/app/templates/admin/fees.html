@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h2>Fee Records</h2>
+    {% if notice %}<p class="success">{{ notice }}</p>{% endif %}
+    {% if can_manage %}
+    <form method="post" action="/admin/fees" class="grid five">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        <label>Student
+            <select name="student_id">
+                {% for s in students %}<option value="{{ s.id }}">{{ s.roll_no }} - {{ s.user.name }}</option>{% endfor %}
+            </select>
+        </label>
+        <label>Amount Due<input type="number" step="0.01" name="amount_due" required></label>
+        <label>Amount Paid<input type="number" step="0.01" name="amount_paid" value="0"></label>
+        <label>Due Date<input type="date" name="due_date" required></label>
+        <button class="btn primary" type="submit">Create Fee Record</button>
+    </form>
+    {% else %}
+    <p class="muted">Read-only access for your role.</p>
+    {% endif %}
+</section>
+<section class="panel">
+    <table>
+        <thead><tr><th>Student</th><th>Due</th><th>Paid</th><th>Status</th><th>Due Date</th><th>Actions</th></tr></thead>
+        <tbody>
+            {% for f in fees %}
+            <tr>
+                <td>{{ f.student.roll_no }}</td>
+                <td>{{ f.amount_due }}</td>
+                <td>{{ f.amount_paid }}</td>
+                <td>{{ f.status }}</td>
+                <td>{{ f.due_date }}</td>
+                <td>
+                    <a class="btn-link" href="/admin/fees/{{ f.id }}/receipt">Receipt</a>
+                    {% if can_manage and f.status != 'paid' %}
+                    <form method="post" action="/admin/fees/{{ f.id }}/remind" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                        <button class="btn-inline" type="submit">Send Reminder</button>
+                    </form>
+                    <form method="post" action="/admin/fees/{{ f.id }}/mark-paid" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                        <button class="btn-inline btn-success" type="submit">Mark Paid</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<section class="panel">
+    <h3>Reminder Queue (14 days)</h3>
+    <table>
+        <thead><tr><th>Student</th><th>Due Date</th><th>Outstanding</th><th>Urgency</th></tr></thead>
+        <tbody>
+            {% for r in reminders %}
+            <tr>
+                <td>{{ r.student_roll }} - {{ r.student_name }}</td>
+                <td>{{ r.due_date }}</td>
+                <td>{{ r.outstanding }}</td>
+                <td>{{ r.urgency }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

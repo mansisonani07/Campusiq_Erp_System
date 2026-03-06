@@ -1,0 +1,31 @@
+{% extends "teacher/base.html" %}
+
+{% block title %}Notices - CampusIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Notices</h1>
+    <p>{{ branch.name }} - Semester {{ semester.semester_number }}</p>
+</div>
+
+<div class="section-card">
+    {% if notices %}
+        {% for notice in notices %}
+        <div class="item-card" style="padding: 1.5rem; margin-bottom: 1rem; background: var(--bg-color); border-radius: 8px;">
+            <h3>{{ notice.title }}</h3>
+            <p>{{ notice.content }}</p>
+            <small style="color: var(--text-muted);">
+                Posted: {{ notice.created_at.strftime('%Y-%m-%d %H:%M') }}
+                {% if notice.target_role != 'all' %} | Target: {{ notice.target_role }}{% endif %}
+            </small>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="muted">No notices available for your class.</p>
+    {% endif %}
+</div>
+
+<div style="margin-top: 1rem;">
+    <a href="/teacher/dashboard" class="btn secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

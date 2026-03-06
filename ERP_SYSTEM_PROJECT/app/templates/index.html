@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CampusIQ - Student Management System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', sans-serif;
+            background: #070d1a;
+            color: #e0eaff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00e5a0, #3b9eff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        .tagline {
+            color: #6b84a8;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+        .login-cards {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: #0d1627;
+            border: 1px solid #1e3050;
+            border-radius: 16px;
+            padding: 32px 40px;
+            width: 220px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .card:hover { transform: translateY(-4px); }
+        .card.admin:hover { border-color: #00e5a0; }
+        .card.teacher:hover { border-color: #3b9eff; }
+        .card.student:hover { border-color: #ff6b6b; }
+        .card-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+        .card p { font-size: 0.8rem; color: #6b84a8; }
+        .card-btn {
+            margin-top: 16px;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            width: 100%;
+        }
+        .admin .card-btn { background: rgba(0,229,160,0.15); color: #00e5a0; }
+        .teacher .card-btn { background: rgba(59,158,255,0.15); color: #3b9eff; }
+        .student .card-btn { background: rgba(255,107,107,0.15); color: #ff6b6b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CampusIQ</h1>
+        <p class="tagline">Smart Campus Management for Educational Institutions</p>
+        
+        <div class="login-cards">
+            <a href="/login" class="card admin">
+                <div class="card-icon">🛡️</div>
+                <h3>Admin</h3>
+                <p>Full system control and management</p>
+                <button class="card-btn">Login as Admin</button>
+            </a>
+            
+            <a href="/login" class="card teacher">
+                <div class="card-icon">👨‍🏫</div>
+                <h3>Teacher</h3>
+                <p>Manage your class and students</p>
+                <button class="card-btn">Login as Teacher</button>
+            </a>
+            
+            <a href="/login" class="card student">
+                <div class="card-icon">🎓</div>
+                <h3>Student</h3>
+                <p>View your academic progress</p>
+                <button class="card-btn">Login as Student</button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

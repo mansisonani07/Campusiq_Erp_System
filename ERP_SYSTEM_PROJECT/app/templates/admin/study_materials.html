@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Study Materials</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Add New Study Material</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/study-materials/add" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" name="description" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label class="form-label">Branch</label>
+                            <select name="branch_id" class="form-control">
+                                <option value="">All Branches</option>
+                                {% for branch in branches %}
+                                <option value="{{ branch.id }}">{{ branch.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label class="form-label">Semester</label>
+                            <select name="semester_id" class="form-control">
+                                <option value="">All Semesters</option>
+                                {% for semester in semesters %}
+                                <option value="{{ semester.id }}">Sem {{ semester.semester_number }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <select name="subject_id" class="form-control">
+                                <option value="">General</option>
+                                {% for subject in subjects %}
+                                <option value="{{ subject.id }}">{{ subject.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Study Material</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h3>All Study Materials</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Branch</th>
+                        <th>Semester</th>
+                        <th>Subject</th>
+                        <th>Uploaded</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for material in materials %}
+                    <tr>
+                        <td>{{ material.id }}</td>
+                        <td>{{ material.title }}</td>
+                        <td>{{ material.description or '-' }}</td>
+                        <td>{{ material.branch.name if material.branch else '-' }}</td>
+                        <td>{{ material.semester.semester_number if material.semester else '-' }}</td>
+                        <td>{{ material.subject.name if material.subject else '-' }}</td>
+                        <td>{{ material.created_at.strftime('%Y-%m-%d') if material.created_at else '-' }}</td>
+                        <td>
+                            <a href="{{ material.file_path }}" class="btn btn-sm btn-primary" download>Download</a>
+                            <form method="POST" action="/admin/study-materials/{{ material.id }}/delete" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">No study materials found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

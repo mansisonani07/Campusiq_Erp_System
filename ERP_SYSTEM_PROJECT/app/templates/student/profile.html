@@ -1,0 +1,115 @@
+{% extends "student/base.html" %}
+{% block title %}My Profile - CampusIQ{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>My Profile</h1>
+    <p>{% if branch %}{{ branch.name }}{% endif %} {% if semester %}- Semester {{ semester.semester_number }}{% endif %}</p>
+</div>
+
+{% if success %}
+<div style="background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; color: #065f46;">
+    ✓ {{ success }}
+</div>
+{% endif %}
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+    <div class="stat-card">
+        <h3>Enrolled Courses</h3>
+        <div class="value">{{ enrollment_count }}</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid {% if attendance_pct >= 75 %}#10b981{% else %}#ef4444{% endif %};">
+        <h3>Attendance</h3>
+        <div class="value" style="color: {% if attendance_pct >= 75 %}#10b981{% else %}#ef4444{% endif %};">{{ attendance_pct }}%</div>
+        <small>{{ present_days }}/{{ total_days }} days</small>
+    </div>
+    <div class="stat-card">
+        <h3>Roll Number</h3>
+        <div class="value" style="font-size: 1.5rem;">{{ profile.roll_no }}</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+
+    <div class="section-card">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="width: 64px; height: 64px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; color: white;">
+                {{ user.name[0].upper() }}
+            </div>
+            <div>
+                <h2 style="margin: 0;">{{ user.name }}</h2>
+                <p style="margin: 0; color: var(--text-muted);">{{ user.email }}</p>
+                <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem;">STUDENT</span>
+            </div>
+        </div>
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 0; color: var(--text-muted); width: 40%;">Roll No</td>
+                <td style="padding: 0.75rem 0; font-weight: 500;">{{ profile.roll_no }}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 0; color: var(--text-muted);">Department</td>
+                <td style="padding: 0.75rem 0; font-weight: 500;">{{ profile.department }}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 0; color: var(--text-muted);">Branch</td>
+                <td style="padding: 0.75rem 0; font-weight: 500;">{{ branch.name if branch else "N/A" }}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 0; color: var(--text-muted);">Semester</td>
+                <td style="padding: 0.75rem 0; font-weight: 500;">{{ semester.semester_number if semester else "N/A" }}</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.75rem 0; color: var(--text-muted);">Year</td>
+                <td style="padding: 0.75rem 0; font-weight: 500;">{{ profile.year }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.75rem 0; color: var(--text-muted);">Guardian</td>
+                <td style="padding: 0.75rem 0; font-weight: 500;">{{ profile.guardian_name or "N/A" }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section-card">
+        <h2>✏️ Update My Details</h2>
+        <form method="post" action="/student/profile">
+            <div style="margin-bottom: 1rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-muted);">Phone Number</label>
+                <input type="text" name="phone" value="{{ profile.phone or '' }}"
+                    style="width:100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color);">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-muted);">Guardian Name</label>
+                <input type="text" name="guardian_name" value="{{ profile.guardian_name or '' }}"
+                    style="width:100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color);">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-muted);">Father Name</label>
+                <input type="text" name="father_name" value="{{ profile.father_name if profile.father_name is defined else '' }}"
+                    style="width:100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color);">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-muted);">Mother Name</label>
+                <input type="text" name="mother_name" value="{{ profile.mother_name if profile.mother_name is defined else '' }}"
+                    style="width:100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color);">
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-muted);">Blood Group</label>
+                <select name="blood_group" style="width:100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color);">
+                    <option value="">Select Blood Group</option>
+                    {% for bg in ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"] %}
+                    <option value="{{ bg }}">{{ bg }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display:block; margin-bottom: 0.5rem; font-weight: bold; color: var(--text-muted);">Address</label>
+                <textarea name="address" rows="2"
+                    style="width:100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-color); color: var(--text-color);">{{ profile.address if profile.address is defined else '' }}</textarea>
+            </div>
+            <button type="submit" style="background: #10b981; color: white; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%;">
+                Save Changes
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
