@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="login-page">
+    <div class="login-bg" aria-hidden="true">
+        <div class="float-blob blob-a"></div>
+        <div class="float-blob blob-b"></div>
+        <div class="float-blob blob-c"></div>
+        <div class="grid-wave"></div>
+        <div class="float-logo logo-books"><img src="/static/icons/book.svg" alt=""></div>
+        <div class="float-logo logo-cap"><img src="/static/icons/cap.svg" alt=""></div>
+        <div class="float-logo logo-lab"><img src="/static/icons/flask.svg" alt=""></div>
+        <div class="float-logo logo-sports"><img src="/static/icons/ball.svg" alt=""></div>
+        <div class="float-logo logo-books-2"><img src="/static/icons/book.svg" alt=""></div>
+        <div class="float-logo logo-cap-2"><img src="/static/icons/cap.svg" alt=""></div>
+        <div class="float-logo logo-lab-2"><img src="/static/icons/flask.svg" alt=""></div>
+        <div class="float-logo logo-sports-2"><img src="/static/icons/ball.svg" alt=""></div>
+        <div class="float-logo logo-books-3"><img src="/static/icons/book.svg" alt=""></div>
+        <div class="float-logo logo-cap-3"><img src="/static/icons/cap.svg" alt=""></div>
+    </div>
+    <section class="panel small login-panel">
+        <h2 class="login-title">Portal Login</h2>
+        <p class="muted">Use your registered email/phone and password to continue. OTP verification required.</p>
+        {% if message %}
+        <p class="success">{{ message }}</p>
+        {% endif %}
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+        <form id="login-form" method="post" action="/login" class="grid login-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <input type="hidden" id="login_as" name="login_as" value="{{ selected_role or 'student' }}">
+            <select id="identifier_type" name="identifier_type" required>
+                <option value="email" {% if identifier_type == 'email' %}selected{% endif %}>Login with Email</option>
+                <option value="phone" {% if identifier_type == 'phone' %}selected{% endif %}>Login with Phone</option>
+            </select>
+            <input type="text" id="identifier_input" name="identifier" placeholder="Email address" value="{{ identifier_value or '' }}" required autocomplete="username">
+            <div class="password-field">
+                <input type="password" id="login_password" name="password" placeholder="Password" required autocomplete="current-password">
+                <button class="password-toggle" type="button" data-toggle-target="login_password" aria-label="Show password" aria-pressed="false">
+                    <svg class="eye-icon eye-open" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M1.5 12S5.5 5.5 12 5.5 22.5 12 22.5 12 18.5 18.5 12 18.5 1.5 12 1.5 12Z"></path><circle cx="12" cy="12" r="3.2"></circle></svg>
+                    <svg class="eye-icon eye-closed" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 3l18 18"></path><path d="M9.9 5.9A11.2 11.2 0 0 1 12 5.5c6.5 0 10.5 6.5 10.5 6.5a18.5 18.5 0 0 1-3.6 4.4"></path><path d="M6.7 6.7A19.2 19.2 0 0 0 1.5 12S5.5 18.5 12 18.5c1.7 0 3.2-.4 4.5-1.1"></path><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"></path></svg>
+                </button>
+            </div>
+            <label class="remember-wrap"><input type="checkbox" id="remember_me" name="remember_me" {% if remember_checked %}checked{% endif %}> Remember Me on this device</label>
+            <button class="btn primary" type="submit">Sign In</button>
+            <div class="role-tabs role-tabs-below">
+                <button class="role-tab {% if selected_role == 'student' %}active{% endif %}" type="button" data-role-tab="student">Login as Student</button>
+                <button class="role-tab {% if selected_role == 'teacher' %}active{% endif %}" type="button" data-role-tab="teacher">Login as Teacher</button>
+                <button class="role-tab {% if selected_role == 'admin' %}active{% endif %}" type="button" data-role-tab="admin">Login as Admin</button>
+            </div>
+        </form>
+        <div class="auth-links">
+            <a href="/forgot-password">Forgot Password?</a>
+            <a href="/register">Create Account</a>
+        </div>
+    </section>
+</section>
+{% endblock %}

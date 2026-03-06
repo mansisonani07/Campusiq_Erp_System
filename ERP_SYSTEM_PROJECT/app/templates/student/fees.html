@@ -1,0 +1,51 @@
+{% extends "student/base.html" %}
+{% block content %}
+<section class="portal-home">
+    <section class="panel portal-head">
+        <p class="hero-tag">Student Fees</p>
+        <h2>My Fees</h2>
+        <p class="muted">Fee ledger, dues and payment tracking.</p>
+    </section>
+
+    <section class="grid four stats portal-kpis">
+        <article class="card stat-card">
+            <div class="stat-head">
+                <h3>Total Due</h3>
+            </div>
+            <p>₹{{ "%.0f"|format(total_due) }}</p>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head">
+                <h3>Total Paid</h3>
+            </div>
+            <p>₹{{ "%.0f"|format(total_paid) }}</p>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head">
+                <h3>Pending</h3>
+            </div>
+            <p>₹{{ "%.0f"|format(total_pending) }}</p>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head">
+                <h3>Records</h3>
+            </div>
+            <p>{{ fees|length }}</p>
+        </article>
+    </section>
+
+    <section class="panel">
+        <table>
+            <thead><tr><th>Amount Due</th><th>Amount Paid</th><th>Status</th><th>Due Date</th></tr></thead>
+            <tbody>
+                {% for f in fees %}
+                <tr><td>₹{{ f.amount_due }}</td><td>₹{{ f.amount_paid }}</td><td>{{ f.status }}</td><td>{{ f.due_date }}</td></tr>
+                {% endfor %}
+                {% if not fees %}
+                <tr><td colspan="4">No fee records found.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+</section>
+{% endblock %}

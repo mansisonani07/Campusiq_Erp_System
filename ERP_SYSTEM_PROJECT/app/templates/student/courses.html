@@ -1,0 +1,36 @@
+{% extends "student/base.html" %}
+{% block content %}
+<section class="portal-home">
+    <section class="panel portal-head">
+        <p class="hero-tag">Student Courses</p>
+        <h2>My Courses</h2>
+        <p class="muted">Current enrollment list and semester mapping.</p>
+    </section>
+
+    <section class="panel">
+        <table>
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Credits</th>
+                    <th>Semester</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in enrollments %}
+                <tr>
+                    <td>{{ e.course.code }}</td>
+                    <td>{{ e.course.title }}</td>
+                    <td>{{ e.course.credits }}</td>
+                    <td>{{ e.course.semester }}</td>
+                </tr>
+                {% endfor %}
+                {% if not enrollments %}
+                <tr><td colspan="4">No courses found.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+</section>
+{% endblock %}

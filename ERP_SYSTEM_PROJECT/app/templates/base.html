@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token(request) }}">
+    <title>{{ title or "CampusIQ" }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/erp_motion.css">
+    <!-- CampusIQ Animated Logo CSS -->
+    <style>
+:root {
+  --c-orange: #ff6b35;
+  --c-gold: #ffd166;
+  --c-teal: #12b8a0;
+  --c-navy: #073b4c;
+  --c-mint: #06d6a0;
+}
+.campusiq-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Sora', 'Calibri', 'Candara', sans-serif;
+}
+.ciq-icon-wrap {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ciq-halo {
+  position: absolute;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  border: 2px solid var(--c-teal);
+  opacity: 0;
+  animation: ciqHalo 2.5s ease-out infinite 2s;
+}
+.ciq-halo2 {
+  position: absolute;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-orange);
+  opacity: 0;
+  animation: ciqHalo 2.5s ease-out infinite 2.8s;
+}
+@keyframes ciqHalo {
+  0%   { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.ciq-hex-ring {
+  position: absolute;
+  width: 50px; height: 50px;
+  animation: ciqSpin 10s linear infinite;
+}
+.ciq-hex-ring svg { width: 50px; height: 50px; }
+.ciq-orbit {
+  position: absolute;
+  width: 45px; height: 45px;
+  border-radius: 50%;
+  animation: ciqSpin 4s linear infinite 2s;
+}
+.ciq-dot {
+  position: absolute;
+  border-radius: 50%;
+}
+.ciq-dot1 {
+  width: 4px; height: 4px;
+  background: var(--c-orange);
+  top: -2px; left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 4px var(--c-orange);
+  animation: ciqDotIn 0.3s ease both 2.2s;
+}
+.ciq-dot2 {
+  width: 3px; height: 3px;
+  background: var(--c-mint);
+  bottom: -1.5px; left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 3px var(--c-mint);
+  animation: ciqDotIn 0.3s ease both 2.4s;
+}
+.ciq-dot3 {
+  width: 2.5px; height: 2.5px;
+  background: var(--c-gold);
+  left: -1.25px; top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 3px var(--c-gold);
+  animation: ciqDotIn 0.3s ease both 2.6s;
+}
+@keyframes ciqDotIn {
+  from { transform: translateX(-50%) scale(0); opacity: 0; }
+  to   { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+.ciq-badge {
+  position: relative;
+  z-index: 2;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--c-navy) 0%, #0a5a72 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 2px var(--c-teal), 0 0 10px rgba(18,184,160,0.4), 0 4px 16px rgba(7,59,76,0.3);
+  animation: ciqBadgeIn 0.6s cubic-bezier(0.34,1.56,0.64,1) both 1.2s;
+  transform: scale(0);
+}
+@keyframes ciqBadgeIn {
+  from { transform: scale(0) rotate(-20deg); }
+  to   { transform: scale(1) rotate(0deg); }
+}
+.ciq-badge-c {
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--c-teal), var(--c-gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ciq-badge-iq {
+  font-size: 6px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--c-gold);
+  margin-top: -1px;
+  opacity: 0;
+  animation: ciqFadeUp 0.4s ease both 1.8s;
+}
+@keyframes ciqFadeUp {
+  from { opacity: 0; transform: translateY(3px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.ciq-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.ciq-letters {
+  display: flex;
+  align-items: baseline;
+}
+.ciq-letter {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-navy);
+  opacity: 0;
+  display: inline-block;
+  animation: ciqLetterDrop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.ciq-letter:nth-child(1) { animation-delay: 1.50s; }
+.ciq-letter:nth-child(2) { animation-delay: 1.58s; }
+.ciq-letter:nth-child(3) { animation-delay: 1.66s; }
+.ciq-letter:nth-child(4) { animation-delay: 1.74s; }
+.ciq-letter:nth-child(5) { animation-delay: 1.82s; }
+.ciq-letter:nth-child(6) { animation-delay: 1.90s; }
+@keyframes ciqLetterDrop {
+  0%   { opacity: 0; transform: translateY(-10px) rotate(-8deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0deg); }
+}
+.ciq-iq {
+  font-size: 16px;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--c-orange), var(--c-gold), var(--c-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(255,107,53,0.4));
+  animation: ciqIQBurst 0.5s cubic-bezier(0.34,1.56,0.64,1) both 2.1s;
+}
+@keyframes ciqIQBurst {
+  0%   { opacity: 0; transform: scale(0.3) rotate(20deg); }
+  60%  { opacity: 1; transform: scale(1.1) rotate(-5deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+.ciq-underline-wrap {
+  height: 2px; width: 0;
+  border-radius: 1px;
+  overflow: hidden;
+  animation: ciqUnderline 0.5s ease both 2s;
+}
+@keyframes ciqUnderline { from { width: 0; } to { width: 60px; } }
+.ciq-underline {
+  height: 2px; width: 100%;
+  background: linear-gradient(90deg, var(--c-teal), var(--c-orange), var(--c-gold));
+  border-radius: 1px;
+}
+.ciq-tagline {
+  font-size: 6px;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  color: var(--c-teal);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: ciqFadeUp 0.5s ease both 2.5s;
+}
+@keyframes ciqSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@media (prefers-color-scheme: dark) {
+  .ciq-letter { color: #f0f6ff; }
+  .ciq-badge  { background: linear-gradient(135deg, #0a2a3a 0%, #0d3d52 100%); }
+}
+/* Sidebar compact version */
+.sidebar-logo .campusiq-logo {
+  gap: 4px;
+}
+.sidebar-logo .ciq-icon-wrap {
+  width: 40px;
+  height: 40px;
+}
+.sidebar-logo .ciq-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+.sidebar-logo .ciq-badge-c {
+  font-size: 12px;
+}
+.sidebar-logo .ciq-badge-iq {
+  display: none;
+}
+.sidebar-logo .ciq-wordmark {
+  display: none;
+}
+</style>
+    {% block styles %}{% endblock %}
+</head>
+<body data-session-state="{% if request.session.get('user_id') %}authenticated{% else %}guest{% endif %}">
+    <header class="topbar">
+        {% block navbar %}
+            <div class="container nav-wrap">
+                <a href="/" class="logo nova-logo" aria-label="CampusIQ Home">
+                    <!-- CampusIQ Animated Logo -->
+                    <div class="campusiq-logo">
+                        <div class="ciq-icon-wrap">
+                            <div class="ciq-halo"></div>
+                            <div class="ciq-halo2"></div>
+                            <div class="ciq-hex-ring">
+                                <svg viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="hexG" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#ff6b35"/>
+                                            <stop offset="50%" stop-color="#ffd166"/>
+                                            <stop offset="100%" stop-color="#12b8a0"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <polygon points="55,4 98,28.5 98,81.5 55,106 12,81.5 12,28.5"
+                                        stroke="url(#hexG)" stroke-width="1.8" fill="none"
+                                        stroke-dasharray="260" stroke-dashoffset="260">
+                                        <animate attributeName="stroke-dashoffset" from="260" to="0" dur="1.2s" fill="freeze" begin="0.1s"/>
+                                    </polygon>
+                                </svg>
+                            </div>
+                            <div class="ciq-orbit">
+                                <div class="ciq-dot ciq-dot1"></div>
+                                <div class="ciq-dot ciq-dot2"></div>
+                                <div class="ciq-dot ciq-dot3"></div>
+                            </div>
+                            <div class="ciq-badge">
+                                <span class="ciq-badge-c">C</span>
+                                <span class="ciq-badge-iq">IQ</span>
+                            </div>
+                        </div>
+                        <div class="ciq-wordmark">
+                            <div class="ciq-letters">
+                                <span class="ciq-letter">C</span>
+                                <span class="ciq-letter">a</span>
+                                <span class="ciq-letter">m</span>
+                                <span class="ciq-letter">p</span>
+                                <span class="ciq-letter">u</span>
+                                <span class="ciq-letter">s</span>
+                                <span class="ciq-iq">IQ</span>
+                            </div>
+                            <div class="ciq-underline-wrap">
+                                <div class="ciq-underline"></div>
+                            </div>
+                            <div class="ciq-tagline">Smart Campus Management</div>
+                        </div>
+                    </div>
+                </a>
+                {% if request.url.path != '/' %}
+                <nav class="topbar-links">
+                    {% set role = request.session.get('role') %}
+                    {% if role in ['admin', 'teacher', 'accountant', 'counselor'] %}
+                        <div class="quick-actions">
+                            {% if role == 'admin' %}
+                                <a class="btn primary btn-sm" href="/admin/students">Add Student</a>
+                                <a class="btn btn-sm" href="/admin/attendance">Take Attendance</a>
+                                <a class="btn btn-sm" href="/admin/fees">Create Invoice</a>
+                            {% elif role == 'teacher' %}
+                                <a class="btn primary btn-sm" href="/teacher/attendance">Mark Attendance</a>
+                                <a class="btn btn-sm" href="/teacher/grades">Enter Grades</a>
+                            {% endif %}
+                        </div>
+                        <a href="/logout">Logout</a>
+                    {% elif role == 'student' %}
+                        <a href="/logout">Logout</a>
+                    {% else %}
+                        <a href="/login">Login</a>
+                        <a href="/register">Sign Up</a>
+                    {% endif %}
+                </nav>
+                {% if request.session.get('user_id') %}
+                <div class="global-search" role="search">
+                    <input
+                        id="global-search-input"
+                        name="q"
+                        type="search"
+                        placeholder="Search students, courses, staff..."
+                        hx-get="/search"
+                        hx-trigger="keyup changed delay:300ms"
+                        hx-target="#global-search-results"
+                        hx-swap="innerHTML"
+                        autocomplete="off"
+                    >
+                    <div id="global-search-results" class="search-results"></div>
+                </div>
+                {% endif %}
+                {% if request.session.get('user_id') %}
+                <div class="user-chip">
+                    <span>{{ request.session.get('role', 'user')|upper }}</span>
+                </div>
+                {% endif %}
+                {% endif %}
+                <div class="theme-switch" aria-label="Theme switch">
+                    <button id="theme_toggle" class="theme-toggle-switch" type="button" role="switch" aria-checked="false" aria-label="Switch to dark theme" title="Toggle theme">
+                        <span class="theme-track" aria-hidden="true">
+                            <span class="theme-thumb">
+                                <svg class="theme-icon sun-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="4"></circle>
+                                    <path d="M12 2v2.2M12 19.8V22M4.93 4.93l1.56 1.56M17.51 17.51l1.56 1.56M2 12h2.2M19.8 12H22M4.93 19.07l1.56-1.56M17.51 6.49l1.56-1.56"></path>
+                                </svg>
+                                <svg class="theme-icon moon-icon" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                                    <path d="M20.4 14.5A8.5 8.5 0 1 1 9.5 3.6 7 7 0 1 0 20.4 14.5z"></path>
+                                </svg>
+                            </span>
+                        </span>
+                        <span class="theme-state-text" data-theme-state>Light</span>
+                    </button>
+                </div>
+            </div>
+        {% endblock %}
+    </header>
+    
+    {% set role = request.session.get('role') %}
+    {% set current_path = request.url.path %}
+    {% set show_sidebar = request.session.get('user_id') and (current_path.startswith('/admin') or current_path.startswith('/teacher') or current_path.startswith('/student')) %}
+    <main class="{% if show_sidebar %}app-layout{% else %}container{% endif %}">
+        {% if show_sidebar %}
+        {% block sidebar %}
+        <aside class="app-sidebar panel" aria-label="Primary menu">
+            <h3>Menu</h3>
+            <nav class="app-menu">
+                {% if role in ['admin', 'teacher', 'accountant', 'counselor'] %}
+                    <a class="app-menu-link{% if request.url.path == '/admin/dashboard' %} active{% endif %}" href="/admin/dashboard">Overview</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/students' %} active{% endif %}" href="/admin/students">Student Records</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/subjects' %} active{% endif %}" href="/admin/subjects">Subjects</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/courses' %} active{% endif %}" href="/admin/courses">Courses</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/enrollments' %} active{% endif %}" href="/admin/enrollments">Registrations</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/attendance' %} active{% endif %}" href="/admin/attendance">Attendance</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/attendance/report' %} active{% endif %}" href="/admin/attendance/report">Attendance Report</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/grades' %} active{% endif %}" href="/admin/grades">Assessments</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/fees' %} active{% endif %}" href="/admin/fees">Billing</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/fee-structure' %} active{% endif %}" href="/admin/fee-structure">Fee Structure</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/promote-students' %} active{% endif %}" href="/admin/promote-students">Student Promotion</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/study-materials' %} active{% endif %}" href="/admin/study-materials">Study Materials</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/academic-years' %} active{% endif %}" href="/admin/academic-years">Academic Years</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/audit-log' %} active{% endif %}" href="/admin/audit-log">Audit Log</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/announcements' %} active{% endif %}" href="/admin/announcements">Notices</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/interventions' %} active{% endif %}" href="/admin/interventions">Counseling</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/settings' %} active{% endif %}" href="/admin/settings">Institute Settings</a>
+                    <a class="app-menu-link{% if request.url.path == '/admin/users' %} active{% endif %}" href="/admin/users">Access Control</a>
+                {% elif role == 'student' %}
+                    <a class="app-menu-link{% if request.url.path == '/portal-home' %} active{% endif %}" href="/portal-home">Portal Home</a>
+                    <a class="app-menu-link{% if request.url.path == '/student/dashboard' %} active{% endif %}" href="/student/dashboard">Student Dashboard</a>
+                    <a class="app-menu-link{% if request.url.path == '/student/leave' %} active{% endif %}" href="/student/leave">Leave Application</a>
+                    <a class="app-menu-link{% if request.url.path == '/student/study-materials' %} active{% endif %}" href="/student/study-materials">Study Materials</a>
+                    <a class="app-menu-link{% if request.url.path == '/update-contact' %} active{% endif %}" href="/update-contact">Update Contact</a>
+                    <a class="app-menu-link{% if request.url.path == '/forgot-password' %} active{% endif %}" href="/forgot-password">Reset Password</a>
+                {% endif %}
+            </nav>
+        </aside>
+        {% endblock %}
+        {% endif %}
+        <section class="app-content">
+            {% if show_sidebar and request.url.path.startswith('/admin') %}
+                {% set breadcrumb_map = {
+                    '/admin/dashboard': 'Overview',
+                    '/admin/students': 'Student Records',
+                    '/admin/courses': 'Courses',
+                    '/admin/enrollments': 'Registrations',
+                    '/admin/attendance': 'Attendance',
+                    '/admin/grades': 'Assessments',
+                    '/admin/fees': 'Billing',
+                    '/admin/announcements': 'Notices',
+                    '/admin/interventions': 'Counseling',
+                    '/admin/settings': 'Institute Settings',
+                    '/admin/users': 'Access Control',
+                } %}
+                <nav class="breadcrumb" aria-label="Breadcrumb">
+                    <a href="/portal-home">Home</a>
+                    <span>/</span>
+                    <span>{{ breadcrumb_map.get(request.url.path, 'Module') }}</span>
+                </nav>
+            {% endif %}
+            
+            {# Flash Messages #}
+            {% set flash_message = request.session.get('flash_message') %}
+            {% set flash_type = request.session.get('flash_type', 'success') %}
+            {% if flash_message %}
+            <div class="flash-message flash-{{ flash_type }}">
+                {{ flash_message }}
+                <button onclick="this.parentElement.remove()" aria-label="Close">×</button>
+            </div>
+            {% endif %}
+            
+            {% block content %}{% endblock %}
+        </section>
+    </main>
+
+    <div id="toast-root" aria-live="polite" aria-atomic="true"></div>
+    {% if message %}
+    <div data-app-notice data-type="success" data-text="{{ message }}"></div>
+    {% endif %}
+    {% if session_notice %}
+    <div data-app-notice data-type="info" data-text="{{ session_notice }}"></div>
+    {% endif %}
+    {% if error %}
+    <div data-app-notice data-type="error" data-text="{{ error }}"></div>
+    {% endif %}
+    {% if request.query_params.get('msg') and not message %}
+    <div data-app-notice data-type="info" data-text="{{ request.query_params.get('msg') }}"></div>
+    {% endif %}
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="/static/js/htmx.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

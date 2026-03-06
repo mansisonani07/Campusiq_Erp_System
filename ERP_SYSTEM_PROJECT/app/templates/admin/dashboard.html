@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="portal-home">
+    <section class="panel portal-head">
+        <p class="hero-tag">Admin Panel</p>
+        <h2>
+            Welcome, {{ user.name if user else "Admin" }}
+            {% if stats.academic_year %}
+            <span class="badge accent">{{ stats.academic_year }} | {{ stats.semester }}</span>
+            {% endif %}
+        </h2>
+        <p class="muted">Role: {{ (role or "admin")|upper }} | Central operations dashboard</p>
+    </section>
+
+    <section class="grid four stats portal-kpis">
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Total Students</h3></div>
+            <p>{{ stats.students or 0 }}</p>
+            <small class="muted">Active student records</small>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Total Courses</h3></div>
+            <p>{{ stats.courses or 0 }}</p>
+            <small class="muted">Published courses</small>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Pending Fees</h3></div>
+            <p>Rs. {{ "{:,}".format(stats.pending_amount or 0) }}</p>
+            <small class="muted">{{ stats.pending_fees or 0 }} pending records</small>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Collection Rate</h3></div>
+            <p>{{ stats.collection_rate or 0 }}%</p>
+            <small class="muted">Rs. {{ "{:,}".format(stats.total_paid or 0) }} collected</small>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Attendance Today</h3></div>
+            <p>{{ stats.attendance_today_pct or 0 }}%</p>
+            <small class="muted">Present: {{ stats.present_today or 0 }} | Absent: {{ stats.absent_today or 0 }}</small>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Due Today</h3></div>
+            <p>{{ stats.due_today_fees or 0 }}</p>
+            <small class="muted">Fee records due today</small>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Due Soon</h3></div>
+            <p>{{ stats.due_soon_fees or 0 }}</p>
+            <small class="muted">Next 7 day reminders</small>
+        </article>
+        <article class="card stat-card">
+            <div class="stat-head"><h3>Overdue</h3></div>
+            <p>{{ stats.overdue_fees or 0 }}</p>
+            <small class="muted">Immediate action required</small>
+        </article>
+    </section>
+
+    <section class="grid three portal-grid">
+        <article class="card portal-card">
+            <h3>Student Records</h3>
+            <p class="muted">Manage admissions, profiles, and ID cards.</p>
+            <a class="btn primary" href="/admin/students">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Academic Setup</h3>
+            <p class="muted">Branches, semesters, subjects, and courses.</p>
+            <a class="btn primary" href="/admin/branches">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Enrollments</h3>
+            <p class="muted">Track registrations and course mapping.</p>
+            <a class="btn primary" href="/admin/enrollments">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Attendance</h3>
+            <p class="muted">Take attendance and review attendance reports.</p>
+            <a class="btn primary" href="/admin/attendance">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Grades and Results</h3>
+            <p class="muted">Manage marks entry and publish outcomes.</p>
+            <a class="btn primary" href="/admin/grades">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Fee Management</h3>
+            <p class="muted">Invoices, fee structure, and collections.</p>
+            <a class="btn primary" href="/admin/fees">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Communication</h3>
+            <p class="muted">Notices, circulars, and announcements.</p>
+            <a class="btn primary" href="/admin/notices">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Operations</h3>
+            <p class="muted">Transport, hostel, timetable, and exams.</p>
+            <a class="btn primary" href="/admin/transport">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Study Materials</h3>
+            <p class="muted">Upload and manage learning resources.</p>
+            <a class="btn primary" href="/admin/study-materials">Open Module</a>
+        </article>
+        <article class="card portal-card">
+            <h3>Administration</h3>
+            <p class="muted">Settings, users, and audit logs.</p>
+            <a class="btn primary" href="/admin/settings">Open Module</a>
+        </article>
+    </section>
+
+    <section class="panel">
+        <h3>Recent Announcements</h3>
+        {% if announcements %}
+            {% for item in announcements %}
+            <div class="notice">
+                <strong>{{ item.title }}</strong>
+                {% if loop.first %}<span class="badge accent">Latest</span>{% endif %}
+                <p class="muted">{{ item.body }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="muted">No announcements available.</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

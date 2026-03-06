@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="portal-home">
+    <section class="panel portal-head">
+        <p class="hero-tag">Admin Panel</p>
+        <h2>Teacher Management</h2>
+        <p class="muted">Assign branch, semester, and subject to teachers</p>
+    </section>
+
+    <!-- Teachers Table -->
+    <section class="panel">
+        <h3>All Teachers</h3>
+        {% if users %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Assigned Branch</th>
+                    <th>Assigned Semester</th>
+                    <th>Subject</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                {% set user_id = u.id %}
+                <tr>
+                    <td>{{ u.name }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>
+                        {% if teacher_profiles[user_id] %}
+                            {{ teacher_profiles[user_id].branch.name if teacher_profiles[user_id].branch else 'Not Set' }}
+                        {% else %}
+                            Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if teacher_profiles[user_id] %}
+                            {{ teacher_profiles[user_id].semester.semester_number if teacher_profiles[user_id].semester else 'Not Set' }}
+                        {% else %}
+                            Not Assigned
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if teacher_profiles[user_id] %}
+                            {{ teacher_profiles[user_id].qualification or '-' }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button class="btn primary" data-user-id="{{ user_id }}" onclick="toggleEditForm(this)">Edit</button>
+                    </td>
+                </tr>
+                <tr id="edit-form-{{ user_id }}" style="display:none;">
+                    <td colspan="6">
+                        <form method="post" action="/admin/teachers/{{ user_id }}/assign" class="form-inline">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Branch:</label>
+                                    <select name="branch_id" required>
+                                        <option value="">Select Branch</option>
+                                        {% for branch in branches %}
+                                        <option value="{{ branch.id }}" {% if teacher_profiles[user_id] and teacher_profiles[user_id].branch_id == branch.id %}selected{% endif %}>
+                                            {{ branch.name }} ({{ branch.code }})
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Semester:</label>
+                                    <select name="semester_id" required>
+                                        <option value="">Select Semester</option>
+                                        {% for sem in semesters %}
+                                        <option value="{{ sem.id }}" {% if teacher_profiles[user_id] and teacher_profiles[user_id].semester_id == sem.id %}selected{% endif %}>
+                                            Semester {{ sem.semester_number }} - {{ sem.academic_year }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Subject:</label>
+                                    <input type="text" name="subject" value="{{ teacher_profiles[user_id].qualification if teacher_profiles[user_id] else '' }}" placeholder="e.g. Data Structures">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn primary">Save</button>
+                                    <button type="button" class="btn" data-user-id="{{ user_id }}" onclick="toggleEditForm(this)">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="muted">No teachers found.</p>
+        {% endif %}
+    </section>
+</section>
+
+<script>
+function toggleEditForm(btn) {
+    var userId = btn.getAttribute('data-user-id');
+    var form = document.getElementById('edit-form-' + userId);
+    if (form.style.display === 'none') {
+        form.style.display = 'table-row';
+    } else {
+        form.style.display = 'none';
+    }
+}
+</script>
+{% endblock %}

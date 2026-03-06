@@ -1,0 +1,24 @@
+{% extends "student/base.html" %}
+{% block content %}
+<section class="portal-home">
+    <section class="panel portal-head">
+        <p class="hero-tag">Notices</p>
+        <h2>Notices & Announcements</h2>
+        <p class="muted">Latest communication from institute administration.</p>
+    </section>
+
+    <section class="panel">
+        <h3>Recent Announcements</h3>
+        {% for a in announcements %}
+        <article class="notice">
+            <h4>{{ a.title }}</h4>
+            <p>{{ a.body }}</p>
+            <small class="muted">{{ a.created_at }}</small>
+        </article>
+        {% endfor %}
+        {% if not announcements %}
+        <p class="muted">No announcements available.</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

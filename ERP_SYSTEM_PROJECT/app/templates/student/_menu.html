@@ -1,0 +1,8 @@
+<aside class="panel student-menu-wrap student-side">
+    <h3>Student Menu</h3>
+    <nav class="student-menu" aria-label="Student Modules">
+        {% for item in student_nav %}
+        <a href="{{ item.href }}" class="student-menu-link {% if item.active %}active{% endif %}">{{ item.label }}</a>
+        {% endfor %}
+    </nav>
+</aside>

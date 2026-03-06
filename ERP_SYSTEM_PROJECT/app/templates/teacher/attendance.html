@@ -1,0 +1,234 @@
+{% extends "teacher/base.html" %}
+
+{% block title %}Mark Attendance - CampusIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Mark Attendance</h1>
+    <p>{{ branch.name }} - Semester {{ semester.semester_number }}</p>
+</div>
+
+<div class="section-card">
+    <form method="post" action="/teacher/attendance" id="attendance-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        
+        <div style="margin-bottom: 1.5rem;">
+            <label for="date"><strong>Date:</strong></label>
+            <input type="date" id="date" name="date" value="{{ selected_date.isoformat() }}" required>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Present</th>
+                        <th>Absent</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr id="row-{{ student.id }}">
+                        <td>{{ student.roll_no }}</td>
+                        <td>{{ student.user.name if student.user else 'N/A' }}</td>
+                        <td>
+                            <button type="button" 
+                                    id="present-{{ student.id }}"
+                                    data-student-id="{{ student.id }}"
+                                    data-status="present"
+                                    class="btn-present {% if existing_attendance.get(student.id) == 'present' %}active{% endif %}"
+                                    onclick="markAttendance(this)">
+                                ✓ Present
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button"
+                                    id="absent-{{ student.id }}"
+                                    data-student-id="{{ student.id }}"
+                                    data-status="absent"
+                                    class="btn-absent {% if existing_attendance.get(student.id) == 'absent' %}active{% endif %}"
+                                    onclick="markAttendance(this)">
+                                ✗ Absent
+                            </button>
+                        </td>
+                        <td>
+                            <input type="hidden" 
+                                   name="status_{{ student.id }}" 
+                                   id="status-{{ student.id }}"
+                                   value="{{ existing_attendance.get(student.id, '') }}">
+                            <span id="label-{{ student.id }}" class="status-label">
+                                {{ existing_attendance.get(student.id, 'Not marked') | title }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="muted">No students found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+            <button type="submit" class="btn-submit">
+                Save Attendance for {{ students|length }} Students
+            </button>
+            <a href="/teacher/dashboard" class="btn secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<div class="section-card" style="margin-top: 2rem;">
+    <h2>Attendance Summary</h2>
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="text-align:left; padding: 0.75rem;">Roll No</th>
+                <th style="text-align:left; padding: 0.75rem;">Student Name</th>
+                <th style="text-align:center; padding: 0.75rem;">Total Days</th>
+                <th style="text-align:center; padding: 0.75rem;">Present</th>
+                <th style="text-align:center; padding: 0.75rem;">Absent</th>
+                <th style="text-align:center; padding: 0.75rem;">Percentage</th>
+                <th style="text-align:center; padding: 0.75rem;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for summary in attendance_summary %}
+            <tr style="{% if summary.percentage < 75 %}background: rgba(239,68,68,0.1);{% endif %}">
+                <td style="padding: 0.75rem;">{{ summary.roll_no }}</td>
+                <td style="padding: 0.75rem;">{{ summary.name }}</td>
+                <td style="text-align:center; padding: 0.75rem;">{{ summary.total }}</td>
+                <td style="text-align:center; padding: 0.75rem;">{{ summary.present }}</td>
+                <td style="text-align:center; padding: 0.75rem;">{{ summary.absent }}</td>
+                <td style="text-align:center; padding: 0.75rem;">{{ summary.percentage }}%</td>
+                <td style="text-align:center; padding: 0.75rem;">
+                    {% if summary.percentage >= 75 %}
+                    <span style="color: #10b981; font-weight: bold;">OK</span>
+                    {% else %}
+                    <span style="color: #ef4444; font-weight: bold;">LOW</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if past_attendance %}
+<div class="section-card" style="margin-top: 2rem;">
+    <h2>Recent Attendance Records</h2>
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Student</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in past_attendance[:20] %}
+                <tr>
+                    <td>{{ record.date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ record.student.roll_no }} - {{ record.student.user.name if record.student.user else 'N/A' }}</td>
+                    <td>
+                        <span class="badge {% if record.status == 'present' %}success{% else %}danger{% endif %}">
+                            {{ record.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+<style>
+.btn-present { 
+    background: #1a3a2a; 
+    color: #00e5a0; 
+    border: 1px solid #00e5a0; 
+    padding: 8px 20px; 
+    border-radius: 6px; 
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.btn-absent { 
+    background: #3a1a1a; 
+    color: #ff6b6b; 
+    border: 1px solid #ff6b6b; 
+    padding: 8px 20px; 
+    border-radius: 6px; 
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.btn-present.active { 
+    background: #00e5a0; 
+    color: #000; 
+    font-weight: bold; 
+}
+.btn-absent.active { 
+    background: #ff6b6b; 
+    color: #000; 
+    font-weight: bold; 
+}
+.btn-present:hover:not(.active) { 
+    background: rgba(0,229,160,0.2); 
+}
+.btn-absent:hover:not(.active) { 
+    background: rgba(255,107,107,0.2); 
+}
+.btn-submit { 
+    background: #00e5a0; 
+    color: #000; 
+    border: none; 
+    padding: 12px 40px; 
+    border-radius: 8px; 
+    font-size: 1rem; 
+    font-weight: 700; 
+    cursor: pointer;
+    margin-top: 20px;
+}
+.btn-submit:hover {
+    background: #00cc88;
+}
+.status-label {
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+}
+.status-label:empty {
+    color: #6b84a8;
+}
+</style>
+
+<script>
+function markAttendance(button) {
+    var studentId = button.getAttribute('data-student-id');
+    var status = button.getAttribute('data-status');
+    
+    // Remove active class from both buttons
+    document.getElementById('present-' + studentId).classList.remove('active');
+    document.getElementById('absent-' + studentId).classList.remove('active');
+    
+    // Set the hidden input value
+    document.getElementById('status-' + studentId).value = status;
+    
+    // Update the label
+    document.getElementById('label-' + studentId).textContent = status.charAt(0).toUpperCase() + status.slice(1);
+    
+    // Add active class to the clicked button
+    if (status === 'present') {
+        document.getElementById('present-' + studentId).classList.add('active');
+    } else {
+        document.getElementById('absent-' + studentId).classList.add('active');
+    }
+}
+</script>
+{% endblock %}
