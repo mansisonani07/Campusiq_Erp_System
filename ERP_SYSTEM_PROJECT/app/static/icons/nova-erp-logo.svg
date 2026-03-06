@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title desc">
+  <title id="title">Nova ERP Logo</title>
+  <desc id="desc">Enterprise style Nova ERP mark with grid and connected nodes.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#0F766E"/>
+      <stop offset="100%" stop-color="#115E59"/>
+    </linearGradient>
+    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#CCFBF1"/>
+      <stop offset="100%" stop-color="#99F6E4"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="6" y="6" width="84" height="84" rx="20" fill="url(#bgGrad)"/>
+  <rect x="10" y="10" width="76" height="76" rx="16" fill="none" stroke="#2DD4BF" stroke-opacity="0.35" stroke-width="1.5"/>
+
+  <g stroke="url(#lineGrad)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M24 66V30L72 66V30"/>
+  </g>
+  <g fill="#E6FFFB">
+    <circle cx="24" cy="30" r="3.5"/>
+    <circle cx="48" cy="48" r="3.5"/>
+    <circle cx="72" cy="30" r="3.5"/>
+    <circle cx="24" cy="66" r="3.5"/>
+    <circle cx="72" cy="66" r="3.5"/>
+  </g>
+
+  <circle cx="48" cy="48" r="36" fill="none" stroke="#99F6E4" stroke-opacity="0.14" stroke-width="1.2"/>
+</svg>
