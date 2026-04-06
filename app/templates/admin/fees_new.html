@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="portal-home">
+    <section class="panel portal-head">
+        <p class="hero-tag">Admin Panel</p>
+        <h2>Fee Management</h2>
+        <p class="muted">Manage fee records with branch and semester filters</p>
+    </section>
+
+    <!-- Filter Form -->
+    <section class="panel">
+        <h3>Filter Fees</h3>
+        <form method="get" action="/admin/fees-new">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="branch">Branch</label>
+                    <select id="branch" name="branch">
+                        <option value="">All Branches</option>
+                        {% for branch in branches %}
+                        <option value="{{ branch.name }}" {% if filter_branch == branch.name %}selected{% endif %}>{{ branch.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="semester">Semester</label>
+                    <select id="semester" name="semester">
+                        <option value="">All Semesters</option>
+                        {% for sem in semesters %}
+                        <option value="{{ sem.semester_number }}" {% if filter_semester == sem.semester_number|string %}selected{% endif %}>Semester {{ sem.semester_number }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn primary">Filter</button>
+        </form>
+    </section>
+
+    <!-- Add Fee Form -->
+    <section class="panel">
+        <h3>Add New Fee Record</h3>
+        <form method="post" action="/admin/fees-new">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="student_id">Student</label>
+                    <select id="student_id" name="student_id" required>
+                        <option value="">-- Select Student --</option>
+                        {% for student in students %}
+                        <option value="{{ student.id }}">{{ student.user.name }} ({{ student.roll_no }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="amount_due">Amount Due (₹)</label>
+                    <input type="number" id="amount_due" name="amount_due" step="0.01" placeholder="50000" required>
+                </div>
+                <div class="form-group">
+                    <label for="amount_paid">Amount Paid (₹)</label>
+                    <input type="number" id="amount_paid" name="amount_paid" step="0.01" placeholder="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="due_date">Due Date</label>
+                    <input type="date" id="due_date" name="due_date" required>
+                </div>
+            </div>
+            <button type="submit" class="btn primary">Add Fee Record</button>
+        </form>
+    </section>
+
+    <!-- Fees List -->
+    <section class="panel">
+        <h3>Fee Records</h3>
+        {% if fees %}
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Student</th>
+                    <th>Roll No</th>
+                    <th>Branch</th>
+                    <th>Year</th>
+                    <th>Amount Due</th>
+                    <th>Amount Paid</th>
+                    <th>Due Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fee in fees %}
+                <tr>
+                    <td>{{ fee.id }}</td>
+                    <td>{{ fee.student.user.name if fee.student else '-' }}</td>
+                    <td>{{ fee.student.roll_no if fee.student else '-' }}</td>
+                    <td>{{ fee.student.department if fee.student else '-' }}</td>
+                    <td>{{ fee.student.year if fee.student else '-' }}</td>
+                    <td>₹{{ "{:,.2f}".format(fee.amount_due) }}</td>
+                    <td>₹{{ "{:,.2f}".format(fee.amount_paid) }}</td>
+                    <td>{{ fee.due_date.strftime('%Y-%m-%d') if fee.due_date else '-' }}</td>
+                    <td>
+                        <span class="badge {% if fee.status == 'paid' %}accent{% else %}warning{% endif %}">
+                            {{ fee.status|upper }}
+                        </span>
+                    </td>
+                    <td>
+                        {% if fee.status != 'paid' %}
+                        <form method="post" action="/admin/fees-new/{{ fee.id }}/mark-paid" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                            <button type="submit" class="btn small accent">Mark Paid</button>
+                        </form>
+                        {% endif %}
+                        <form method="post" action="/admin/fees-new/{{ fee.id }}/delete" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                            <button type="submit" class="btn danger small" onclick="return confirm('Delete this fee record?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="muted">No fee records found.</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

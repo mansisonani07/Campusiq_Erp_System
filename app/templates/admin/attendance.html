@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="panel">
+    <h2>Attendance Management</h2>
+    
+    <!-- Filter Section -->
+    <div class="filter-section" style="margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+        <form method="get" action="/admin/attendance" class="grid three">
+            <label>Branch
+                <select name="branch_id" onchange="this.form.submit()">
+                    <option value="">All Branches</option>
+                    {% for branch in branches %}
+                    <option value="{{ branch.id }}" {% if selected_branch == branch.id %}selected{% endif %}>{{ branch.name }} ({{ branch.code }})</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>Semester
+                <select name="semester_id" onchange="this.form.submit()">
+                    <option value="">All Semesters</option>
+                    {% for semester in semesters %}
+                    <option value="{{ semester.id }}" {% if selected_semester == semester.id %}selected{% endif %}>{{ semester.semester_number }} - {{ semester.academic_year }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <span style="font-size: 12px; color: #666;">Showing {{ attendance|length }} records</span>
+                {% if selected_branch or selected_semester %}
+                <a href="/admin/attendance" class="btn btn-sm btn-secondary">Clear Filters</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    
+    {% if can_manage %}
+    <form method="post" action="/admin/attendance" class="grid four">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+        <label>Enrollment
+            <select name="enrollment_id">
+                <option value="">Select Enrollment</option>
+                {% for e in enrollments %}
+                <option value="{{ e.id }}">{{ e.student.roll_no }} - {{ e.student.user.name }} - {{ e.course.code }}</option>
+                {% endfor %}
+            </select>
+        </label>
+        <label>Date<input type="date" name="date_text" required></label>
+        <label>Status
+            <select name="status_text">
+                <option value="present">Present</option>
+                <option value="absent">Absent</option>
+            </select>
+        </label>
+        <button class="btn primary" type="submit">Mark Attendance</button>
+    </form>
+    {% else %}
+    <p class="muted">Read-only access for your role.</p>
+    {% endif %}
+</section>
+<section class="panel">
+    <table>
+        <thead><tr><th>Date</th><th>Student Roll No</th><th>Student Name</th><th>Course</th><th>Status</th></tr></thead>
+        <tbody>
+            {% for a in attendance %}
+            <tr>
+                <td>{{ a.date }}</td>
+                <td>{{ a.enrollment.student.roll_no }}</td>
+                <td>{{ a.enrollment.student.user.name if a.enrollment.student.user else 'N/A' }}</td>
+                <td>{{ a.enrollment.course.code }}</td>
+                <td>{{ a.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if not attendance %}
+    <p class="muted" style="text-align: center; padding: 20px;">No attendance records found. {% if selected_branch or selected_semester %}Try adjusting your filters or <a href="/admin/attendance">view all records</a>.{% endif %}</p>
+    {% endif %}
+</section>
+{% endblock %}

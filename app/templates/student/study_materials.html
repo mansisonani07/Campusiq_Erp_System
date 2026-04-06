@@ -1,0 +1,42 @@
+﻿{% extends "student/base.html" %}
+{% block title %}Study Materials - CampusIQ{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>📚 Study Materials</h1>
+    <p>Materials uploaded by your teachers</p>
+</div>
+<div class="section-card">
+{% if materials %}
+<table style="width:100%; border-collapse:collapse;">
+    <thead>
+        <tr style="background:var(--surface-color);">
+            <th style="padding:1rem; text-align:left; border-bottom:2px solid var(--border-color);">Title</th>
+            <th style="padding:1rem; text-align:left; border-bottom:2px solid var(--border-color);">Subject</th>
+            <th style="padding:1rem; text-align:left; border-bottom:2px solid var(--border-color);">Description</th>
+            <th style="padding:1rem; text-align:left; border-bottom:2px solid var(--border-color);">Uploaded</th>
+            <th style="padding:1rem; text-align:center; border-bottom:2px solid var(--border-color);">Download</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in materials %}
+        <tr style="border-bottom:1px solid var(--border-color);">
+            <td style="padding:1rem; font-weight:bold;">{{ m.title }}</td>
+            <td style="padding:1rem; color:var(--primary-color);">{{ m.subject or "General" }}</td>
+            <td style="padding:1rem; color:var(--text-muted);">{{ m.description or "-" }}</td>
+            <td style="padding:1rem;">{{ m.created_at.strftime("%d %b %Y") if m.created_at else "N/A" }}</td>
+            <td style="padding:1rem; text-align:center;">
+                <a href="{{ m.file_path }}" target="_blank" style="background:var(--primary-color); color:white; padding:6px 16px; border-radius:6px; text-decoration:none; font-weight:bold;">⬇ Download</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div style="text-align:center; padding:3rem; color:var(--text-muted);">
+    <p style="font-size:3rem;">📚</p>
+    <h3>No Study Materials Yet</h3>
+    <p>Your teachers have not uploaded any materials yet.</p>
+</div>
+{% endif %}
+</div>
+{% endblock %}

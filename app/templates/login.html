@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CampusIQ</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="/static/icons/campusiq-icon.svg">
+    <style>
+        body {
+            background: linear-gradient(135deg, #073b4c 0%, #0a5a72 50%, #073b4c 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Calibri', 'Candara', sans-serif;
+        }
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-logo img {
+            width: 60px;
+            height: 60px;
+        }
+        .login-logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #073b4c;
+        }
+        .login-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #073b4c;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .login-subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #073b4c;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+        .remember-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff6b35, #ffd166);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,53,0.4);
+        }
+        .role-tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .role-tab {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+        }
+        .role-tab.active {
+            background: linear-gradient(135deg, #ff6b35, #ffd166);
+            color: white;
+            border-color: transparent;
+        }
+        .auth-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .auth-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .success-msg {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .error-msg {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="/static/icons/nova-erp-icon.svg" alt="CampusIQ">
+                <div class="login-logo-text">CampusIQ</div>
+            </div>
+            
+            <h2 class="login-title">Welcome Back</h2>
+            <p class="login-subtitle">Sign in to your account</p>
+            
+            {% if message %}
+            <div class="success-msg">{{ message }}</div>
+            {% endif %}
+            {% if error %}
+            <div class="error-msg">{{ error }}</div>
+            {% endif %}
+            
+            <form id="login-form" method="post" action="/login">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+                <input type="hidden" id="login_as" name="login_as" value="{{ selected_role or 'student' }}">
+                
+                <div class="form-group">
+                    <label for="identifier_type">Login As</label>
+                    <select id="identifier_type" name="identifier_type" required>
+                        <option value="email" {% if identifier_type == 'email' %}selected{% endif %}>Login with Email</option>
+                        <option value="phone" {% if identifier_type == 'phone' %}selected{% endif %}>Login with Phone</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="identifier_input">Email Address</label>
+                    <input type="text" id="identifier_input" name="identifier" placeholder="Enter your email" value="{{ identifier_value or '' }}" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login_password">Password</label>
+                    <input type="password" id="login_password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <label class="remember-wrap">
+                    <input type="checkbox" id="remember_me" name="remember_me" {% if remember_checked %}checked{% endif %}> 
+                    Remember Me
+                </label>
+                
+                <button class="login-btn" type="submit">Sign In</button>
+                
+                <div class="role-tabs">
+                    <button class="role-tab {% if selected_role == 'student' %}active{% endif %}" type="button" data-role-tab="student">Student</button>
+                    <button class="role-tab {% if selected_role == 'teacher' %}active{% endif %}" type="button" data-role-tab="teacher">Teacher</button>
+                    <button class="role-tab {% if selected_role == 'admin' %}active{% endif %}" type="button" data-role-tab="admin">Admin</button>
+                </div>
+            </form>
+            
+            <div class="auth-links">
+                <a href="/forgot-password">Forgot Password?</a>
+                <a href="/register">Create Account</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.role-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('login_as').value = this.dataset.roleTab;
+            });
+        });
+    </script>
+</body>
+</html>

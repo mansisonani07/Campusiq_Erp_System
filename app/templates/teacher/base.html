@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block navbar %}
+<nav style="background:#0f172a!important;border-bottom:1px solid rgba(255,255,255,0.08);padding:0 24px;height:62px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1000;width:100%;">
+  <a href="/teacher/dashboard" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+    <div style="width:38px;height:38px;background:linear-gradient(135deg,#4f46e5,#7c3aed);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;">&#127891;</div>
+    <div><div style="font-size:17px;font-weight:800;color:#fff;">CampusIQ</div><div style="font-size:9px;color:#818cf8;letter-spacing:2px;text-transform:uppercase;">ERP System</div></div>
+  </a>
+  <div style="display:flex;align-items:center;gap:14px;">
+    <span style="background:rgba(99,102,241,0.15);color:#818cf8;padding:5px 14px;border-radius:8px;font-size:11px;font-weight:700;border:1px solid rgba(99,102,241,0.25);">TEACHER</span>
+    <span style="color:rgba(255,255,255,0.6);font-size:14px;font-weight:500;">{{ user.name }}</span>
+    <a href="/logout" style="background:rgba(239,68,68,0.1);color:#f87171;border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:7px 16px;text-decoration:none;font-size:12px;font-weight:600;">Logout</a>
+  </div>
+</nav>
+{% endblock %}
+{% block sidebar %}
+<aside class="app-sidebar panel" style="background:#0f172a!important;border-right:1px solid rgba(255,255,255,0.06);padding:16px 0;">
+  <nav class="app-menu">
+    <a class="app-menu-link{% if request.url.path == '/teacher/dashboard' %} active{% endif %}" href="/teacher/dashboard">&#127968; Dashboard</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/students' %} active{% endif %}" href="/teacher/students">&#128101; My Students</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/attendance' %} active{% endif %}" href="/teacher/attendance">&#9989; Attendance</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/grades' %} active{% endif %}" href="/teacher/grades">&#128202; Marks Entry</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/leave-applications' %} active{% endif %}" href="/teacher/leave-applications">&#128203; Leave Applications</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/study-materials' %} active{% endif %}" href="/teacher/study-materials">&#128218; Study Materials</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/notices' %} active{% endif %}" href="/teacher/notices">&#128276; Notices</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/circulars' %} active{% endif %}" href="/teacher/circulars">&#128196; Circulars</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/exam-schedule' %} active{% endif %}" href="/teacher/exam-schedule">&#128209; Exam Schedule</a>
+    <a class="app-menu-link{% if request.url.path == '/teacher/profile' %} active{% endif %}" href="/teacher/profile">&#128100; My Profile</a>
+  </nav>
+</aside>
+{% endblock %}
+{% block styles %}
+{{ super() }}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+body,html{font-family:'Inter',sans-serif!important;background:#060d18!important;}
+.navbar,.nav,header,header nav,nav{background:#0f172a!important;background-color:#0f172a!important;}
+body::before{content:'';position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6366f1,#8b5cf6,#14b8a6,#8b5cf6,#6366f1);background-size:300% 100%;animation:sh 4s linear infinite;z-index:9999;}
+@keyframes sh{0%{background-position:300% 0}100%{background-position:-300% 0}}
+.app-sidebar,.app-sidebar.panel{background:#0f172a!important;}
+.main-content,main,.content,.app-content,.app-body,.app-layout{background:#060d18!important;color:#e2e8f0!important;}
+.app-menu-link{display:flex!important;align-items:center;gap:10px;color:#475569!important;padding:10px 16px!important;border-radius:8px!important;margin:2px 8px!important;transition:all 0.2s!important;font-size:13px!important;font-weight:500!important;text-decoration:none!important;border-left:2px solid transparent!important;}
+.app-menu-link:hover{background:rgba(99,102,241,0.1)!important;color:#c7d2fe!important;border-left-color:rgba(99,102,241,0.5)!important;}
+.app-menu-link.active{background:rgba(99,102,241,0.18)!important;color:#fff!important;font-weight:600!important;border-left:2px solid #6366f1!important;}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:#334155;border-radius:2px}
+</style>
+{% endblock %}
+

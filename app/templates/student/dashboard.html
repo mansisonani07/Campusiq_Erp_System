@@ -1,0 +1,172 @@
+{% extends "student/base.html" %}
+{% block content %}
+
+<!-- Main Content Area -->
+<div class="main-content" style="background: #080f1a; min-height: 100vh; padding: 24px; overflow-x: hidden; font-family: 'Plus Jakarta Sans', 'Calibri', 'Candara', sans-serif;">
+
+<!-- Row 1: Welcome Banner -->
+<div class="welcome-banner" style="background: linear-gradient(135deg, #0a2233 0%, #0d3348 40%, #0a4a3a 100%); border-radius: 16px; padding: 28px 32px; margin-bottom: 20px; position: relative; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.4); border: 1px solid rgba(18,184,160,0.2);">
+    <div style="position: absolute; right: -30px; top: -30px; width: 150px; height: 150px; background: rgba(255,255,255,0.05); border-radius: 50%;"></div>
+    <div style="position: absolute; right: 60px; bottom: -40px; width: 100px; height: 100px; background: rgba(18,184,160,0.1); border-radius: 50%;"></div>
+    
+    <h1 style="color: white; font-size: 26px; font-weight: 700; margin: 0 0 8px 0;">👋 Welcome back, {{ profile.user.name }}!</h1>
+    <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin: 0 0 16px 0;">📚 {{ branch_name or "Branch not assigned" }} — Semester {{ semester_num or "-" }}</p>
+    
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <span style="background: rgba(255,255,255,0.15); color: white; border-radius: 20px; padding: 6px 16px; font-size: 13px; backdrop-filter: blur(4px);">📊 {{ attendance_pct }}% Attendance</span>
+        <span style="background: rgba(6,214,160,0.25); color: #06d6a0; border: 1px solid rgba(6,214,160,0.3); border-radius: 20px; padding: 6px 16px; font-size: 13px; backdrop-filter: blur(4px);">💰 Rs. {{ "{:,}".format(pending_amount|int) }} Pending</span>
+        <span style="background: rgba(255,209,102,0.2); color: #ffd166; border: 1px solid rgba(255,209,102,0.3); border-radius: 20px; padding: 6px 16px; font-size: 13px; backdrop-filter: blur(4px);">👤 {{ profile_completion }}% Profile</span>
+    </div>
+</div>
+
+<!-- Row 2: 4 Stat Cards -->
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px;">
+    <!-- Attendance -->
+    <div style="background: linear-gradient(135deg, #0d2535, #0f3d55); border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; border: 1px solid rgba(255,255,255,0.06);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(0,0,0,0.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.3)'">
+        <div style="color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Attendance</div>
+        <div style="color: white; font-size: 40px; font-weight: 800;">{{ attendance_pct }}%</div>
+        <div style="font-size: 32px;">📊</div>
+    </div>
+    
+    <!-- Academic Average -->
+    <div style="background: linear-gradient(135deg, #065a4a, #0a8a70); border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(6,214,160,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; border: 1px solid rgba(6,214,160,0.2);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(6,214,160,0.3)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(6,214,160,0.2)'">
+        <div style="color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Academic Average</div>
+        <div style="color: white; font-size: 40px; font-weight: 800;">{{ grade_avg }}%</div>
+        <div style="font-size: 32px;">📝</div>
+    </div>
+    
+    <!-- Pending Fees -->
+    <div style="background: linear-gradient(135deg, #6a1a08, #c0380f); border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(255,107,53,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; border: 1px solid rgba(255,107,53,0.2);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(255,107,53,0.3)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(255,107,53,0.2)'">
+        <div style="color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Pending Fees</div>
+        <div style="color: white; font-size: 32px; font-weight: 800;">Rs. {{ "{:,}".format(pending_amount|int) }}</div>
+        <div style="font-size: 32px;">💰</div>
+    </div>
+    
+    <!-- Profile Complete -->
+    <div style="background: linear-gradient(135deg, #5a3a00, #aa7000); border-radius: 16px; padding: 24px; box-shadow: 0 8px 24px rgba(255,209,102,0.2); transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; border: 1px solid rgba(255,209,102,0.2);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 12px 32px rgba(255,209,102,0.3)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 24px rgba(255,209,102,0.2)'">
+        <div style="color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">Profile Complete</div>
+        <div style="color: white; font-size: 40px; font-weight: 800;">{{ profile_completion }}%</div>
+        <div style="font-size: 32px;">👤</div>
+    </div>
+</div>
+
+<!-- Quick Actions & Progress Section -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+
+    <!-- Quick Actions -->
+    <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
+        <h2 style="font-size: 18px; font-weight: 700; color: white; padding-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.07); margin: 0 0 16px 0;">⚡ Quick Actions</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <a href="/student/attendance" style="background: rgba(255,255,255,0.05); color: white; border-radius: 10px; padding: 12px; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.2s ease; border: 1px solid rgba(255,255,255,0.08);" onmouseover="this.style.background='#12b8a0';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">📊 My Attendance</a>
+            <a href="/student/results" style="background: rgba(255,255,255,0.05); color: white; border-radius: 10px; padding: 12px; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.2s ease; border: 1px solid rgba(255,255,255,0.08);" onmouseover="this.style.background='#12b8a0';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">📝 My Results</a>
+            <a href="/student/fees" style="background: rgba(255,255,255,0.05); color: white; border-radius: 10px; padding: 12px; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.2s ease; border: 1px solid rgba(255,255,255,0.08);" onmouseover="this.style.background='#12b8a0';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">💰 My Fees</a>
+            <a href="/student/timetable" style="background: rgba(255,255,255,0.05); color: white; border-radius: 10px; padding: 12px; text-decoration: none; font-weight: 600; text-align: center; transition: all 0.2s ease; border: 1px solid rgba(255,255,255,0.08);" onmouseover="this.style.background='#12b8a0';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.transform='translateY(0)'">📅 My Timetable</a>
+            <a href="/student/leave" style="background: linear-gradient(135deg, #ff6b35, #ffd166); color: white; border-radius: 10px; padding: 12px; text-decoration: none; font-weight: 700; text-align: center; box-shadow: 0 4px 15px rgba(255,107,53,0.35); grid-column: span 2; transition: all 0.2s ease; border: none;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(255,107,53,0.5)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 15px rgba(255,107,53,0.35)'">📋 Apply for Leave</a>
+        </div>
+    </div>
+
+    <!-- My Progress -->
+    <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
+        <h2 style="font-size: 18px; font-weight: 700; color: white; padding-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.07); margin: 0 0 16px 0;">📈 My Progress</h2>
+        
+        <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span style="color: rgba(255,255,255,0.7); font-weight: 600;">Attendance</span>
+                <span style="color: {% if attendance_pct >= 75 %}#06d6a0{% else %}#ff6b35{% endif %}; font-weight: 700;">{{ attendance_pct }}%</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 4px; height: 8px;">
+                <div style="background: {% if attendance_pct >= 75 %}#06d6a0{% else %}#ff6b35{% endif %}; width: {{ attendance_pct }}%; height: 8px; border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span style="color: rgba(255,255,255,0.7); font-weight: 600;">Academic Average</span>
+                <span style="color: {% if grade_avg >= 40 %}#06d6a0{% else %}#ff6b35{% endif %}; font-weight: 700;">{{ grade_avg }}%</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 4px; height: 8px;">
+                <div style="background: {% if grade_avg >= 40 %}#06d6a0{% else %}#ff6b35{% endif %}; width: {{ grade_avg }}%; height: 8px; border-radius: 4px;"></div>
+            </div>
+        </div>
+        
+        <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                <span style="color: rgba(255,255,255,0.7); font-weight: 600;">Profile Completion</span>
+                <span style="color: #12b8a0; font-weight: 700;">{{ profile_completion }}%</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 4px; height: 8px;">
+                <div style="background: #12b8a0; width: {{ profile_completion }}%; height: 8px; border-radius: 4px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notices & Circulars -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+
+    <!-- Notices -->
+    <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
+        <h2 style="font-size: 18px; font-weight: 700; color: white; padding-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.07); margin: 0 0 16px 0;">📢 Notices</h2>
+        {% if notices %}
+            {% for notice in notices[:5] %}
+            <div style="padding: 14px; border-radius: 10px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-left: 3px solid #ff6b35; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(255,107,53,0.08)';this.style.transform='translateX(3px)'" onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.transform='translateX(0)'">
+                <h4 style="margin: 0 0 4px 0; font-weight: 700; color: white; font-size: 14px;">{{ notice.title }}</h4>
+                <p style="margin: 0; color: rgba(255,255,255,0.45); font-size: 13px; margin-top: 4px;">{{ notice.content[:80] }}{% if notice.content|length > 80 %}...{% endif %}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 20px;">📭 No notices published for your class.</p>
+        {% endif %}
+        <a href="/student/notices" style="background: linear-gradient(135deg, #ff6b35, #ffd166); color: white; border-radius: 8px; padding: 10px 24px; display: inline-block; margin-top: 16px; text-decoration: none; font-weight: 600; border: none;">View All Notices</a>
+    </div>
+
+    <!-- Circulars -->
+    <div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
+        <h2 style="font-size: 18px; font-weight: 700; color: white; padding-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.07); margin: 0 0 16px 0;">📄 Circulars</h2>
+        {% if circulars %}
+            {% for circular in circulars[:5] %}
+            <div style="padding: 14px; border-radius: 10px; background: rgba(255,255,255,0.03); margin-bottom: 10px; border-left: 3px solid #12b8a0; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(18,184,160,0.08)';this.style.transform='translateX(3px)'" onmouseout="this.style.background='rgba(255,255,255,0.03)';this.style.transform='translateX(0)'">
+                <h4 style="margin: 0 0 4px 0; font-weight: 700; color: white; font-size: 14px;">{{ circular.title }}</h4>
+                <p style="margin: 0; color: rgba(255,255,255,0.45); font-size: 13px; margin-top: 4px;">{{ circular.message[:80] }}{% if circular.message|length > 80 %}...{% endif %}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+        <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 20px;">📭 No circulars available for your class.</p>
+        {% endif %}
+        <a href="/student/circulars" style="border: 2px solid #12b8a0; color: #12b8a0; background: transparent; border-radius: 8px; padding: 10px 24px; display: inline-block; margin-top: 16px; text-decoration: none; font-weight: 600;">View All Circulars</a>
+    </div>
+</div>
+
+<!-- Upcoming Exams -->
+<div style="background: rgba(255,255,255,0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.07); border-radius: 14px; padding: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.25);">
+    <h2 style="font-size: 18px; font-weight: 700; color: white; padding-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.07); margin: 0 0 16px 0;">📅 Upcoming Exams</h2>
+    {% if exam_schedules %}
+    <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        <table style="width:100%; border-collapse: collapse;">
+            <thead>
+                <tr style="background: linear-gradient(135deg, #0d2535, #0f3d55);">
+                    <th style="text-align:left; padding: 14px 16px; font-weight: 600; color: rgba(255,255,255,0.7);">Subject</th>
+                    <th style="text-align:left; padding: 14px 16px; font-weight: 600; color: rgba(255,255,255,0.7);">Date</th>
+                    <th style="text-align:left; padding: 14px 16px; font-weight: 600; color: rgba(255,255,255,0.7);">Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exam in exam_schedules %}
+                <tr style="background: rgba(255,255,255,0.03); border-bottom: 1px solid rgba(255,255,255,0.04);">
+                    <td style="padding: 12px 16px; color: white;">{{ exam.subject_name }}</td>
+                    <td style="padding: 12px 16px; color: white;">{{ exam.exam_date }}</td>
+                    <td style="padding: 12px 16px; color: white;">{{ exam.exam_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p style="color: rgba(255,255,255,0.3); text-align: center; padding: 20px;">📭 No upcoming exams scheduled yet.</p>
+    {% endif %}
+</div>
+
+</div>
+<!-- End Main Content -->
+
+{% endblock %}

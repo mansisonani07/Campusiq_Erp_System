@@ -1,0 +1,34 @@
+﻿{% extends "student/base.html" %}
+{% block title %}Transport - CampusIQ{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>🚌 My Transport</h1>
+    <p>Bus route and transport details</p>
+</div>
+{% if transport %}
+<div class="section-card">
+    <h2>Route Details</h2>
+    <table style="width:100%; border-collapse:collapse;">
+        <tr style="border-bottom:1px solid var(--border-color);">
+            <td style="padding:0.75rem 0; color:var(--text-muted); width:40%;">Route Name</td>
+            <td style="padding:0.75rem 0; font-weight:bold;">{{ transport.route_name or "N/A" }}</td>
+        </tr>
+        <tr style="border-bottom:1px solid var(--border-color);">
+            <td style="padding:0.75rem 0; color:var(--text-muted);">Bus Number</td>
+            <td style="padding:0.75rem 0; font-weight:bold;">{{ transport.bus_number or "N/A" }}</td>
+        </tr>
+        <tr>
+            <td style="padding:0.75rem 0; color:var(--text-muted);">Pickup Point</td>
+            <td style="padding:0.75rem 0; font-weight:bold;">{{ transport.pickup_point or "N/A" }}</td>
+        </tr>
+    </table>
+</div>
+{% else %}
+<div class="section-card" style="text-align:center; padding:3rem;">
+    <p style="font-size:3rem;">🚌</p>
+    <h3>Not Enrolled in Transport</h3>
+    <p style="color:var(--text-muted);">You are not assigned to any transport route.</p>
+    <p style="color:var(--text-muted);">Contact administration to enroll.</p>
+</div>
+{% endif %}
+{% endblock %}

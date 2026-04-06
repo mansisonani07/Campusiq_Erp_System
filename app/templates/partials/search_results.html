@@ -1,0 +1,42 @@
+{% if query %}
+    {% if students or courses or staff %}
+        {% if students %}
+        <div class="search-group">
+            <div class="search-group-title">Students</div>
+            {% for s in students %}
+            <a class="search-item" href="/admin/students">
+                <span>{{ s.user.name }} ({{ s.roll_no }})</span>
+                <span class="muted">Student</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if courses %}
+        <div class="search-group">
+            <div class="search-group-title">Courses</div>
+            {% for c in courses %}
+            <a class="search-item" href="/admin/courses">
+                <span>{{ c.code }} · {{ c.title }}</span>
+                <span class="muted">Course</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if staff %}
+        <div class="search-group">
+            <div class="search-group-title">Staff</div>
+            {% for u in staff %}
+            <a class="search-item" href="/admin/users">
+                <span>{{ u.name }}</span>
+                <span class="muted">{{ u.role|title }}</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    {% else %}
+        <div class="search-group">
+            <div class="search-group-title">No results</div>
+            <div class="muted">Try a different keyword.</div>
+        </div>
+    {% endif %}
+{% endif %}

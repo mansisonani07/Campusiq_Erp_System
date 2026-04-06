@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Student Portal - CampusIQ{% endblock %}
+
+{% block navbar %}
+<nav class="navbar" style="background: rgba(8,15,26,0.95); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(0,0,0,0.3);">
+    <div class="nav-brand">
+        <a href="/student/dashboard">
+            <img src="/static/icons/campusiq-icon.svg" alt="CampusIQ" class="brand-icon">
+            <span class="brand-text" style="color: white;">CampusIQ</span>
+        </a>
+    </div>
+    <div class="nav-user">
+        <span class="user-role" style="background: rgba(6,214,160,0.2); color: #06d6a0; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; margin-right: 1rem; border: 1px solid #06d6a0; box-shadow: 0 0 10px rgba(6,214,160,0.3);">STUDENT</span>
+        <span class="user-name" style="color: white;">{{ request.session.get('name') or (profile.user.name if profile and profile.user else 'Student') }}</span>
+        <a href="/logout" class="btn secondary" style="border: 1px solid #06d6a0; color: #06d6a0; border-radius: 8px; margin-left: 1rem; transition: all 0.25s ease; background: rgba(6,214,160,0.1);">Logout</a>
+    </div>
+</nav>
+{% endblock %}
+
+{% block sidebar %}
+<aside class="app-sidebar panel" aria-label="Primary menu" style="background: linear-gradient(180deg, #0a1628 0%, #080f1a 100%);">
+    <h3 style="color: rgba(240,246,255,0.7);">Student Portal</h3>
+    {% if branch_name and semester_num %}
+    <p class="muted" style="color: rgba(240,246,255,0.5);">{{ branch_name }} - Semester {{ semester_num }}</p>
+    {% endif %}
+    <nav class="app-menu">
+        <a class="app-menu-link{% if request.url.path == '/student/dashboard' %} active{% endif %}" href="/student/dashboard" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">📊 Dashboard</a>
+        <a class="app-menu-link{% if request.url.path == '/student/attendance' %} active{% endif %}" href="/student/attendance" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">✅ My Attendance</a>
+        <a class="app-menu-link{% if request.url.path == '/student/fees' %} active{% endif %}" href="/student/fees" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">💰 My Fees</a>
+        <a class="app-menu-link{% if request.url.path == '/student/results' %} active{% endif %}" href="/student/results" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">📝 My Results</a>
+        <a class="app-menu-link{% if request.url.path == '/student/timetable' %} active{% endif %}" href="/student/timetable" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">📅 Timetable</a>
+        <a class="app-menu-link{% if request.url.path == '/student/exam-schedule' %} active{% endif %}" href="/student/exam-schedule" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">🏫 Exam Schedule</a>
+        <a class="app-menu-link{% if request.url.path == '/student/notices' %} active{% endif %}" href="/student/notices" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">📢 Notices</a>
+        <a class="app-menu-link{% if request.url.path == '/student/circulars' %} active{% endif %}" href="/student/circulars" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">🔔 Circulars</a>
+        <a class="app-menu-link{% if request.url.path == '/student/transport' %} active{% endif %}" href="/student/transport" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">🚌 Transport</a>
+        <a class="app-menu-link{% if request.url.path == '/student/hostel' %} active{% endif %}" href="/student/hostel" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">🏠 Hostel</a>
+        <a class="app-menu-link{% if request.url.path == '/student/study-materials' %} active{% endif %}" href="/student/study-materials" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">📚 Study Materials</a>
+        <a class="app-menu-link{% if request.url.path == '/student/leave' %} active{% endif %}" href="/student/leave" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">📋 Leave Application</a>
+        <a class="app-menu-link{% if request.url.path == '/student/profile' %} active{% endif %}" href="/student/profile" style="color: rgba(240,246,255,0.7); padding: 12px 20px; border-radius: 10px; margin: 3px 10px; transition: all 0.25s ease;">👤 My Profile</a>
+    </nav>
+</aside>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    
+    /* Student-specific premium styles */
+    body {
+        font-family: 'Plus Jakarta Sans', 'Calibri', 'Candara', sans-serif;
+        background: #080f1a;
+    }
+    
+    /* Top gradient bar with animation */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #06d6a0, #12b8a0, #ff6b35, #ffd166, #06d6a0);
+        background-size: 200% 100%;
+        animation: shimmer 3s linear infinite;
+        z-index: 9999;
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+    }
+    
+    /* Sidebar hover effects */
+    .app-menu-link:hover {
+        background: rgba(18,184,160,0.12) !important;
+        border-left: 3px solid #12b8a0;
+        color: #ffd166 !important;
+        transform: translateX(4px);
+    }
+    
+    .app-menu-link.active {
+        background: linear-gradient(135deg, rgba(6,214,160,0.2), rgba(18,184,160,0.2)) !important;
+        border-left: 3px solid #06d6a0;
+        box-shadow: 0 0 15px rgba(6,214,160,0.3);
+        color: white !important;
+        font-weight: 700;
+    }
+    
+    .app-menu-link {
+        display: block;
+    }
+    
+    /* Logout button hover */
+    .nav-user .btn.secondary:hover {
+        background: #06d6a0;
+        color: white;
+    }
+    
+    /* Main content padding */
+    .main-content {
+        padding: 28px;
+        background: #080f1a;
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #080f1a;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(#12b8a0, #06d6a0);
+        border-radius: 3px;
+    }
+</style>
+{% endblock %}

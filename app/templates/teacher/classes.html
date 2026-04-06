@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Classes - CampusIQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-slate-900 to-slate-950 font-[Inter]">
+{% extends "teacher/base.html" %}
+{% block content %}
+<div class="ml-64 p-8">
+    <header class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-3xl p-8 mb-8">
+        <h1 class="text-3xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent mb-2">My Classes</h1>
+        <p class="text-slate-400">Manage your assigned classes and student groups</p>
+    </header>
+
+    <div class="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-3xl p-8">
+        <div class="flex justify-between items-center mb-8">
+            <h2 class="text-2xl font-bold text-white">{{ classes|length }} Classes</h2>
+            <a href="/teacher/attendance" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                📋 Mark Attendance
+            </a>
+        </div>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-slate-700">
+                        <th class="py-4 px-6 text-left font-semibold text-slate-300">Branch</th>
+                        <th class="py-4 px-6 text-left font-semibold text-slate-300">Semester</th>
+                        <th class="py-4 px-6 text-left font-semibold text-slate-300">Students</th>
+                        <th class="py-4 px-6 text-left font-semibold text-slate-300">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                    {% for cls in classes %}
+                    <tr class="hover:bg-slate-700/30 transition-colors">
+                        <td class="py-4 px-6 font-medium text-white">{{ cls.branch }}</td>
+                        <td class="py-4 px-6 text-slate-300">Sem {{ cls.semester }}</td>
+                        <td class="py-4 px-6">
+                            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 text-xs font-semibold rounded-full">
+                                {{ cls.students }}
+                            </span>
+                        </td>
+                        <td class="py-4 px-6">
+                            <div class="flex gap-2">
+                                <a href="/teacher/attendance?branch={{ cls.branch|replace(' ', '+') }}" 
+                                   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-all">
+                                    📝 Attendance
+                                </a>
+                                <a href="/teacher/students?branch={{ cls.branch|replace(' ', '+') }}" 
+                                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-all">
+                                    👥 View Students
+                                </a>
+                                <a href="/teacher/grades" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-xs font-semibold transition-all">
+                                    📊 Grades
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% if not classes %}
+                    <tr>
+                        <td colspan="4" class="py-16 text-center text-slate-500">
+                            <div class="text-4xl mb-4">📚</div>
+                            <p>No classes assigned yet</p>
+                            <p class="text-sm mt-2">Contact admin to assign branch/semester</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>
+

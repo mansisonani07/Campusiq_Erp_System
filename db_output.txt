@@ -1,0 +1,63 @@
+=== student_profiles ===
+(1, 'STU1001', 'Computer Science', 2, None, None)
+(2, 'STU1002', 'Computer Science', 2, None, None)
+(3, 'STU1003', 'Information Technology', 3, None, None)
+(4, 'STU1004', 'Computer Science', 1, None, None)
+(5, 'STU1005', 'Computer Science', 4, None, None)
+(6, 'STU1006', 'Information Technology', 2, None, None)
+(7, 'STU1007', 'Computer Science', 3, None, None)
+(8, 'STU1008', 'Electronics', 1, None, None)
+(9, 'STU1009', 'Computer Science', 4, None, None)
+(10, 'STU1010', 'Information Technology', 2, None, None)
+(11, 'STU1011', 'Computer Science', 3, None, None)
+(12, 'STU1012', 'Electronics', 1, None, None)
+(13, 'STU1013', 'Computer Science', 4, None, None)
+(14, 'STU1014', 'Information Technology', 2, None, None)
+(15, 'STU1015', 'Computer Science', 3, None, None)
+
+=== branches ===
+(1, 'Bachelor of Computer Applications', 'BCA')
+(2, 'Bachelor of Business Administration', 'BBA')
+(3, 'Master of Computer Applications', 'MCA')
+(4, 'Master of Business Administration', 'MBA')
+(5, 'Computer Science', 'CS')
+
+=== semesters ===
+(1, 1, 1, '2025-2026')
+(2, 1, 2, '2025-2026')
+(3, 1, 3, '2024-2025')
+(4, 1, 4, '2024-2025')
+(5, 1, 5, '2024-2025')
+(6, 1, 6, '2024-2025')
+(7, 2, 1, '2025-2026')
+(8, 2, 2, '2025-2026')
+(9, 2, 3, '2024-2025')
+(10, 2, 4, '2024-2025')
+(11, 2, 5, '2024-2025')
+(12, 2, 6, '2024-2025')
+(13, 3, 1, '2025-2026')
+(14, 3, 2, '2025-2026')
+(15, 3, 3, '2024-2025')
+(16, 3, 4, '2024-2025')
+(17, 3, 5, '2024-2025')
+(18, 3, 6, '2024-2025')
+(19, 4, 1, '2025-2026')
+(20, 4, 2, '2025-2026')
+(21, 4, 3, '2024-2025')
+(22, 4, 4, '2024-2025')
+(23, 4, 5, '2024-2025')
+(24, 4, 6, '2024-2025')
+(25, 5, 2, '2025-26')
+(26, 5, 1, '2025-26')
+(27, 5, 4, '2025-26')
+(28, 5, 3, '2025-26')
+
+=== circulars ===
+
+=== notices ===
+(1, 'Exam Schedule Released', 'all', None, None)
+(2, 'Teacher Meeting', 'teacher', None, None)
+(3, 'Student Fees Due', 'student', None, None)
+
+=== teacher_profiles ===
+(1, 5, 3)

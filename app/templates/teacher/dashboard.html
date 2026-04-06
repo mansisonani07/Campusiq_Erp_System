@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusIQ - Teacher Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-['Inter'] antialiased">
+  <!-- Enterprise Sidebar -->
+  <aside class="w-64 bg-gray-800 border-r border-slate-700 h-screen fixed left-0 top-0 z-40 overflow-y-auto">
+    <div class="p-6 border-b border-slate-700">
+      <h1 class="text-2xl font-bold text-white">CampusIQ</h1>
+      <p class="text-sm text-slate-400 mt-1">Teacher Portal</p>
+    </div>
+    <nav class="mt-8 px-4">
+      <a href="/teacher/dashboard" class="group flex items-center px-4 py-3 rounded-lg mb-2 text-slate-400 hover:bg-slate-700 hover:text-white transition-all duration-200">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+        </svg>
+        <span class="font-medium">Dashboard</span>
+      </a>
+      <a href="/teacher/classes" class="group flex items-center px-4 py-3 rounded-lg mb-2 text-slate-400 hover:bg-slate-700 hover:text-white transition-all duration-200">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+        </svg>
+        <span class="font-medium">My Classes</span>
+      </a>
+      <a href="/teacher/attendance" class="group flex items-center px-4 py-3 rounded-lg mb-2 text-slate-400 hover:bg-slate-700 hover:text-white transition-all duration-200">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="font-medium">Attendance</span>
+      </a>
+      <a href="/teacher/grades" class="group flex items-center px-4 py-3 rounded-lg mb-2 text-slate-400 hover:bg-slate-700 hover:text-white transition-all duration-200">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <span class="font-medium">Gradebook</span>
+      </a>
+      <a href="/teacher/resources" class="group flex items-center px-4 py-3 rounded-lg mb-2 text-slate-400 hover:bg-slate-700 hover:text-white transition-all duration-200">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+        </svg>
+        <span class="font-medium">Resource Library</span>
+      </a>
+      <a href="/teacher/settings" class="group flex items-center px-4 py-3 rounded-lg text-slate-400 hover:bg-slate-700 hover:text-white transition-all duration-200">
+        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37.836-1.472.836-3.344.836-4.85s-.94-2.378-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        <span class="font-medium">Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="ml-64 min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950">
+    
+    <!-- Top Management Bar -->
+    <header class="bg-white/5 backdrop-blur-md border-b border-slate-700 sticky top-0 z-30 px-8 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <h1 class="text-3xl font-bold bg-gradient-to-r from-slate-100 to-slate-200 bg-clip-text text-transparent">Dashboard</h1>
+          <div class="text-sm text-slate-400">Welcome back, Prof. Smith</div>
+        </div>
+        
+        <!-- Global Search -->
+        <div class="flex-1 max-w-md mx-8">
+          <div class="relative">
+            <svg class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="text" placeholder="Search students, classes..." class="w-full pl-12 pr-4 py-3 bg-slate-800/50 border border-slate-700 rounded-xl text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500/50 focus:border-transparent transition-all duration-200">
+          </div>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center space-x-4">
+          <!-- Notification Bell -->
+          <button class="relative p-3 bg-slate-800/50 rounded-xl border border-slate-700 hover:bg-slate-700/50 transition-all duration-200">
+            <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+            <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-xs text-white rounded-full flex items-center justify-center font-bold">3</span>
+          </button>
+
+          <!-- Profile Dropdown -->
+          <div class="flex items-center space-x-3 group">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Profile" class="w-10 h-10 rounded-full border-2 border-slate-700">
+            <span class="font-semibold text-slate-200 hidden md:block">Prof. Smith</span>
+            <svg class="w-4 h-4 text-slate-400 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="p-8">
+      
+      <!-- Row 1: KPIs -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-200">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-3.804a6 6 0 01-12 0v1a6 6 0 0112 0v-1zM12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-3.804a6 6 0 01-12 0v1a6 6 0 0112 0v-1z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-slate-400 text-sm font-medium uppercase tracking-wide">Total Students</p>
+              <p class="text-3xl font-bold text-white mt-1">127</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-200">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-emerald-500/20 rounded-xl flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-slate-400 text-sm font-medium uppercase tracking-wide">Attendance Avg</p>
+              <p class="text-3xl font-bold text-white mt-1">94.2%</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-200">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-slate-400 text-sm font-medium uppercase tracking-wide">Pending Tasks</p>
+              <p class="text-3xl font-bold text-white mt-1">4</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 hover:border-slate-600 transition-all duration-200">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mr-4">
+              <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-slate-400 text-sm font-medium uppercase tracking-wide">Today's Lectures</p>
+              <p class="text-3xl font-bold text-white mt-1">6</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Today's Schedule Table -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8">
+            <div class="flex items-center justify-between mb-8">
+              <div>
+                <h2 class="text-2xl font-bold text-white mb-2">Today's Schedule</h2>
+                <p class="text-slate-400">March 22, 2026 • Sem 3 CE</p>
+              </div>
+              <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all duration-200 shadow-lg hover:shadow-xl">
+                + Add Session
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="border-b border-slate-700">
+                    <th class="text-left py-4 px-6 text-slate-300 font-semibold text-sm uppercase tracking-wider">Time</th>
+                    <th class="text-left py-4 px-6 text-slate-300 font-semibold text-sm uppercase tracking-wider">Class</th>
+                    <th class="text-left py-4 px-6 text-slate-300 font-semibold text-sm uppercase tracking-wider">Subject</th>
+                    <th class="text-left py-4 px-6 text-slate-300 font-semibold text-sm uppercase tracking-wider">Progress</th>
+                    <th class="text-left py-4 px-6 text-slate-300 font-semibold text-sm uppercase tracking-wider">Action</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700">
+                  <tr class="hover:bg-slate-700/30 transition-colors duration-200">
+                    <td class="py-4 px-6 font-medium text-white">09:00 AM</td>
+                    <td class="py-4 px-6">
+                      <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full">CE301</span>
+                    </td>
+                    <td class="py-4 px-6 text-slate-200 font-medium">Data Structures</td>
+                    <td class="py-4 px-6">
+                      <div class="w-24 bg-slate-700 rounded-full h-2">
+                        <div class="bg-emerald-500 h-2 rounded-full w-3/4 animate-pulse"></div>
+                      </div>
+                      <span class="text-xs text-slate-400 ml-2">75%</span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200">
+                        Mark Attendance
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-700/30 transition-colors duration-200">
+                    <td class="py-4 px-6 font-medium text-white">11:00 AM</td>
+                    <td class="py-4 px-6">
+                      <span class="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full">CE302</span>
+                    </td>
+                    <td class="py-4 px-6 text-slate-200 font-medium">Database Systems</td>
+                    <td class="py-4 px-6">
+                      <div class="w-24 bg-slate-700 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full w-2/3"></div>
+                      </div>
+                      <span class="text-xs text-slate-400 ml-2">66%</span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200">
+                        Mark Attendance
+                      </button>
+                    </td>
+                  </tr>
+                  <!-- Add more rows as needed -->
+                  <tr class="hover:bg-slate-700/30 transition-colors duration-200">
+                    <td class="py-4 px-6 font-medium text-white">02:00 PM</td>
+                    <td class="py-4 px-6">
+                      <span class="px-3 py-1 bg-orange-500/20 text-orange-400 text-xs font-semibold rounded-full">CE303</span>
+                    </td>
+                    <td class="py-4 px-6 text-slate-200 font-medium">Software Engineering</td>
+                    <td class="py-4 px-6">
+                      <div class="w-24 bg-slate-700 rounded-full h-2">
+                        <div class="bg-orange-500 h-2 rounded-full w-1/2"></div>
+                      </div>
+                      <span class="text-xs text-slate-400 ml-2">50%</span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <button class="bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200">
+                        Mark Attendance
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Right Sidebar -->
+        <div>
+          <!-- Recent Activity -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-6 mb-6">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-lg font-bold text-white">Recent Activity</h3>
+              <button class="text-slate-400 hover:text-white text-sm font-medium">View All →</button>
+            </div>
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3 p-3 bg-slate-700/50 rounded-xl">
+                <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-white font-medium text-sm">Priya Sharma marked present</p>
+                  <p class="text-slate-400 text-xs mt-1">2 minutes ago</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-3 p-3 bg-slate-700/50 rounded-xl">
+                <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-white font-medium text-sm">Assignment uploaded</p>
+                  <p class="text-slate-400 text-xs mt-1">1 hour ago</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reminders -->
+          <div class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-6">
+            <h3 class="text-lg font-bold text-white mb-6">Reminders</h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between p-4 bg-gradient-to-r from-orange-500/10 to-orange-600/10 border border-orange-500/20 rounded-xl">
+                <div>
+                  <p class="font-semibold text-orange-200 text-sm">Unit Test 2 Submission</p>
+                  <p class="text-orange-100 text-xs">Due in 2 days</p>
+                </div>
+                <div class="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+              </div>
+              <div class="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500/10 to-blue-600/10 border border-blue-500/20 rounded-xl">
+                <div>
+                  <p class="font-semibold text-blue-200 text-sm">Parent Meeting</p>
+                  <p class="text-blue-100 text-xs">Tomorrow 3 PM</p>
+                </div>
+                <div class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
+

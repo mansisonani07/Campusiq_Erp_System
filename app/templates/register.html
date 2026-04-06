@@ -1,0 +1,484 @@
+{% extends "base.html" %}
+{% block title %}Create Account - CampusIQ{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    /* Fix for password toggle eye icons */
+    .password-toggle,
+    .eye-icon,
+    [class*="eye"],
+    .show-password,
+    .toggle-password,
+    .field-icon {
+        width: 20px !important;
+        height: 20px !important;
+        max-width: 20px !important;
+        max-height: 20px !important;
+        cursor: pointer;
+        opacity: 0.6;
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+    }
+    
+    .password-field {
+        position: relative;
+    }
+    
+    .password-field input {
+        padding-right: 44px !important;
+    }
+    
+    svg.eye-icon,
+    button svg,
+    .input-group svg,
+    .field-icon svg {
+        width: 20px !important;
+        height: 20px !important;
+    }
+    
+    .field-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .field-icon svg {
+        fill: none;
+        stroke: #4a7a8a;
+        stroke-width: 2;
+    }
+    
+    .eye-closed {
+        display: none;
+    }
+    
+    .password-field input[type="text"] ~ .field-icon .eye-open,
+    .password-field input[type="password"] ~ .field-icon .eye-closed {
+        display: none;
+    }
+    
+    .password-field input[type="text"] ~ .field-icon .eye-closed {
+        display: block;
+    }
+    
+    /* Fix dropdowns - CRITICAL - use auto not none */
+    .login-form select,
+    select {
+        appearance: auto !important;
+        -webkit-appearance: auto !important;
+        background-color: #fff !important;
+        color: #073b4c !important;
+        border: 2px solid #e0e0e0 !important;
+        border-radius: 10px !important;
+        padding: 12px 16px !important;
+        width: 100% !important;
+        font-size: 15px !important;
+        cursor: pointer !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        z-index: 10 !important;
+        position: relative !important;
+        height: 44px !important;
+        box-sizing: border-box !important;
+    }
+    
+    select option {
+        color: #073b4c !important;
+        background: #fff !important;
+        padding: 10px !important;
+    }
+    
+    /* Premium Register Page Styles */
+    body {
+        font-family: 'Calibri', 'Candara', sans-serif;
+        background: linear-gradient(135deg, #073b4c, #0a5a72, #073b4c);
+        min-height: 100vh;
+    }
+    
+    /* Top gradient bar */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #ff6b35, #ffd166, #12b8a0);
+        z-index: 9999;
+    }
+    
+    .login-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    
+    /* Animated background */
+    .login-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        overflow: hidden;
+    }
+    
+    .float-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.4;
+    }
+    
+    .blob-a {
+        width: 400px;
+        height: 400px;
+        background: #12b8a0;
+        top: -100px;
+        right: -100px;
+        animation: float 8s ease-in-out infinite;
+    }
+    
+    .blob-b {
+        width: 300px;
+        height: 300px;
+        background: #ff6b35;
+        bottom: -50px;
+        left: -50px;
+        animation: float 10s ease-in-out infinite reverse;
+    }
+    
+    .blob-c {
+        width: 250px;
+        height: 250px;
+        background: #ffd166;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: float 12s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(30px, -30px) scale(1.1); }
+    }
+    
+    /* Form Card */
+    .login-panel {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 800px;
+        width: 100%;
+        box-shadow: 0 24px 80px rgba(7,59,76,0.3);
+        position: relative;
+        z-index: 1;
+        overflow: visible;
+    }
+    
+    /* Top accent bar */
+    .login-panel::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b35, #ffd166, #12b8a0);
+        border-radius: 20px 20px 0 0;
+    }
+    
+    .login-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #073b4c;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+    
+    .login-panel > p.muted {
+        text-align: center;
+        color: #4a7a8a;
+        margin-bottom: 24px;
+    }
+    
+    /* Form Grid */
+    .login-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    
+    .login-form label {
+        font-weight: 600;
+        color: #073b4c;
+        font-size: 13px;
+        display: block;
+        margin-bottom: 6px;
+    }
+    
+    .login-form input,
+    .login-form select {
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 12px 16px;
+        color: #073b4c;
+        font-size: 15px;
+        width: 100%;
+        box-sizing: border-box;
+        transition: all 0.2s ease;
+        font-family: 'Calibri', sans-serif;
+        height: 44px;
+    }
+    
+    .login-form input:focus,
+    .login-form select:focus {
+        outline: none;
+        border-color: #ff6b35;
+        box-shadow: 0 0 0 3px rgba(255,107,53,0.12);
+    }
+    
+    .login-form input::placeholder {
+        color: #a0c4d0;
+    }
+    
+    /* Full width fields */
+    .login-form label:nth-child(1),
+    .login-form label:nth-child(9) {
+        grid-column: span 2;
+    }
+    
+    /* Password row - 2 columns */
+    .password-row {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    
+    .password-row > div label {
+        font-weight: 600;
+        color: #073b4c;
+        display: block;
+        margin-bottom: 6px;
+    }
+    
+    .password-row input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 15px;
+        box-sizing: border-box;
+        font-family: 'Calibri', sans-serif;
+    }
+    
+    /* Submit Button */
+    .register-submit {
+        grid-column: span 2;
+        background: linear-gradient(135deg, #ff6b35, #ffd166) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 16px !important;
+        width: 100%;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 8px 24px rgba(255,107,53,0.35);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin-top: 8px;
+    }
+    
+    .register-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(255,107,53,0.45);
+    }
+    
+    /* Auth Links */
+    .auth-links {
+        text-align: center;
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid #e8f4f8;
+    }
+    
+    .auth-links a {
+        color: #12b8a0;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease;
+    }
+    
+    .auth-links a:hover {
+        color: #ff6b35;
+    }
+    
+    /* Messages */
+    .success {
+        background: rgba(6,214,160,0.12);
+        color: #06d6a0;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid #06d6a0;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+    
+    .error {
+        background: rgba(255,107,53,0.12);
+        color: #ff6b35;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid #ff6b35;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+    
+    /* Responsive */
+    @media (max-width: 600px) {
+        .login-form {
+            grid-template-columns: 1fr;
+        }
+        
+        .login-form label:nth-child(1),
+        .login-form label:nth-child(9),
+        .password-row,
+        .register-submit {
+            grid-column: span 1;
+        }
+        
+        .password-row {
+            grid-template-columns: 1fr;
+        }
+        
+        .login-panel {
+            padding: 24px;
+            margin: 20px;
+        }
+        
+        .login-page {
+            padding: 20px 10px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="login-page signup-page">
+    <div class="login-bg signup-bg" aria-hidden="true">
+        <div class="float-blob blob-a"></div>
+        <div class="float-blob blob-b"></div>
+        <div class="float-blob blob-c"></div>
+    <section class="panel login-panel register-panel">
+        <h2 class="login-title">Create Account</h2>
+        <p class="muted">Choose your role and complete your profile details.</p>
+        {% if message %}<p class="success">{{ message }}</p>{% endif %}
+        {% if error %}<p class="error">{{ error }}</p>{% endif %}
+        <form id="register-form" method="post" action="/register" class="grid login-form register-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <label>
+                Role
+                <select id="register_role" name="role" required style="appearance:auto; -webkit-appearance:auto; position:relative; z-index:10;">
+                    {% for role_value, role_label in role_options %}
+                    <option value="{{ role_value }}" {% if form_data.role == role_value %}selected{% endif %}>{{ role_label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Full Name
+                <input type="text" name="name" placeholder="Full name" value="{{ form_data.name }}" required>
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" placeholder="Email address" value="{{ form_data.email }}" required>
+            </label>
+            <label class="student-only-field">
+                Phone
+                <input type="text" name="phone" placeholder="Phone number (10-15 digits)" inputmode="tel" value="{{ form_data.phone }}" required>
+            </label>
+            <label class="student-only-field">
+                Roll Number
+                <input type="text" name="roll_no" placeholder="Roll number" value="{{ form_data.roll_no }}" required>
+            </label>
+            <label class="student-only-field">
+                Branch
+                <select name="branch" required style="appearance:auto; -webkit-appearance:auto; position:relative; z-index:10;">
+                    <option value="">Select Branch</option>
+                    {% for value in branch_options %}
+                    <option value="{{ value }}" {% if form_data.branch == value %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label class="student-only-field">
+                Department
+                <select name="department" required style="appearance:auto; -webkit-appearance:auto; position:relative; z-index:10;">
+                    <option value="">Select Department</option>
+                    {% for value in department_options %}
+                    <option value="{{ value }}" {% if form_data.department == value %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label class="student-only-field">
+                Year
+                <input type="number" name="year" min="1" max="6" placeholder="Year (1-6)" value="{{ form_data.year }}" required>
+            </label>
+            <label class="student-only-field">
+                Guardian Name (Optional)
+                <input type="text" name="guardian_name" placeholder="Guardian name (optional)" value="{{ form_data.guardian_name }}">
+            </label>
+            
+            <!-- Password Row - 2 columns -->
+            <div class="password-row">
+                <div>
+                    <label style="font-weight:600; color:#073b4c; display:block; margin-bottom:6px;">Password</label>
+                    <input type="password" name="password" placeholder="Create password" required style="width:100%; padding:12px 16px; border:2px solid #e0e0e0; border-radius:10px; font-size:15px; box-sizing:border-box; font-family:'Calibri',sans-serif;">
+                </div>
+                <div>
+                    <label style="font-weight:600; color:#073b4c; display:block; margin-bottom:6px;">Confirm Password</label>
+                    <input type="password" name="confirm_password" placeholder="Confirm password" required style="width:100%; padding:12px 16px; border:2px solid #e0e0e0; border-radius:10px; font-size:15px; box-sizing:border-box; font-family:'Calibri',sans-serif;">
+                </div>
+            
+            <button class="btn primary register-submit" type="submit">Create Account</button>
+        </form>
+        <div class="auth-links">
+            <a href="/login">Back to Login</a>
+        </div>
+    </section>
+
+<script>
+    // Password toggle functionality
+    document.querySelectorAll('.toggle-password').forEach(function(toggle) {
+        toggle.addEventListener('click', function() {
+            var target = this.getAttribute('toggle');
+            var input = document.querySelector(target);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        });
+        
+        toggle.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+</script>
+{% endblock %}

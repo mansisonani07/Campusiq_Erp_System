@@ -1,0 +1,80 @@
+{% extends "teacher/base.html" %}
+{% block title %}My Students - CampusIQ{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>My Students</h1>
+    <p>{{ branch.name }} - Semester {{ semester.semester_number }}</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+    <div class="stat-card">
+        <h3>Total Students</h3>
+        <div class="value">{{ total_students }}</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #ef4444;">
+        <h3>Low Attendance</h3>
+        <div class="value" style="color: #ef4444;">{{ low_attendance_count }}</div>
+        <small>Below 75%</small>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #f59e0b;">
+        <h3>Pending Leaves</h3>
+        <div class="value" style="color: #f59e0b;">{{ pending_leaves_count }}</div>
+        <small>Awaiting approval</small>
+    </div>
+</div>
+
+<div class="section-card">
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr style="border-bottom: 2px solid #9ca3af;">
+                <th style="text-align:left; padding: 1rem;">Roll No</th>
+                <th style="text-align:left; padding: 1rem;">Name</th>
+                <th style="text-align:left; padding: 1rem;">Email</th>
+                <th style="text-align:left; padding: 1rem;">Phone</th>
+                <th style="text-align:center; padding: 1rem;">Attendance</th>
+                <th style="text-align:center; padding: 1rem;">Avg Marks</th>
+                <th style="text-align:center; padding: 1rem;">Leaves</th>
+                <th style="text-align:center; padding: 1rem;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for s in student_data %}
+            <tr style="border-bottom: 1px solid #e5e7eb; {% if s.attendance_pct < 75 %}background: rgba(239,68,68,0.05);{% endif %}">
+                <td style="padding: 1rem; font-weight: bold;">{{ s.roll_no }}</td>
+                <td style="padding: 1rem;">{{ s.name }}</td>
+                <td style="padding: 1rem; color: #6b7280; font-size: 0.875rem;">{{ s.email }}</td>
+                <td style="padding: 1rem;">{{ s.phone or "N/A" }}</td>
+                <td style="text-align:center; padding: 1rem;">
+                    <span style="color: {% if s.attendance_pct >= 75 %}#10b981{% else %}#ef4444{% endif %}; font-weight: bold;">
+                        {{ s.attendance_pct }}%
+                    </span>
+                </td>
+                <td style="text-align:center; padding: 1rem;">
+                    <span style="color: {% if s.avg_marks >= 40 %}#10b981{% else %}#ef4444{% endif %}; font-weight: bold;">
+                        {{ s.avg_marks }}%
+                    </span>
+                </td>
+                <td style="text-align:center; padding: 1rem;">
+                    {% if s.pending_leaves > 0 %}
+                    <span style="background: #fef3c7; color: #d97706; padding: 2px 8px; border-radius: 12px;">
+                        {{ s.pending_leaves }} pending
+                    </span>
+                    {% else %}
+                    <span style="color: #6b7280;">None</span>
+                    {% endif %}
+                </td>
+                <td style="text-align:center; padding: 1rem;">
+                    {% if s.attendance_pct >= 75 and s.avg_marks >= 40 %}
+                    <span style="background: #d1fae5; color: #065f46; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Good</span>
+                    {% elif s.attendance_pct < 75 and s.avg_marks < 40 %}
+                    <span style="background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 12px; font-weight: bold;">At Risk</span>
+                    {% else %}
+                    <span style="background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Monitor</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

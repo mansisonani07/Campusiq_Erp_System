@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+{% block title %}Admin Expenses - CampusIQ{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .page-header h2 {
+        margin: 0 0 6px;
+        font-size: 1.85rem;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+        align-items: end;
+    }
+
+    .table-wrap {
+        overflow-x: auto;
+    }
+
+    table.expense-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        min-width: 720px;
+    }
+
+    table.expense-table th,
+    table.expense-table td {
+        padding: 14px 16px;
+        border-bottom: 1px solid #e8edf3;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    table.expense-table th {
+        background: #f7fafc;
+        color: #0f172a;
+        font-weight: 700;
+    }
+
+    table.expense-table tbody tr:hover {
+        background: #f3f6fb;
+    }
+
+    .expense-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+
+    .btn.danger {
+        background: #d32f2f;
+        border-color: transparent;
+        color: #ffffff;
+    }
+
+    .btn.danger:hover {
+        background: #b82525;
+    }
+
+    .message-bar {
+        margin-top: 12px;
+        min-height: 24px;
+        color: #0f172a;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <section class="panel">
+        <div class="page-header">
+            <div>
+                <h2>Expenses</h2>
+                <p class="muted">Add new expenses and review the full expense ledger.</p>
+            </div>
+        </div>
+
+        <form id="expense-form" class="form-grid">
+            <label>
+                Description
+                <input type="text" name="description" placeholder="Office supplies, salary, etc." required>
+            </label>
+
+            <label>
+                Amount
+                <input type="number" name="amount" step="0.01" min="0.01" placeholder="0.00" required>
+            </label>
+
+            <label>
+                Category
+                <select name="category" required>
+                    <option value="Salary">Salary</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Supplies">Supplies</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="Other">Other</option>
+                </select>
+            </label>
+
+            <label>
+                Date
+                <input type="date" name="expense_date" required>
+            </label>
+
+            <div class="expense-actions" style="grid-column: span 4; justify-content: flex-end;">
+                <button class="btn primary" type="submit">Create Expense</button>
+            </div>
+        </form>
+
+        <div id="expense-message" class="message-bar muted"></div>
+    </section>
+
+    <section class="panel" style="margin-top: 24px;">
+        <h3>Expense Ledger</h3>
+        <div class="table-wrap">
+            <table class="expense-table">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="expenses-body">
+                    <tr>
+                        <td colspan="5" class="muted">Loading expenses...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<script>
+const categories = ["Salary", "Utilities", "Supplies", "Maintenance", "Other"];
+const expenseBody = document.getElementById('expenses-body');
+const expenseForm = document.getElementById('expense-form');
+const expenseMessage = document.getElementById('expense-message');
+
+function setDefaultDate() {
+    const dateInput = expenseForm.querySelector('input[name="expense_date"]');
+    const today = new Date().toISOString().slice(0, 10);
+    dateInput.value = today;
+}
+
+async function loadExpenses() {
+    expenseBody.innerHTML = '<tr><td colspan="5" class="muted">Loading expenses...</td></tr>';
+
+    try {
+        const response = await fetch('/api/expenses/');
+        const result = await response.json();
+        const expenses = result.expenses || [];
+
+        if (!expenses.length) {
+            expenseBody.innerHTML = '<tr><td colspan="5" class="muted">No expenses recorded yet.</td></tr>';
+            return;
+        }
+
+        expenseBody.innerHTML = expenses.map(expense => {
+            return `
+                <tr>
+                    <td>${expense.description || '-'}</td>
+                    <td>₹ ${parseFloat(expense.amount || 0).toFixed(2)}</td>
+                    <td>${expense.category || 'Other'}</td>
+                    <td>${expense.expense_date || ''}</td>
+                    <td><button type="button" class="btn danger" onclick="deleteExpense(${expense.id})">Delete</button></td>
+                </tr>
+            `;
+        }).join('');
+    } catch (error) {
+        expenseBody.innerHTML = '<tr><td colspan="5" class="error">Unable to load expenses. Check the API.</td></tr>';
+        console.error(error);
+    }
+}
+
+async function deleteExpense(id) {
+    if (!confirm('Delete this expense?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/api/expenses/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            const json = await response.json();
+            throw new Error(json.detail || 'Delete failed');
+        }
+
+        expenseMessage.textContent = 'Expense deleted successfully.';
+        expenseMessage.classList.remove('error');
+        setTimeout(() => expenseMessage.textContent = '', 3000);
+        loadExpenses();
+    } catch (error) {
+        expenseMessage.textContent = error.message || 'Could not delete expense.';
+        expenseMessage.classList.add('error');
+    }
+}
+
+expenseForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(expenseForm);
+    const payload = {
+        description: formData.get('description'),
+        amount: parseFloat(formData.get('amount')),
+        category: formData.get('category'),
+        expense_date: formData.get('expense_date'),
+    };
+
+    try {
+        const response = await fetch('/api/expenses/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+            const json = await response.json();
+            throw new Error(json.detail || 'Create failed');
+        }
+
+        expenseMessage.textContent = 'Expense added successfully.';
+        expenseMessage.classList.remove('error');
+        expenseForm.reset();
+        setDefaultDate();
+        loadExpenses();
+
+        setTimeout(() => expenseMessage.textContent = '', 3000);
+    } catch (error) {
+        expenseMessage.textContent = error.message || 'Unable to create expense.';
+        expenseMessage.classList.add('error');
+    }
+});
+
+window.addEventListener('load', () => {
+    setDefaultDate();
+    loadExpenses();
+});
+</script>
+{% endblock %}

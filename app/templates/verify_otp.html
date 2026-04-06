@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP - CampusIQ</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="icon" type="image/svg+xml" href="/static/icons/campusiq-icon.svg">
+    <style>
+        body {
+            font-family: 'Calibri', 'Candara', sans-serif;
+            background: linear-gradient(135deg, #073b4c 0%, #0a5a72 50%, #073b4c 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .otp-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 420px;
+            margin: 40px auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .otp-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #073b4c;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .otp-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        .notice-box {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .error-box {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .otp-display {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 2px solid #ff9800;
+        }
+        .otp-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 24px;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            letter-spacing: 8px;
+        }
+        .otp-input:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff6b35, #ffd166);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #073b4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="otp-card">
+        <h2 class="otp-title">Verify OTP</h2>
+        <p class="otp-subtitle">OTP sent to {{ masked_email }}</p>
+        
+        {% if error %}
+        <div class="error-box">{{ error }}</div>
+        {% endif %}
+        
+        {% if otp_notice %}
+        <div class="notice-box">{{ otp_notice }}</div>
+        {% endif %}
+        
+        {% if dev_otp %}
+        <div class="otp-display">
+            YOUR OTP: {{ dev_otp }}
+        </div>
+        {% endif %}
+        
+        <form method="post" action="/verify-otp">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <input type="text" name="otp_code" class="otp-input" placeholder="Enter 6-digit OTP" required>
+            <button type="submit" class="btn">Verify & Login</button>
+        </form>
+        
+        <form method="post" action="/resend-otp">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
+            <button type="submit" class="btn btn-secondary">Resend OTP</button>
+        </form>
+    </div>
+</body>
+</html>

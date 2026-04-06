@@ -1,0 +1,75 @@
+{% extends "teacher/base.html" %}
+{% block title %}Leave Applications - CampusIQ{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Leave Applications</h1>
+    <p>{{ branch.name }} - Semester {{ semester.semester_number }}</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+    <div class="stat-card" style="border-left: 4px solid #f59e0b;">
+        <h3>Pending</h3>
+        <div class="value" style="color: #f59e0b;">{{ pending_count }}</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #10b981;">
+        <h3>Approved</h3>
+        <div class="value" style="color: #10b981;">{{ approved_count }}</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #ef4444;">
+        <h3>Rejected</h3>
+        <div class="value" style="color: #ef4444;">{{ rejected_count }}</div>
+    </div>
+</div>
+
+<div class="section-card">
+    {% if leave_data %}
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr style="border-bottom: 2px solid var(--border-color);">
+                <th style="text-align:left; padding: 1rem;">Roll No</th>
+                <th style="text-align:left; padding: 1rem;">Student</th>
+                <th style="text-align:left; padding: 1rem;">Reason</th>
+                <th style="text-align:center; padding: 1rem;">From</th>
+                <th style="text-align:center; padding: 1rem;">To</th>
+                <th style="text-align:center; padding: 1rem;">Status</th>
+                <th style="text-align:center; padding: 1rem;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for leave in leave_data %}
+            <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 1rem; font-weight: bold;">{{ leave.roll_no }}</td>
+                <td style="padding: 1rem;">{{ leave.student_name }}</td>
+                <td style="padding: 1rem; max-width: 200px;">{{ leave.reason }}</td>
+                <td style="text-align:center; padding: 1rem;">{{ leave.from_date }}</td>
+                <td style="text-align:center; padding: 1rem;">{{ leave.to_date }}</td>
+                <td style="text-align:center; padding: 1rem;">
+                    {% if leave.status == "pending" %}
+                    <span style="background: #fef3c7; color: #d97706; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Pending</span>
+                    {% elif leave.status == "approved" %}
+                    <span style="background: #d1fae5; color: #065f46; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Approved</span>
+                    {% else %}
+                    <span style="background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Rejected</span>
+                    {% endif %}
+                </td>
+                <td style="text-align:center; padding: 1rem;">
+                    {% if leave.status == "pending" %}
+                    <form method="post" action="/teacher/leave-applications/{{ leave.id }}/approve" style="display:inline;">
+                        <button type="submit" style="background: #10b981; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; margin-right: 4px;">✓ Approve</button>
+                    </form>
+                    <form method="post" action="/teacher/leave-applications/{{ leave.id }}/reject" style="display:inline;">
+                        <button type="submit" style="background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer;">✗ Reject</button>
+                    </form>
+                    {% else %}
+                    <span style="color: var(--text-muted);">Done</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align:center; padding: 2rem; color: var(--text-muted);">No leave applications found for your class.</p>
+    {% endif %}
+</div>
+{% endblock %}

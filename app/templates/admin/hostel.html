@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Hostel Management</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>Add New Room</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/admin/hostel/add">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Room Number</label>
+                            <input type="text" name="room_number" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Floor</label>
+                            <input type="number" name="floor" class="form-control" value="1">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label">Capacity</label>
+                            <input type="number" name="capacity" class="form-control" value="4">
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Room</button>
+                <a href="/admin/hostel/assign" class="btn btn-info">Assign Students</a>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>All Rooms</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Room Number</th>
+                        <th>Floor</th>
+                        <th>Capacity</th>
+                        <th>Current Occupancy</th>
+                        <th>Available Beds</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for room in rooms %}
+                    <tr>
+                        <td>{{ room.id }}</td>
+                        <td>{{ room.room_number }}</td>
+                        <td>{{ room.floor or '-' }}</td>
+                        <td>{{ room.capacity }}</td>
+                        <td>{{ room.current_occupancy or 0 }}</td>
+                        <td>{{ (room.capacity or 4) - (room.current_occupancy or 0) }}</td>
+                        <td>
+                            <form method="POST" action="/admin/hostel/{{ room.id }}/delete" style="display:inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this room?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center">No rooms found. Add a room above.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

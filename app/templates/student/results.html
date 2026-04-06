@@ -1,0 +1,71 @@
+{% extends "student/base.html" %}
+{% block title %}My Results - CampusIQ{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>My Results</h1>
+    <p>{{ branch.name }} - Semester {{ semester.semester_number }}</p>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem;">
+    <div class="stat-card">
+        <h3>Total Exams</h3>
+        <div class="value">{{ total_exams }}</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid {% if overall_pct >= 40 %}#10b981{% else %}#ef4444{% endif %};">
+        <h3>Overall Average</h3>
+        <div class="value" style="color: {% if overall_pct >= 40 %}#10b981{% else %}#ef4444{% endif %};">{{ overall_pct }}%</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #10b981;">
+        <h3>Passed</h3>
+        <div class="value" style="color: #10b981;">{{ pass_count }}</div>
+    </div>
+    <div class="stat-card" style="border-left: 4px solid #ef4444;">
+        <h3>Failed</h3>
+        <div class="value" style="color: #ef4444;">{{ fail_count }}</div>
+    </div>
+</div>
+
+<div class="section-card">
+    {% if results %}
+    <table style="width:100%; border-collapse: collapse;">
+        <thead>
+            <tr style="border-bottom: 2px solid var(--border-color);">
+                <th style="text-align:left; padding: 1rem;">Course Code</th>
+                <th style="text-align:left; padding: 1rem;">Course</th>
+                <th style="text-align:left; padding: 1rem;">Exam</th>
+                <th style="text-align:center; padding: 1rem;">Marks</th>
+                <th style="text-align:center; padding: 1rem;">Percentage</th>
+                <th style="text-align:center; padding: 1rem;">Grade</th>
+                <th style="text-align:center; padding: 1rem;">Result</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in results %}
+            <tr style="border-bottom: 1px solid var(--border-color); {% if r.status == 'Fail' %}background: rgba(239,68,68,0.05);{% endif %}">
+                <td style="padding: 1rem; font-weight: bold; color: var(--primary-color);">{{ r.course_code }}</td>
+                <td style="padding: 1rem;">{{ r.course }}</td>
+                <td style="padding: 1rem;">{{ r.exam }}</td>
+                <td style="text-align:center; padding: 1rem; font-weight: bold;">{{ r.marks_obtained }}/{{ r.max_marks }}</td>
+                <td style="text-align:center; padding: 1rem; font-weight: bold; color: {% if r.percentage >= 40 %}#10b981{% else %}#ef4444{% endif %};">{{ r.percentage }}%</td>
+                <td style="text-align:center; padding: 1rem;">
+                    <span style="background: {% if r.grade == 'A+' %}#065f46{% elif r.grade == 'A' %}#064e3b{% elif r.grade == 'B+' %}#1e3a5f{% elif r.grade == 'B' %}#1e40af{% elif r.grade == 'C' %}#92400e{% elif r.grade == 'D' %}#78350f{% else %}#7f1d1d{% endif %}; color: white; padding: 4px 10px; border-radius: 8px; font-weight: bold;">{{ r.grade }}</span>
+                </td>
+                <td style="text-align:center; padding: 1rem;">
+                    {% if r.status == "Pass" %}
+                    <span style="background: #d1fae5; color: #065f46; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Pass</span>
+                    {% else %}
+                    <span style="background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 12px; font-weight: bold;">Fail</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div style="text-align:center; padding: 3rem; color: var(--text-muted);">
+        <p style="font-size: 1.25rem;">📝 No results available yet</p>
+        <p>Your results will appear here once your teacher enters your grades.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+﻿{% extends "student/base.html" %}
+{% block title %}Leave Application - CampusIQ{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>📋 Leave Application</h1>
+    <p>Apply for leave and track your applications</p>
+</div>
+{% if success %}
+<div style="background:#d1fae5; border:1px solid #6ee7b7; border-radius:8px; padding:1rem; margin-bottom:1.5rem; color:#065f46;">✓ {{ success }}</div>
+{% endif %}
+{% if error %}
+<div style="background:#fee2e2; border:1px solid #fca5a5; border-radius:8px; padding:1rem; margin-bottom:1.5rem; color:#991b1b;">✗ {{ error }}</div>
+{% endif %}
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+    <div class="section-card">
+        <h2>Apply for Leave</h2>
+        <form method="post" action="/student/leave">
+            <div style="margin-bottom:1rem;">
+                <label style="display:block; margin-bottom:0.5rem; font-weight:bold; color:var(--text-muted);">From Date</label>
+                <input type="date" name="from_date" required style="width:100%; padding:0.75rem; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-color); color:var(--text-color);">
+            </div>
+            <div style="margin-bottom:1rem;">
+                <label style="display:block; margin-bottom:0.5rem; font-weight:bold; color:var(--text-muted);">To Date</label>
+                <input type="date" name="to_date" required style="width:100%; padding:0.75rem; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-color); color:var(--text-color);">
+            </div>
+            <div style="margin-bottom:1.5rem;">
+                <label style="display:block; margin-bottom:0.5rem; font-weight:bold; color:var(--text-muted);">Reason</label>
+                <textarea name="reason" rows="4" required placeholder="Explain your reason..." style="width:100%; padding:0.75rem; border:1px solid var(--border-color); border-radius:8px; background:var(--bg-color); color:var(--text-color);"></textarea>
+            </div>
+            <button type="submit" style="background:#10b981; color:white; padding:0.75rem 2rem; border:none; border-radius:8px; font-size:1rem; font-weight:bold; cursor:pointer; width:100%;">Submit Application</button>
+        </form>
+    </div>
+    <div class="section-card">
+        <h2>My Applications</h2>
+        {% if leaves %}
+        {% for leave in leaves %}
+        <div style="border:1px solid var(--border-color); border-radius:8px; padding:1rem; margin-bottom:1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                <span style="font-weight:bold;">{{ leave.start_date }} to {{ leave.end_date }}</span>
+                <span style="padding:4px 12px; border-radius:12px; font-size:0.875rem; font-weight:bold;
+                    background:{% if leave.status == 'approved' %}#d1fae5{% elif leave.status == 'rejected' %}#fee2e2{% else %}#fef3c7{% endif %};
+                    color:{% if leave.status == 'approved' %}#065f46{% elif leave.status == 'rejected' %}#991b1b{% else %}#92400e{% endif %};">
+                    {{ leave.status.title() }}
+                </span>
+            </div>
+            <p style="color:var(--text-muted); margin:0;">{{ leave.reason }}</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div style="text-align:center; padding:2rem; color:var(--text-muted);">
+            <p style="font-size:2rem;">📋</p>
+            <p>No leave applications yet</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
