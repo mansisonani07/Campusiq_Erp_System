@@ -7,155 +7,331 @@
     <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="icon" type="image/svg+xml" href="/static/icons/campusiq-icon.svg">
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
         body {
-            background: linear-gradient(135deg, #073b4c 0%, #0a5a72 50%, #073b4c 100%);
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top left, rgba(35, 110, 255, 0.15), transparent 25%),
+                        radial-gradient(circle at bottom right, rgba(78, 110, 255, 0.1), transparent 22%),
+                        #040817;
+            color: #e4f3ff;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            overflow-x: hidden;
             min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            font-family: 'Calibri', 'Candara', sans-serif;
+            padding: 18px 0 18px;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(120deg, rgba(23, 42, 80, 0.35), transparent 35%, rgba(9, 15, 32, 0.7));
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(86, 196, 255, 0.22);
+            box-shadow: 0 0 20px rgba(86, 196, 255, 0.28);
+            opacity: 0.75;
+            animation: drift 18s ease-in-out infinite;
         }
         .login-container {
-            min-height: 100vh;
+            position: relative;
+            z-index: 2;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 10px 12px 10px;
+            min-height: calc(100vh - 28px);
+            width: 100%;
         }
         .login-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
+            position: relative;
+            background: rgba(8, 16, 34, 0.92);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.6rem;
+            padding: 24px;
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 340px;
+            max-height: calc(100vh - 36px);
+            overflow: visible;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        .login-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 1.6rem;
+            background: radial-gradient(circle at top left, rgba(77, 150, 255, 0.12), transparent 40%);
+            pointer-events: none;
         }
         .login-logo {
             text-align: center;
-            margin-bottom: 30px;
-        }
-        .login-logo img {
-            width: 60px;
-            height: 60px;
+            margin-bottom: 0.6rem;
+            position: relative;
+            z-index: 1;
         }
         .login-logo-text {
-            font-size: 24px;
-            font-weight: bold;
-            color: #073b4c;
+            font-size: 22px;
+            font-weight: 700;
+            color: #d9f1ff;
+            letter-spacing: -0.04em;
+            text-shadow: 0 0 18px rgba(101, 179, 255, 0.36);
         }
         .login-title {
-            font-size: 22px;
-            font-weight: bold;
-            color: #073b4c;
+            font-size: 20px;
+            font-weight: 700;
+            color: #ebf5ff;
             text-align: center;
-            margin-bottom: 5px;
+            margin-bottom: 0.2rem;
+            position: relative;
+            z-index: 1;
         }
         .login-subtitle {
-            color: #666;
+            color: #bfdcff;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            opacity: 0.92;
+            position: relative;
+            z-index: 1;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
         }
         .form-group label {
             display: block;
             font-weight: 600;
-            color: #073b4c;
-            margin-bottom: 5px;
+            color: #b8d7ff;
+            margin-bottom: 0.4rem;
+            font-size: 0.88rem;
         }
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-            box-sizing: border-box;
+            height: 40px;
+            padding: 0.5rem 1rem;
+            background: rgba(15, 26, 52, 0.72);
+            border: 1.5px solid rgba(88, 156, 255, 0.22);
+            border-radius: 1rem;
+            font-size: 0.92rem;
+            color: #e4f3ff;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        .form-group input::placeholder,
+        .form-group select::placeholder {
+            color: rgba(200, 220, 255, 0.5);
         }
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #ff6b35;
+            border-color: rgba(88, 202, 255, 0.6);
+            background: rgba(15, 26, 52, 0.88);
+            box-shadow: 0 0 16px rgba(88, 202, 255, 0.22);
         }
         .remember-wrap {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 15px;
+            gap: 0.7rem;
+            margin-bottom: 0.65rem;
+            position: relative;
+            z-index: 1;
+            color: #bfdcff;
+            font-size: 0.88rem;
+            padding: 0.55rem 0.8rem;
+            border-radius: 1rem;
+            background: rgba(15, 26, 52, 0.65);
+            border: 1px solid rgba(88, 156, 255, 0.18);
+        }
+        .remember-wrap input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #4f95ff;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .greeting-text {
+            color: #c8e1ff;
+            font-size: 0.92rem;
+            text-align: center;
+            margin-bottom: 0.3rem;
+            opacity: 0.96;
+        }
+        .role-badge {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.55rem 0.75rem;
+            margin: 0.4rem 0 0.3rem;
+            border-radius: 1rem;
+            background: rgba(12, 24, 56, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e4f3ff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        }
+        .role-badge.visible {
+            display: inline-flex;
+        }
+        .role-badge .role-icon {
+            font-size: 1.05rem;
+        }
+        .login-card.admin-glow {
+            border-color: rgba(79, 149, 255, 0.8);
+            box-shadow: 0 0 40px rgba(79, 149, 255, 0.22);
+        }
+        .login-card.teacher-glow {
+            border-color: rgba(52, 210, 127, 0.75);
+            box-shadow: 0 0 40px rgba(52, 210, 127, 0.2);
+        }
+        .login-card.student-glow {
+            border-color: rgba(162, 108, 255, 0.8);
+            box-shadow: 0 0 40px rgba(162, 108, 255, 0.24);
         }
         .login-btn {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #ff6b35, #ffd166);
+            padding: 0.95rem;
+            background: linear-gradient(135deg, #4f95ff 0%, #62c0ff 100%);
             color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 0.4rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+            animation: pulseBtn 2.4s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 12px 30px rgba(79, 149, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255,107,53,0.4);
+            box-shadow: 0 16px 48px rgba(79, 149, 255, 0.32);
         }
-        .role-tabs {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
+        .login-btn.loading {
+            cursor: progress;
         }
-        .role-tab {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid #ddd;
-            background: white;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            text-align: center;
+        .login-btn .btn-loader {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-left: 0.75rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.15s ease, transform 0.15s ease;
         }
-        .role-tab.active {
-            background: linear-gradient(135deg, #ff6b35, #ffd166);
-            color: white;
-            border-color: transparent;
+        .login-btn.loading .btn-loader {
+            opacity: 1;
+            transform: scale(1);
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         .auth-links {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
+            margin-top: 0.4rem;
+            padding-top: 0.65rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 1;
         }
         .auth-links a {
-            color: #666;
+            color: #88b8ff;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 0.88rem;
+            transition: color 0.3s ease;
+        }
+        .auth-links a:hover {
+            color: #b8d7ff;
+            text-decoration: underline;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 0.4rem;
+            font-size: 0.82rem;
+            color: rgba(200, 220, 255, 0.76);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover {
+            color: #d9f1ff;
+            text-decoration: underline;
         }
         .success-msg {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            background: rgba(46, 125, 50, 0.16);
+            color: #8cff8c;
+            padding: 0.9rem;
+            border: 1px solid rgba(46, 125, 50, 0.3);
+            border-radius: 0.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
         }
         .error-msg {
-            background: #ffebee;
-            color: #c62828;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            background: rgba(198, 40, 40, 0.16);
+            color: #ff8b8b;
+            padding: 0.9rem;
+            border: 1px solid rgba(198, 40, 40, 0.3);
+            border-radius: 0.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(0.94); opacity: 0.62; }
+            50% { transform: translate(18px, -22px) scale(1.04); opacity: 1; }
+        }
+        @keyframes pulseBtn {
+            0%, 100% { box-shadow: 0 8px 24px rgba(79, 149, 255, 0.18); transform: translateY(0); }
+            25% { box-shadow: 0 14px 36px rgba(79, 149, 255, 0.28); transform: translateY(-1px); }
+            50% { box-shadow: 0 0 40px rgba(99, 192, 255, 0.4); transform: translateY(-2px); }
+            75% { box-shadow: 0 10px 30px rgba(79, 149, 255, 0.24); transform: translateY(-1px); }
         }
     </style>
 </head>
 <body>
+    <div class="particles" aria-hidden="true"></div>
     <div class="login-container">
         <div class="login-card">
             <div class="login-logo">
-                <img src="/static/icons/nova-erp-icon.svg" alt="CampusIQ">
                 <div class="login-logo-text">CampusIQ</div>
             </div>
             
+            <div class="greeting-text" id="greetingText">Good Morning ☀️</div>
             <h2 class="login-title">Welcome Back</h2>
             <p class="login-subtitle">Sign in to your account</p>
             
@@ -168,13 +344,14 @@
             
             <form id="login-form" method="post" action="/login">
                 <input type="hidden" name="csrf_token" value="{{ csrf_token(request) }}">
-                <input type="hidden" id="login_as" name="login_as" value="{{ selected_role or 'student' }}">
+                <input type="hidden" name="identifier_type" value="email">
                 
                 <div class="form-group">
-                    <label for="identifier_type">Login As</label>
-                    <select id="identifier_type" name="identifier_type" required>
-                        <option value="email" {% if identifier_type == 'email' %}selected{% endif %}>Login with Email</option>
-                        <option value="phone" {% if identifier_type == 'phone' %}selected{% endif %}>Login with Phone</option>
+                    <label for="login_as">Login As</label>
+                    <select id="login_as" name="login_as" required>
+                        <option value="admin" {% if selected_role == 'admin' %}selected{% endif %}>Admin</option>
+                        <option value="teacher" {% if selected_role == 'teacher' %}selected{% endif %}>Teacher</option>
+                        <option value="student" {% if selected_role == 'student' or not selected_role %}selected{% endif %}>Student</option>
                     </select>
                 </div>
                 
@@ -193,30 +370,106 @@
                     Remember Me
                 </label>
                 
-                <button class="login-btn" type="submit">Sign In</button>
+                <div class="role-badge" id="roleBadge" aria-live="polite"></div>
                 
-                <div class="role-tabs">
-                    <button class="role-tab {% if selected_role == 'student' %}active{% endif %}" type="button" data-role-tab="student">Student</button>
-                    <button class="role-tab {% if selected_role == 'teacher' %}active{% endif %}" type="button" data-role-tab="teacher">Teacher</button>
-                    <button class="role-tab {% if selected_role == 'admin' %}active{% endif %}" type="button" data-role-tab="admin">Admin</button>
-                </div>
+                <button class="login-btn" type="submit"><span class="btn-text">Sign In</span><span class="btn-loader" aria-hidden="true"></span></button>
             </form>
             
             <div class="auth-links">
                 <a href="/forgot-password">Forgot Password?</a>
                 <a href="/register">Create Account</a>
             </div>
+            
+            <a href="/" class="back-link">← Back to Home</a>
         </div>
     </div>
 
     <script>
-        document.querySelectorAll('.role-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                document.getElementById('login_as').value = this.dataset.roleTab;
-            });
+        // Generate particles
+        const particleContainer = document.querySelector('.particles');
+        if (particleContainer) {
+            const createParticle = () => {
+                const dot = document.createElement('div');
+                dot.className = 'particle';
+                const size = 6 + Math.random() * 10;
+                dot.style.width = `${size}px`;
+                dot.style.height = `${size}px`;
+                dot.style.left = `${Math.random() * 100}%`;
+                dot.style.top = `${Math.random() * 100}%`;
+                dot.style.animationDuration = `${16 + Math.random() * 10}s`;
+                dot.style.animationDelay = `${Math.random() * 6}s`;
+                particleContainer.appendChild(dot);
+            };
+            for (let i = 0; i < 20; i += 1) {
+                createParticle();
+            }
+        }
+
+        const roleBadge = document.getElementById('roleBadge');
+        const greetingText = document.getElementById('greetingText');
+        const identifierInput = document.getElementById('identifier_input');
+        const loginCard = document.querySelector('.login-card');
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.querySelector('.login-btn');
+        const btnText = loginBtn.querySelector('.btn-text');
+
+        const roleDefinitions = [
+            { key: 'admin', label: 'Admin Portal', icon: '🛡️', className: 'admin-glow' },
+            { key: 'teacher', label: 'Teacher Portal', icon: '📗', className: 'teacher-glow' },
+            { key: 'student', label: 'Student Portal', icon: '🎓', className: 'student-glow' }
+        ];
+
+        function updateGreeting() {
+            const hour = new Date().getHours();
+            if (hour >= 5 && hour < 12) {
+                greetingText.textContent = 'Good Morning ☀️';
+            } else if (hour >= 12 && hour < 17) {
+                greetingText.textContent = 'Good Afternoon 🌤️';
+            } else if (hour >= 17 && hour < 21) {
+                greetingText.textContent = 'Good Evening 🌙';
+            } else {
+                greetingText.textContent = 'Working Late? 🌟';
+            }
+        }
+
+        function clearRoleGlow() {
+            loginCard.classList.remove('admin-glow', 'teacher-glow', 'student-glow');
+        }
+
+        function setRoleBadge(role) {
+            clearRoleGlow();
+
+            if (!role) {
+                roleBadge.classList.remove('visible');
+                roleBadge.innerHTML = '';
+                return;
+            }
+
+            loginCard.classList.add(role.className);
+            roleBadge.classList.add('visible');
+            roleBadge.innerHTML = `<span class="role-icon">${role.icon}</span><span>${role.label}</span>`;
+        }
+
+        function detectRoleFromEmail(value) {
+            const email = value.toLowerCase();
+            if (email.includes('admin')) return roleDefinitions[0];
+            if (email.includes('teacher')) return roleDefinitions[1];
+            if (email.includes('student')) return roleDefinitions[2];
+            return null;
+        }
+
+        identifierInput.addEventListener('input', () => {
+            const role = detectRoleFromEmail(identifierInput.value);
+            setRoleBadge(role);
         });
+
+        loginForm.addEventListener('submit', () => {
+            loginBtn.classList.add('loading');
+            btnText.textContent = 'Authenticating...';
+            loginBtn.disabled = true;
+        });
+
+        updateGreeting();
     </script>
 </body>
 </html>

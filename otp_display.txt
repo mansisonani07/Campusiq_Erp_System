@@ -1,4 +1,4 @@
 ============================================================
 *** DEV MODE OTP ***
-[DEV-OTP] Login route confirm | User rahul@erp.local | OTP: 079844
+[DEV-OTP] Login route confirm | User admin@erp.local | OTP: 015732
 ============================================================

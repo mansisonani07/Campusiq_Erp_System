@@ -44,10 +44,11 @@ def seed_database(force: bool = False):
         
         # Create Staff/Users
         staff_data = [
-            ("Dr. Rajesh Kumar", "principal@erp.local", "principal123", "admin"),
+            ("Dr. Rajesh Kumar", "admin@campus.iq", "admin123", "admin"),
+            ("Mr. Amit Sharma", "analyst@campus.iq", "analyst123", "analyst"),
+            ("Ms. Priya Verma", "viewer@campus.iq", "viewer123", "viewer"),
             ("Mrs. Sunita Devi", "sunita@erp.local", "teacher123", "teacher"),
             ("Mr. Raj Malhotra", "raj@erp.local", "teacher234", "teacher"),
-            ("Mr. Amit Sharma", "amit@erp.local", "admin123", "admin"),
             ("Ms. Pooja Singh", "pooja@erp.local", "account123", "accountant"),
             ("Mr. Vikram Joshi", "vikram@erp.local", "counsel123", "counselor"),
         ]
@@ -319,6 +320,35 @@ def seed_database(force: bool = False):
         db.flush()
         print(f"Created {len(assessments_data)} assessments")
         
+        # Create Sample Expenses
+        expenses_data = [
+            ("Office Supplies", 2500.00, "Supplies", date.today() - timedelta(days=5)),
+            ("Electricity Bill", 8500.00, "Utilities", date.today() - timedelta(days=10)),
+            ("Internet Services", 3200.00, "Utilities", date.today() - timedelta(days=15)),
+            ("Maintenance Work", 15000.00, "Maintenance", date.today() - timedelta(days=20)),
+            ("Staff Salaries", 75000.00, "Salary", date.today() - timedelta(days=30)),
+            ("Cleaning Services", 4500.00, "Maintenance", date.today() - timedelta(days=7)),
+            ("Computer Equipment", 28000.00, "Supplies", date.today() - timedelta(days=12)),
+            ("Water Bill", 2100.00, "Utilities", date.today() - timedelta(days=25)),
+            ("Security Services", 12000.00, "Other", date.today() - timedelta(days=18)),
+            ("Software Licenses", 8500.00, "Supplies", date.today() - timedelta(days=3)),
+        ]
+        
+        expenses = []
+        for desc, amt, cat, exp_date in expenses_data:
+            expense = models.Expense(
+                description=desc,
+                amount=amt,
+                category=cat,
+                expense_date=exp_date,
+                created_by=1  # Admin user ID
+            )
+            db.add(expense)
+            expenses.append(expense)
+        
+        db.flush()
+        print(f"Created {len(expenses)} sample expenses")
+        
         db.commit()
         print("\n✅ Database seeded successfully!")
         print(f"Summary:")
@@ -328,6 +358,8 @@ def seed_database(force: bool = False):
         print(f"  - Enrollments: {enrollment_count}")
         print(f"  - Attendance Records: {len(attendance_records)}")
         print(f"  - Grade Records: {len(grade_records)}")
+        print(f"  - Fee Records: Created for all students")
+        print(f"  - Expenses: {len(expenses)}")
         print(f"  - Announcements: {len(announcements_data)}")
         print(f"  - Assessments: {len(assessments_data)}")
         

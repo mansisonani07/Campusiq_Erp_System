@@ -355,7 +355,7 @@ def startup():
                 Branch(name="Computer Science", code="CSE"),
                 Branch(name="Electronics & Communication", code="EC"),
                 Branch(name="Mechanical Engineering", code="ME"),
-                Branch(name="Civil Engineering", code="CE"),
+                Branch(name="Civil Engineering", code="CV"),
             ]
             db.add_all(branches_data)
             db.flush()
@@ -364,39 +364,40 @@ def startup():
             for branch in db.query(Branch).all():
                 for sem in range(1, 9):  # 8 semesters
                     db.add(Semester(branch_id=branch.id, semester_number=sem, academic_year="2025-26"))
+            db.flush()
             
             # Seed Subjects
-            subjects_data = [
-                {"name": "Data Structures", "code": "CS201", "branch": "CE", "sem": 3},
-                {"name": "Database Management", "code": "CS301", "branch": "CE", "sem": 4},
-                {"name": "Operating Systems", "code": "CS401", "branch": "CE", "sem": 5},
-                {"name": "Computer Networks", "code": "CS501", "branch": "CE", "sem": 6},
-                {"name": "Machine Learning", "code": "CS601", "branch": "CE", "sem": 7},
-                {"name": "Web Development", "code": "IT301", "branch": "IT", "sem": 4},
-                {"name": "Python Programming", "code": "IT201", "branch": "IT", "sem": 3},
-                {"name": "Discrete Mathematics", "code": "MA201", "branch": "CE", "sem": 3},
-                {"name": "Engineering Mathematics", "code": "MA301", "branch": "CE", "sem": 4},
-                {"name": "Digital Electronics", "code": "EC201", "branch": "EC", "sem": 3},
-            ]
-            for subj in subjects_data:
-                branch = db.query(Branch).filter(Branch.code == subj["branch"]).first()
-                sem = db.query(Semester).filter(Semester.branch_id == branch.id, Semester.semester_number == subj["sem"]).first() if branch else None
-                db.add(Subject(
-                    name=subj["name"],
-                    code=subj["code"],
-                    branch_id=branch.id if branch else None,
-                    semester_id=sem.id if sem else None
-                ))
+            # subjects_data = [
+            #     {"name": "Data Structures", "code": "CS201", "branch": "CE", "sem": 3},
+            #     {"name": "Database Management", "code": "CS301", "branch": "CE", "sem": 4},
+            #     {"name": "Operating Systems", "code": "CS401", "branch": "CE", "sem": 5},
+            #     {"name": "Computer Networks", "code": "CS501", "branch": "CE", "sem": 6},
+            #     {"name": "Machine Learning", "code": "CS601", "branch": "CE", "sem": 7},
+            #     {"name": "Web Development", "code": "IT301", "branch": "IT", "sem": 4},
+            #     {"name": "Python Programming", "code": "IT201", "branch": "IT", "sem": 3},
+            #     {"name": "Discrete Mathematics", "code": "MA201", "branch": "CE", "sem": 3},
+            #     {"name": "Engineering Mathematics", "code": "MA301", "branch": "CE", "sem": 4},
+            #     {"name": "Digital Electronics", "code": "EC201", "branch": "EC", "sem": 3},
+            # ]
+            # for subj in subjects_data:
+            #     branch = db.query(Branch).filter(Branch.code == subj["branch"]).first()
+            #     sem = db.query(Semester).filter(Semester.branch_id == branch.id, Semester.semester_number == subj["sem"]).first() if branch else None
+            #     db.add(Subject(
+            #         name=subj["name"],
+            #         code=subj["code"],
+            #         branch_id=branch.id if branch else None,
+            #         semester_id=sem.id if sem else None
+            #     ))
             
             # Seed Transport Routes
-            transport_routes = [
-                TransportRoute(route_name="Route A - City Center", bus_number="BUS-001", departure_time="7:00 AM", stops="City Center, Mall Road, College Gate"),
-                TransportRoute(route_name="Route B - North Campus", bus_number="BUS-002", departure_time="7:15 AM", stops="North Campus, Hostel Block, Main Gate"),
-                TransportRoute(route_name="Route C - South Extension", bus_number="BUS-003", departure_time="7:30 AM", stops="South Ext, Residential Area, College Gate"),
-                TransportRoute(route_name="Route D - Express", bus_number="BUS-004", departure_time="6:45 AM", stops="Express Way, College Gate"),
-                TransportRoute(route_name="Route E - Evening", bus_number="BUS-005", departure_time="4:00 PM", stops="College Gate, City Center, Mall Road"),
-            ]
-            db.add_all(transport_routes)
+            # transport_routes = [
+            #     TransportRoute(route_name="Route A - City Center", bus_number="BUS-001", departure_time="7:00 AM", stops="City Center, Mall Road, College Gate"),
+            #     TransportRoute(route_name="Route B - North Campus", bus_number="BUS-002", departure_time="7:15 AM", stops="North Campus, Hostel Block, Main Gate"),
+            #     TransportRoute(route_name="Route C - South Extension", bus_number="BUS-003", departure_time="7:30 AM", stops="South Ext, Residential Area, College Gate"),
+            #     TransportRoute(route_name="Route D - Express", bus_number="BUS-004", departure_time="6:45 AM", stops="Express Way, College Gate"),
+            #     TransportRoute(route_name="Route E - Evening", bus_number="BUS-005", departure_time="4:00 PM", stops="College Gate, City Center, Mall Road"),
+            # ]
+            # db.add_all(transport_routes)
             
             # Seed Hostel Rooms
             hostel_rooms = []
@@ -411,14 +412,14 @@ def startup():
             db.add_all(hostel_rooms)
             
             # Seed Study Materials
-            study_materials = [
-                StudyMaterial(title="Data Structures Lecture Notes", description="Complete notes for Data Structures", file_path="/static/uploads/study-materials/ds_notes.pdf", subject="Data Structures"),
-                StudyMaterial(title="Database SQL Queries", description="Practice queries for DBMS", file_path="/static/uploads/study-materials/sql_queries.pdf", subject="Database Management"),
-                StudyMaterial(title="OS Process Scheduling", description="CPU scheduling algorithms", file_path="/static/uploads/study-materials/os_scheduling.pdf", subject="Operating Systems"),
-                StudyMaterial(title="Python Basics Tutorial", description="Introduction to Python programming", file_path="/static/uploads/study-materials/python_tutorial.pdf", subject="Python Programming"),
-                StudyMaterial(title="Network Protocols Guide", description="TCP/IP and OSI model", file_path="/static/uploads/study-materials/network_protocols.pdf", subject="Computer Networks"),
-            ]
-            db.add_all(study_materials)
+            # study_materials = [
+            #     StudyMaterial(title="Data Structures Lecture Notes", description="Complete notes for Data Structures", file_path="/static/uploads/study-materials/ds_notes.pdf", subject="Data Structures"),
+            #     StudyMaterial(title="Database SQL Queries", description="Practice queries for DBMS", file_path="/static/uploads/study-materials/sql_queries.pdf", subject="Database Management"),
+            #     StudyMaterial(title="OS Process Scheduling", description="CPU scheduling algorithms", file_path="/static/uploads/study-materials/os_scheduling.pdf", subject="Operating Systems"),
+            #     StudyMaterial(title="Python Basics Tutorial", description="Introduction to Python programming", file_path="/static/uploads/study-materials/python_tutorial.pdf", subject="Python Programming"),
+            #     StudyMaterial(title="Network Protocols Guide", description="TCP/IP and OSI model", file_path="/static/uploads/study-materials/network_protocols.pdf", subject="Computer Networks"),
+            # ]
+            # db.add_all(study_materials)
             
             db.commit()
 

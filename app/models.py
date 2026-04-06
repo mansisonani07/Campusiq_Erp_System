@@ -501,7 +501,7 @@ class Expense(Base):
     amount = Column(Float, nullable=False)
     category = Column(String(50), default="General")
     expense_date = Column(Date, default=date.today)
-    created_by = Column(Integer, ForeignKey("users.id"))
+    created_by = Column(Integer, ForeignKey("users.id"), nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     created_by_user = relationship("User")
