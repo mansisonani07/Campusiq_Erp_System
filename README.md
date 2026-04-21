@@ -1,78 +1,3 @@
-<<<<<<< HEAD
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-=======
 <div align="center">
 
 <!---------------------------------------------------------------------------->
@@ -80,14 +5,14 @@ export default defineConfig([
 <!--              Production-Grade Student ERP · React 19 · Supabase        -->
 <!---------------------------------------------------------------------------->
 
-```
- ██████╗ █████╗ ███╗   ███╗██████╗ ██╗   ██╗███████╗██╗ ██████╗ 
-██╔════╝██╔══██╗████╗ ████║██╔══██╗██║   ██║██╔════╝██║██╔═══██╗
-██║     ███████║██╔████╔██║██████╔╝██║   ██║███████╗██║██║   ██║
-██║     ██╔══██║██║╚██╔╝██║██╔═══╝ ██║   ██║╚════██║██║██║▄▄ ██║
-╚██████╗██║  ██║██║ ╚═╝ ██║██║     ╚██████╔╝███████║██║╚██████╔╝
- ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝      ╚═════╝ ╚══════╝╚═╝ ╚══▀▀═╝ 
-```
+<!-- ✅ FIX 1: ASCII art replaced with SVG image so it centers perfectly on GitHub -->
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=800&size=22&pause=1000&color=06B6D4&center=true&vCenter=true&width=700&height=60&lines=CampusIQ+%E2%80%94+The+Academic+OS;Production-Grade+Student+ERP;React+19+%C2%B7+TypeScript+5.9+%C2%B7+Supabase" alt="CampusIQ — The Academic OS" />
+
+<br/>
+
+<h1>
+  <img src="https://img.shields.io/badge/%F0%9F%8E%93-CampusIQ-06B6D4?style=for-the-badge&labelColor=050811&color=06B6D4" alt="CampusIQ" height="42"/>
+</h1>
 
 ### **The Academic Operating System**
 *One unified platform for the entire campus lifecycle — admissions to alumni.*
@@ -116,21 +41,31 @@ export default defineConfig([
 
 <br/>
 
+<!-- ✅ FIX 2: Live demo link as a large, styled clickable badge button -->
+### 🚀 Try the Live Demo
+
+[![🎓 Open Live Demo](https://img.shields.io/badge/%F0%9F%8E%93%20Open%20Live%20Demo-campusiq--erp--kwhz.arcada.app-06B6D4?style=for-the-badge&logoColor=white)](https://campusiq-erp-kwhz.arcada.app)
+
+```
+Password for all accounts:  campus123
+OTP Code:                    Shown on-screen (demo bypass — no email needed)
+```
+
+<br/>
+
 ---
 
-<!-- SCREENSHOT ZONE — replace blocks with real PNGs / animated GIFs -->
+<!-- SCREENSHOT ZONE -->
 
 | Super Admin Dashboard | Student Portal |
 |:---:|:---:|
-| Admin Dashboard <img width="1908" height="905" alt="sr1" src="https://github.com/user-attachments/assets/c8b8d855-e409-4bc1-929c-f162b6f2bfec" /> | ![Student Portal](./docs/assets/student-portal.png) |
+| <img width="1910" height="910" alt="sr2" src="https://github.com/user-attachments/assets/09b24be5-e0a5-4965-9129-c34f5f74bfee" /><img width="1900" height="907" alt="sr3" src="https://github.com/user-attachments/assets/f92d0e80-636d-40e9-8530-e4f84067be6a" /><img width="1908" height="903" alt="sr4" src="https://github.com/user-attachments/assets/7c81ea54-4a11-4ad9-8de9-182272036069" /> | <img width="1915" height="905" alt="sr9" src="https://github.com/user-attachments/assets/27d11c39-a354-4641-b71f-f37872246da9" /><img width="1917" height="902" alt="sr10" src="https://github.com/user-attachments/assets/600206c0-214b-459b-a671-31c8130c6414" /><img width="1905" height="910" alt="sr11" src="https://github.com/user-attachments/assets/3f52f60e-c1dd-458f-a4ea-501942ecd7a2" /> |
 | *Live KPIs · 22-module nav · Deep Space Dark theme* | *Personal academic workspace · Fee status · LMS* |
 
 | Iris AI Chatbot + Omni-Search | Pearl Light Theme |
 |:---:|:---:|
-| ![Chatbot](./docs/assets/chatbot-search.png) | ![Light Theme](./docs/assets/pearl-light.png) |
+| <img width="492" height="707" alt="sr5" src="https://github.com/user-attachments/assets/74fa107c-7132-47b4-8203-f3960894f457" /> | <img width="1910" height="910" alt="Screenshot 2026-04-20 163652" src="https://github.com/user-attachments/assets/62506408-a94d-43de-8c25-06c54f54af9a" /> |
 | *Role-scoped global search · Contextual AI assistant* | *Glassmorphism 3.0 · WCAG AA · Responsive* |
-
-> 📸 **Screenshot Guide** → Replace with 1440×900 PNGs. Recommended tools: [Screely](https://www.screely.com/) for browser mockups, [Kap](https://getkap.co/) for GIFs. Store in `./docs/assets/`.
 
 ---
 
@@ -155,11 +90,10 @@ export default defineConfig([
 | 13 | [✦ API Reference](#-api-reference) | All 20+ endpoints |
 | 14 | [✦ Deployment Guide](#-deployment-guide) | Vercel, env vars, CI/CD |
 | 15 | [✦ Responsive Behavior](#-responsive-behavior) | Mobile, tablet, desktop |
-| 16 | [✦ Pricing & Plans](#-pricing--plans) | Starter → Enterprise |
-| 17 | [✦ Performance](#-performance-benchmarks) | Benchmarks & optimization |
-| 18 | [✦ Contributing](#-contributing) | How to contribute |
-| 19 | [✦ Roadmap](#-roadmap) | What's coming next |
-| 20 | [✦ Contact & Support](#-contact--support) | Reach the team |
+| 16 | [✦ Performance](#-performance-benchmarks) | Benchmarks & optimization |
+| 17 | [✦ Contributing](#-contributing) | How to contribute |
+| 18 | [✦ Roadmap](#-roadmap) | What's coming next |
+| 19 | [✦ Contact & Support](#-contact--support) | Reach the team |
 
 ---
 
@@ -224,7 +158,7 @@ CampusIQ was built on a single conviction:
 │         └──────────────┬─────────────────────┘                      │
 │                        │                                            │
 │              Single Source of Truth                                 │
-│           1 login · Real-time · Mobile-first                        │ 
+│           1 login · Real-time · Mobile-first                        │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -236,9 +170,15 @@ CampusIQ was built on a single conviction:
 
 ### 🔑 Access
 
+<div align="center">
+
+[![🎓 Open Live Demo — campusiq-erp-kwhz.arcada.app](https://img.shields.io/badge/%F0%9F%8E%93%20Open%20Live%20Demo-campusiq--erp--kwhz.arcada.app-06B6D4?style=for-the-badge)](https://campusiq-erp-kwhz.arcada.app)
+
+</div>
+
 ```
 Universal Password:  campus123
-OTP Code:            Displayed on-screen during login (demo bypass)
+OTP Code:            Displayed on-screen during login (demo bypass — no email needed)
 ```
 
 ### 👥 Demo Accounts
@@ -272,12 +212,12 @@ OTP Code:            Displayed on-screen during login (demo bypass)
 ```
 ╔══════════════════════════════════════════════════════════════════╗
 ║                     CLIENT LAYER                                 ║
-║  React 19 + TypeScript 5.9 + Vite 7 + Tailwind CSS v4            ║
+║  React 19 + TypeScript 5.9 + Vite 7 + Tailwind CSS v4           ║
 ║                                                                  ║
-║  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────────┐    ║
-║  │ Student  │  │ Faculty  │  │  Parent  │  │  Super Admin   │    ║
-║  │  Portal  │  │  Portal  │  │  Portal  │  │    Portal      │    ║
-║  └──────────┘  └──────────┘  └──────────┘  └────────────────┘    ║
+║  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────────┐  ║
+║  │ Student  │  │ Faculty  │  │  Parent  │  │  Super Admin   │  ║
+║  │  Portal  │  │  Portal  │  │  Portal  │  │    Portal      │  ║
+║  └──────────┘  └──────────┘  └──────────┘  └────────────────┘  ║
 ║                                                                  ║
 ║  ┌────────────────────────────────────────────────────────────┐  ║
 ║  │  Shared Intelligence Layer                                 │  ║
@@ -288,22 +228,22 @@ OTP Code:            Displayed on-screen during login (demo bypass)
 ║                  HTTPS · REST · JSON                             ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║                     API LAYER                                    ║
-║  Vercel Serverless Functions (Node.js) · 20+ Endpoints           ║
+║  Vercel Serverless Functions (Node.js) · 20+ Endpoints          ║
 ║                                                                  ║
-║  /api/students  /api/faculty   /api/fees      /api/attendance    ║
-║  /api/exams     /api/grades    /api/lms       /api/library       ║
-║  /api/hostel    /api/transport /api/payroll   /api/workflows     ║
-║  /api/admissions /api/notifications  ... (8 more)                ║
+║  /api/students  /api/faculty   /api/fees      /api/attendance   ║
+║  /api/exams     /api/grades    /api/lms       /api/library      ║
+║  /api/hostel    /api/transport /api/payroll   /api/workflows    ║
+║  /api/admissions /api/notifications  ... (8 more)               ║
 ║                                                                  ║
 ║  ✓ CORS-enabled    ✓ RBAC query scoping                         ║
 ║  ✓ Full CRUD       ✓ Soft-delete patterns    ✓ Audit logging    ║
 ╠══════════════════════════════════════════════════════════════════╣
-║              @supabase/supabase-js · RLS Policies                ║
+║              @supabase/supabase-js · RLS Policies               ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║                     DATA LAYER                                   ║
-║  Supabase · PostgreSQL 15 · Built-in Auth · Real-time            ║
-║  19 Tables · Row Level Security · JSONB columns                  ║
-║  Managed backups · Point-in-time recovery · Connection pooling   ║
+║  Supabase · PostgreSQL 15 · Built-in Auth · Real-time           ║
+║  19 Tables · Row Level Security · JSONB columns                 ║
+║  Managed backups · Point-in-time recovery · Connection pooling  ║
 ╚══════════════════════════════════════════════════════════════════╝
 ```
 
@@ -344,11 +284,11 @@ UI Re-render → Framer Motion animation → User sees result
 | **Frontend framework** | React 19 | Concurrent rendering, Server Components ready, largest ecosystem |
 | **Build tool** | Vite 7 | Sub-second HMR, ES modules, rollup production output |
 | **Database** | Supabase (Postgres 15) | Managed + real-time + auth in one; eliminates 3 separate services |
-| **API runtime** | Vercel Serverless | Zero-config deployment, edge CDN, auto-scaling, zero cold starts at edge |
+| **API runtime** | Vercel Serverless | Zero-config deployment, edge CDN, auto-scaling |
 | **Auth strategy** | Supabase Auth + OTP | Two-factor by default; no custom auth server to maintain |
 | **RBAC location** | Database RLS + app guard | Defense-in-depth; database layer cannot be bypassed by bugs in API code |
 | **PDF generation** | Browser Blob API | Client-side, zero server cost, instant download UX |
-| **Charts** | Custom SVG components | Zero external dependency, pixel-perfect control, tiny bundle impact |
+| **Charts** | Custom SVG components | Zero external dependency, pixel-perfect control, tiny bundle |
 
 ---
 
@@ -360,7 +300,7 @@ UI Re-render → Framer Motion animation → User sees result
 | Section | Features |
 |---|---|
 | **Dashboard** | Attendance %, current GPA, pending fees, upcoming exams, recent notifications |
-| **Attendance** | Subject-wise attendance breakdown, calendar heatmap, shortage alerts |
+| **Attendance** | Subject-wise breakdown, calendar heatmap, shortage alerts |
 | **Grades** | Semester-wise result cards, GPA trajectory chart, rank in class |
 | **Fees** | Invoice history, payment status, one-click receipt download (auto-named PDF) |
 | **Assignments** | Submission tracker, deadline countdown, grade feedback |
@@ -411,7 +351,7 @@ UI Re-render → Framer Motion animation → User sees result
 | **Analytics** | Enrollment trends, revenue forecasts, cohort performance, attrition risk |
 | **Workflows** | Multi-step approval chains, SLA timers, escalation rules, audit trail |
 | **HR** | Staff leave management, attendance, performance reviews |
-| **Settings** | Institution branding, RBAC configuration, notification templates, integrations |
+| **Settings** | Institution branding, RBAC configuration, notification templates |
 
 ---
 
@@ -432,8 +372,7 @@ UI Re-render → Framer Motion animation → User sees result
 - Automated notification triggers at each pipeline stage transition
 - Export shortlist to CSV / PDF for board review
 
-**Database table:** `admissions`
-**API endpoint:** `GET/POST/PUT /api/admissions`
+**Database table:** `admissions` | **API endpoint:** `GET/POST/PUT /api/admissions`
 
 </details>
 
@@ -447,10 +386,9 @@ UI Re-render → Framer Motion animation → User sees result
 - Bulk mark (Mark All Present → uncheck absences)
 - Automatic SMS + push alert when student falls below 75% threshold
 - Attendance calendar heatmap per student per subject
-- Analytics: class-wise average, trend over semester, comparison across batches
+- Analytics: class-wise average, trend over semester, batch comparison
 
-**Database table:** `attendance`
-**API endpoint:** `GET/POST /api/attendance`
+**Database table:** `attendance` | **API endpoint:** `GET/POST /api/attendance`
 
 </details>
 
@@ -461,14 +399,13 @@ UI Re-render → Framer Motion animation → User sees result
 
 **Key capabilities:**
 - Exam scheduling with venue, invigilator, and duration
-- Grade entry by faculty — marks → automatic grade letter + GPA point
+- Grade entry — marks → automatic grade letter + GPA point
 - Configurable grade scales (A-F, 10-point, 4-point)
 - Transcript generation as downloadable PDF (context-aware naming)
-- Class rank computation, topper lists, subject-wise performance analytics
+- Class rank computation, topper lists, subject-wise analytics
 - Grade moderation workflow with approval before publish
 
-**Database tables:** `exams`, `grades`
-**API endpoints:** `/api/exams`, `/api/grades`
+**Database tables:** `exams`, `grades` | **API:** `/api/exams`, `/api/grades`
 
 </details>
 
@@ -484,8 +421,7 @@ UI Re-render → Framer Motion animation → User sees result
 - Faculty content management — add/reorder/delete modules
 - Completion certificates (PDF generation)
 
-**Database table:** `lms_modules`
-**API endpoint:** `GET/POST/PUT /api/lms_modules`
+**Database table:** `lms_modules` | **API:** `GET/POST/PUT /api/lms_modules`
 
 </details>
 
@@ -533,7 +469,6 @@ UI Re-render → Framer Motion animation → User sees result
 - Condition-based routing (e.g., amount > ₹50,000 requires Finance Director)
 - Full audit trail: who approved what, when, with comments
 - Email + push notifications at each step
-- Bulk approval for batch operations
 
 **Database table:** `workflows` | **API:** `GET/POST/PUT /api/workflows`
 
@@ -562,7 +497,7 @@ UI Re-render → Framer Motion animation → User sees result
 Role-scoped AI assistant answering natural language queries:
 - Admin: *"Show students with attendance below 75%"* → live query result
 - Student: *"What are my pending fees?"* → scoped to own records only
-- Available on all authenticated pages via FAB
+- Available on all authenticated pages via floating action button
 - Typing indicator, message timestamps, conversation history
 
 </details>
@@ -573,7 +508,7 @@ Role-scoped AI assistant answering natural language queries:
 - Triggered by `⌘K` / `Ctrl+K` from any authenticated page
 - Queries all 19 tables simultaneously
 - Results grouped: Students, Faculty, Fees, Courses, Documents
-- Results scoped to authenticated role — no cross-tenant data leakage
+- Role-aware — no cross-tenant data leakage
 - Keyboard navigation: ↑↓ browse, Enter to open, Esc to close
 - Recent search history persisted in localStorage
 
@@ -784,7 +719,7 @@ CREATE TABLE admissions (
                                     'interview','offer','enrolled','rejected')),
   reviewer_id      UUID         REFERENCES faculty(id),
   notes            TEXT,
-  documents        JSONB,        -- {transcript, id_proof, photo} as Supabase Storage URLs
+  documents        JSONB,
   applied_at       TIMESTAMPTZ  DEFAULT NOW(),
   updated_at       TIMESTAMPTZ  DEFAULT NOW()
 );
@@ -797,22 +732,22 @@ CREATE TABLE admissions (
 
 ```sql
 CREATE TABLE workflows (
-  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  title         VARCHAR(200) NOT NULL,
-  type          VARCHAR(50),
-  initiated_by  UUID         NOT NULL,
-  current_step  INTEGER      DEFAULT 1,
-  total_steps   INTEGER      NOT NULL,
-  steps         JSONB        NOT NULL,
-  -- steps schema: [{approver_id, role, status, acted_at, comment}]
-  sla_hours     INTEGER,
-  escalated     BOOLEAN      DEFAULT false,
-  status        VARCHAR(20)  DEFAULT 'pending'
-                CHECK (status IN ('pending','approved','rejected','escalated','cancelled')),
-  reference_id  UUID,
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  title          VARCHAR(200) NOT NULL,
+  type           VARCHAR(50),
+  initiated_by   UUID         NOT NULL,
+  current_step   INTEGER      DEFAULT 1,
+  total_steps    INTEGER      NOT NULL,
+  steps          JSONB        NOT NULL,
+  -- steps: [{approver_id, role, status, acted_at, comment}]
+  sla_hours      INTEGER,
+  escalated      BOOLEAN      DEFAULT false,
+  status         VARCHAR(20)  DEFAULT 'pending'
+                 CHECK (status IN ('pending','approved','rejected','escalated','cancelled')),
+  reference_id   UUID,
   reference_type VARCHAR(50),
-  created_at    TIMESTAMPTZ  DEFAULT NOW(),
-  resolved_at   TIMESTAMPTZ
+  created_at     TIMESTAMPTZ  DEFAULT NOW(),
+  resolved_at    TIMESTAMPTZ
 );
 ```
 
@@ -887,8 +822,7 @@ font-family: 'JetBrains Mono', monospace; font-size: 13px;
 ### 3D Tilt Cards
 
 ```tsx
-// src/components/Tilt.tsx
-// Hardware-accelerated perspective hover with parallax inner content
+// src/components/Tilt.tsx — hardware-accelerated perspective hover
 <Tilt tiltMaxAngle={8} perspective={1200} glareEnable={true} glareMaxOpacity={0.06} scale={1.02}>
   <StatCard title="Total Students" value="4,823" delta="+12%" />
 </Tilt>
@@ -963,7 +897,7 @@ Step 8 → Supabase RLS policies enforce data isolation at the PostgreSQL layer
 └─────────────────────────────────────────────────────────────────┘
          │
          ▼
-┌─ Layer 3: PostgreSQL RLS — Cannot be bypassed  ─────────────────┐
+┌─ Layer 3: PostgreSQL RLS — Cannot be bypassed ──────────────────┐
 │  CREATE POLICY student_own_fees ON fees                         │
 │    FOR SELECT USING (student_id = auth.uid());                  │
 │  -- Even a buggy API function cannot return another student's   │
@@ -1092,7 +1026,7 @@ campusiq/
 │   └── index.css                     ← Global design tokens + Tailwind base + keyframes
 │
 ├── database/
-│   ├── migrations/                   ← Ordered SQL migration files
+│   ├── migrations/
 │   │   ├── 001_create_tables.sql
 │   │   ├── 002_rls_policies.sql
 │   │   ├── 003_indexes.sql
@@ -1111,13 +1045,13 @@ campusiq/
 │       ├── bug_report.md
 │       └── feature_request.md
 │
-├── index.html                        ← HTML shell (Vite entry)
+├── index.html
 ├── package.json
 ├── tsconfig.json                     ← Strict TypeScript config
-├── vite.config.ts                    ← Build config (code-splitting, aliases)
-├── tailwind.config.ts                ← Tailwind @theme tokens
+├── vite.config.ts
+├── tailwind.config.ts
 ├── vercel.json                       ← Edge routing: SPA fallback + /api/*
-├── .env.example                      ← Environment variable template
+├── .env.example
 └── CONTRIBUTING.md
 ```
 
@@ -1142,8 +1076,8 @@ You also need:
 ### Step 1 — Clone & Install
 
 ```bash
-git clone https://github.com/your-org/campusiq.git
-cd campusiq
+git clone https://github.com/mansisonani07/Campusiq_Erp_System.git
+cd Campusiq_Erp_System
 npm install
 ```
 
@@ -1184,7 +1118,6 @@ supabase db reset --linked
 
 **Option B — Manual (Supabase Dashboard SQL Editor)**
 
-Run these files in order:
 ```
 database/migrations/001_create_tables.sql
 database/migrations/002_rls_policies.sql
@@ -1271,7 +1204,11 @@ GET /api/students?page=1&limit=25&sort=name&order=asc&search=alex
 
 ### Deploy to Vercel (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-org/campusiq&env=VITE_SUPABASE_URL,VITE_SUPABASE_ANON_KEY,SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY)
+<div align="center">
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/mansisonani07/Campusiq_Erp_System&env=VITE_SUPABASE_URL,VITE_SUPABASE_ANON_KEY,SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY)
+
+</div>
 
 **Manual via Vercel CLI:**
 
@@ -1368,25 +1305,6 @@ jobs:
 
 ---
 
-## ✦ Pricing & Plans
-
-| | 🟢 Starter | 🔵 Institute ⭐ | 🟣 Enterprise |
-|---|---|---|---|
-| **Price** | $99 / month | $499 / month | Custom |
-| **Best for** | Pilots, small colleges | Full college edition | Universities, multi-campus |
-| **Students** | Up to 500 | Up to 10,000 | **Unlimited** |
-| **Campuses** | 1 | 1 | **Unlimited** |
-| **All 22+ modules** | ✅ | ✅ | ✅ |
-| **Uptime SLA** | 99.9% | 99.99% | 99.99% + financial SLA |
-| **White-label branding** | ❌ | ❌ | ✅ |
-| **SAML SSO** | ❌ | ❌ | ✅ |
-| **Dedicated infrastructure** | ❌ | ❌ | ✅ |
-| **Custom API rate limits** | ❌ | ❌ | ✅ |
-| **Support tier** | Email + chat | Priority | Dedicated CSM |
-| **Onboarding** | Self-serve docs | Guided (3 sessions) | Full onboarding program |
-
----
-
 ## ✦ Contributing
 
 CampusIQ follows **GitHub Flow**. All contributions go through pull requests.
@@ -1395,7 +1313,8 @@ CampusIQ follows **GitHub Flow**. All contributions go through pull requests.
 
 ```bash
 # 1. Fork on GitHub, then clone your fork
-git clone https://github.com/YOUR_USERNAME/campusiq.git && cd campusiq
+git clone https://github.com/mansisonani07/Campusiq_Erp_System.git
+cd Campusiq_Erp_System
 
 # 2. Create a feature branch from main
 git checkout -b feat/hostel-qr-check-in
@@ -1411,7 +1330,6 @@ npm run build       # must produce a clean build
 
 # 5. Commit with conventional commit format
 git commit -m "feat(hostel): add QR code check-in for room allocation"
-#             ^category ^scope   ^description
 
 # 6. Push and open a Pull Request targeting main
 git push origin feat/hostel-qr-check-in
@@ -1460,12 +1378,10 @@ git push origin feat/hostel-qr-check-in
 
 | Channel | Details |
 |---|---|
-| 📧 **Sales Enquiries** | [sales@campusiq.edu](mailto:sales@campusiq.edu) |
-| 🛠️ **Technical Support** | [support@campusiq.edu](mailto:support@campusiq.edu) |
-| 📞 **Phone** | +1 (415) 555-0178 |
-| 🗺️ **Offices** | Bangalore · Singapore · New York |
-| 🐛 **Bug Reports** | [GitHub Issues](https://github.com/your-org/campusiq/issues) |
-| 💬 **Community** | [GitHub Discussions](https://github.com/your-org/campusiq/discussions) |
+| 📧 **Author** | [immpatel07@gmail.com](mailto:immpatel07@gmail.com) |
+| 🛠️ **Repository** | [github.com/mansisonani07/Campusiq_Erp_System](https://github.com/mansisonani07/Campusiq_Erp_System) |
+| 🐛 **Bug Reports** | [GitHub Issues](https://github.com/mansisonani07/Campusiq_Erp_System/issues) |
+| 💬 **Discussions** | [GitHub Discussions](https://github.com/mansisonani07/Campusiq_Erp_System/discussions) |
 
 </div>
 
@@ -1476,7 +1392,7 @@ git push origin feat/hostel-qr-check-in
 ```
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                               ║
-║   Built with precision by the CampusIQ Engineering team       ║
+║   Built with precision by the CampusIQ Engineering team      ║
 ║   and open-source contributors worldwide.                     ║
 ║                                                               ║
 ║   Making world-class academic software accessible to          ║
@@ -1485,7 +1401,7 @@ git push origin feat/hostel-qr-check-in
 ╚═══════════════════════════════════════════════════════════════╝
 ```
 
-**[⭐ Star this repo](https://github.com/your-org/campusiq)** if CampusIQ is useful to you.
+**[⭐ Star this repo](https://github.com/mansisonani07/Campusiq_Erp_System)** if CampusIQ is useful to you.
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org/)
@@ -1495,4 +1411,3 @@ git push origin feat/hostel-qr-check-in
 *© 2025 CampusIQ · MIT License*
 
 </div>
->>>>>>> dcce795d087e56bd8fd5bd4c3588f93def727f31
