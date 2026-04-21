@@ -212,12 +212,12 @@ OTP Code:            Displayed on-screen during login (demo bypass — no email 
 ```
 ╔══════════════════════════════════════════════════════════════════╗
 ║                     CLIENT LAYER                                 ║
-║  React 19 + TypeScript 5.9 + Vite 7 + Tailwind CSS v4           ║
+║  React 19 + TypeScript 5.9 + Vite 7 + Tailwind CSS v4            ║
 ║                                                                  ║
-║  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────────┐  ║
-║  │ Student  │  │ Faculty  │  │  Parent  │  │  Super Admin   │  ║
-║  │  Portal  │  │  Portal  │  │  Portal  │  │    Portal      │  ║
-║  └──────────┘  └──────────┘  └──────────┘  └────────────────┘  ║
+║  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌────────────────┐    ║
+║  │ Student  │  │ Faculty  │  │  Parent  │  │  Super Admin   │    ║
+║  │  Portal  │  │  Portal  │  │  Portal  │  │    Portal      │    ║
+║  └──────────┘  └──────────┘  └──────────┘  └────────────────┘    ║
 ║                                                                  ║
 ║  ┌────────────────────────────────────────────────────────────┐  ║
 ║  │  Shared Intelligence Layer                                 │  ║
@@ -228,22 +228,22 @@ OTP Code:            Displayed on-screen during login (demo bypass — no email 
 ║                  HTTPS · REST · JSON                             ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║                     API LAYER                                    ║
-║  Vercel Serverless Functions (Node.js) · 20+ Endpoints          ║
+║  Vercel Serverless Functions (Node.js) · 20+ Endpoints           ║
 ║                                                                  ║
-║  /api/students  /api/faculty   /api/fees      /api/attendance   ║
-║  /api/exams     /api/grades    /api/lms       /api/library      ║
-║  /api/hostel    /api/transport /api/payroll   /api/workflows    ║
-║  /api/admissions /api/notifications  ... (8 more)               ║
+║  /api/students  /api/faculty   /api/fees      /api/attendance    ║
+║  /api/exams     /api/grades    /api/lms       /api/library       ║
+║  /api/hostel    /api/transport /api/payroll   /api/workflows     ║
+║  /api/admissions /api/notifications  ... (8 more)                ║
 ║                                                                  ║
 ║  ✓ CORS-enabled    ✓ RBAC query scoping                         ║
 ║  ✓ Full CRUD       ✓ Soft-delete patterns    ✓ Audit logging    ║
 ╠══════════════════════════════════════════════════════════════════╣
-║              @supabase/supabase-js · RLS Policies               ║
+║              @supabase/supabase-js · RLS Policies                ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║                     DATA LAYER                                   ║
-║  Supabase · PostgreSQL 15 · Built-in Auth · Real-time           ║
-║  19 Tables · Row Level Security · JSONB columns                 ║
-║  Managed backups · Point-in-time recovery · Connection pooling  ║
+║  Supabase · PostgreSQL 15 · Built-in Auth · Real-time            ║
+║  19 Tables · Row Level Security · JSONB columns                  ║
+║  Managed backups · Point-in-time recovery · Connection pooling   ║
 ╚══════════════════════════════════════════════════════════════════╝
 ```
 
@@ -1392,7 +1392,7 @@ git push origin feat/hostel-qr-check-in
 ```
 ╔═══════════════════════════════════════════════════════════════╗
 ║                                                               ║
-║   Built with precision by the CampusIQ Engineering team      ║
+║   Built with precision by the CampusIQ Engineering team       ║
 ║   and open-source contributors worldwide.                     ║
 ║                                                               ║
 ║   Making world-class academic software accessible to          ║
