@@ -235,8 +235,8 @@ OTP Code:            Displayed on-screen during login (demo bypass — no email 
 ║  /api/hostel    /api/transport /api/payroll   /api/workflows     ║
 ║  /api/admissions /api/notifications  ... (8 more)                ║
 ║                                                                  ║
-║  ✓ CORS-enabled    ✓ RBAC query scoping                         ║
-║  ✓ Full CRUD       ✓ Soft-delete patterns    ✓ Audit logging    ║
+║  ✓ CORS-enabled    ✓ RBAC query scoping                          ║
+║  ✓ Full CRUD       ✓ Soft-delete patterns    ✓ Audit logging     ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║              @supabase/supabase-js · RLS Policies                ║
 ╠══════════════════════════════════════════════════════════════════╣
