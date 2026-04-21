@@ -47,15 +47,14 @@
 
 | Super Admin Dashboard | Student Portal |
 |:---:|:---:|
-| Admin Dashboard <img width="1908" height="905" alt="sr1" src="https://github.com/user-attachments/assets/c8b8d855-e409-4bc1-929c-f162b6f2bfec" /> | ![Student Portal](./docs/assets/student-portal.png) |
+| Admin Dashboard  <img width="1910" height="910" alt="sr2" src="https://github.com/user-attachments/assets/09b24be5-e0a5-4965-9129-c34f5f74bfee" /><img width="1900" height="907" alt="sr3" src="https://github.com/user-attachments/assets/f92d0e80-636d-40e9-8530-e4f84067be6a" /><img width="1908" height="903" alt="sr4" src="https://github.com/user-attachments/assets/7c81ea54-4a11-4ad9-8de9-182272036069" />|Student Portal <img width="1915" height="905" alt="sr9" src="https://github.com/user-attachments/assets/27d11c39-a354-4641-b71f-f37872246da9" /><img width="1917" height="902" alt="sr10" src="https://github.com/user-attachments/assets/600206c0-214b-459b-a671-31c8130c6414" /><img width="1905" height="910" alt="sr11" src="https://github.com/user-attachments/assets/3f52f60e-c1dd-458f-a4ea-501942ecd7a2" />|
 | *Live KPIs · 22-module nav · Deep Space Dark theme* | *Personal academic workspace · Fee status · LMS* |
 
 | Iris AI Chatbot + Omni-Search | Pearl Light Theme |
 |:---:|:---:|
-| ![Chatbot](./docs/assets/chatbot-search.png) | ![Light Theme](./docs/assets/pearl-light.png) |
+| Chatbot   <img width="492" height="707" alt="sr5" src="https://github.com/user-attachments/assets/74fa107c-7132-47b4-8203-f3960894f457" /> | Light Theme  <img width="1910" height="910" alt="Screenshot 2026-04-20 163652" src="https://github.com/user-attachments/assets/62506408-a94d-43de-8c25-06c54f54af9a" /> |
 | *Role-scoped global search · Contextual AI assistant* | *Glassmorphism 3.0 · WCAG AA · Responsive* |
 
-> 📸 **Screenshot Guide** → Replace with 1440×900 PNGs. Recommended tools: [Screely](https://www.screely.com/) for browser mockups, [Kap](https://getkap.co/) for GIFs. Store in `./docs/assets/`.
 
 ---
 
@@ -80,11 +79,10 @@
 | 13 | [✦ API Reference](#-api-reference) | All 20+ endpoints |
 | 14 | [✦ Deployment Guide](#-deployment-guide) | Vercel, env vars, CI/CD |
 | 15 | [✦ Responsive Behavior](#-responsive-behavior) | Mobile, tablet, desktop |
-| 16 | [✦ Pricing & Plans](#-pricing--plans) | Starter → Enterprise |
-| 17 | [✦ Performance](#-performance-benchmarks) | Benchmarks & optimization |
-| 18 | [✦ Contributing](#-contributing) | How to contribute |
-| 19 | [✦ Roadmap](#-roadmap) | What's coming next |
-| 20 | [✦ Contact & Support](#-contact--support) | Reach the team |
+| 16 | [✦ Performance](#-performance-benchmarks) | Benchmarks & optimization |
+| 17 | [✦ Contributing](#-contributing) | How to contribute |
+| 18 | [✦ Roadmap](#-roadmap) | What's coming next |
+| 19 | [✦ Contact & Support](#-contact--support) | Reach the team |
 
 ---
 
@@ -158,10 +156,10 @@ CampusIQ was built on a single conviction:
 ## ✦ Live Demo & Credentials
 
 > **No sign-up required.** All demo environments are pre-seeded with realistic fixture data.
-
 ### 🔑 Access
 
 ```
+Demo Click It:       https://campusiq-erp-kwhz.arcada.app
 Universal Password:  campus123
 OTP Code:            Displayed on-screen during login (demo bypass)
 ```
@@ -1196,7 +1194,7 @@ GET /api/students?page=1&limit=25&sort=name&order=asc&search=alex
 
 ### Deploy to Vercel (Recommended)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-org/campusiq&env=VITE_SUPABASE_URL,VITE_SUPABASE_ANON_KEY,SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/mansisonani07/Campusiq_Erp_System&env=VITE_SUPABASE_URL,VITE_SUPABASE_ANON_KEY,SUPABASE_URL,SUPABASE_SERVICE_ROLE_KEY)
 
 **Manual via Vercel CLI:**
 
@@ -1293,25 +1291,6 @@ jobs:
 
 ---
 
-## ✦ Pricing & Plans
-
-| | 🟢 Starter | 🔵 Institute ⭐ | 🟣 Enterprise |
-|---|---|---|---|
-| **Price** | $99 / month | $499 / month | Custom |
-| **Best for** | Pilots, small colleges | Full college edition | Universities, multi-campus |
-| **Students** | Up to 500 | Up to 10,000 | **Unlimited** |
-| **Campuses** | 1 | 1 | **Unlimited** |
-| **All 22+ modules** | ✅ | ✅ | ✅ |
-| **Uptime SLA** | 99.9% | 99.99% | 99.99% + financial SLA |
-| **White-label branding** | ❌ | ❌ | ✅ |
-| **SAML SSO** | ❌ | ❌ | ✅ |
-| **Dedicated infrastructure** | ❌ | ❌ | ✅ |
-| **Custom API rate limits** | ❌ | ❌ | ✅ |
-| **Support tier** | Email + chat | Priority | Dedicated CSM |
-| **Onboarding** | Self-serve docs | Guided (3 sessions) | Full onboarding program |
-
----
-
 ## ✦ Contributing
 
 CampusIQ follows **GitHub Flow**. All contributions go through pull requests.
@@ -1320,7 +1299,7 @@ CampusIQ follows **GitHub Flow**. All contributions go through pull requests.
 
 ```bash
 # 1. Fork on GitHub, then clone your fork
-git clone https://github.com/YOUR_USERNAME/campusiq.git && cd campusiq
+git clone https://github.com/mansisonani07/Campusiq_Erp_System.git && cd Campusiq_Erp_System
 
 # 2. Create a feature branch from main
 git checkout -b feat/hostel-qr-check-in
@@ -1385,12 +1364,10 @@ git push origin feat/hostel-qr-check-in
 
 | Channel | Details |
 |---|---|
-| 📧 **Sales Enquiries** | [sales@campusiq.edu](mailto:sales@campusiq.edu) |
-| 🛠️ **Technical Support** | [support@campusiq.edu](mailto:support@campusiq.edu) |
-| 📞 **Phone** | +1 (415) 555-0178 |
-| 🗺️ **Offices** | Bangalore · Singapore · New York |
-| 🐛 **Bug Reports** | [GitHub Issues](https://github.com/your-org/campusiq/issues) |
-| 💬 **Community** | [GitHub Discussions](https://github.com/your-org/campusiq/discussions) |
+| 📧 **Author** | [immpatl07@gmail.com](immpatel07@gmail.com) |
+| 🛠️ **Technical Support** | [https://github.com/mansisonani07/Campusiq_Erp_System](https://github.com/mansisonani07/Campusiq_Erp_System) |
+| 🐛 **Bug Reports** | [GitHub Issues](https://github.com/mansisonani07/Campusiq_Erp_System) |
+| 💬 **Community** | [GitHub Discussions](https://github.com/mansisonani07/Campusiq_Erp_System/discussions) |
 
 </div>
 
@@ -1410,7 +1387,7 @@ git push origin feat/hostel-qr-check-in
 ╚═══════════════════════════════════════════════════════════════╝
 ```
 
-**[⭐ Star this repo](https://github.com/your-org/campusiq)** if CampusIQ is useful to you.
+**[⭐ Star this repo](https://github.com/mansisonani07/Campusiq_Erp_System)** if CampusIQ is useful to you.
 
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=flat-square&logo=typescript)](https://typescriptlang.org/)
