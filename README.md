@@ -30,14 +30,11 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-F59E0B?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-06B6D4?style=flat-square)](CONTRIBUTING.md)
-[![Institutions](https://img.shields.io/badge/Institutions-320%2B_·_28_Countries-10B981?style=flat-square)]()
-[![Students](https://img.shields.io/badge/Active_Students-4.8M%2B-06B6D4?style=flat-square)]()
-[![Uptime](https://img.shields.io/badge/Uptime_SLA-99.99%25-22C55E?style=flat-square)]()
-[![P50 Load](https://img.shields.io/badge/P50_Dashboard-~1.8s-F59E0B?style=flat-square)]()
+
 
 <br/>
 
-> **CampusIQ** is a **full-featured, production-grade Student ERP** that replaces the fragmented ecosystem of legacy academic software with one cohesive, intelligent, role-aware platform — built for institutions ranging from 500-student colleges to 100,000-student universities across 28 countries.
+> **CampusIQ** is a **full-featured, production-grade Student ERP** that replaces the fragmented ecosystem of legacy academic software with one cohesive, intelligent, role-aware platform — built for institutions 
 
 <br/>
 
@@ -1378,7 +1375,7 @@ git push origin feat/hostel-qr-check-in
 
 | Channel | Details |
 |---|---|
-| 📧 **Author** | [immpatel07@gmail.com](mailto:immpatel07@gmail.com) |
+| 📧 **Author** | [sonanimansi05@gmail.com](mailto:sonanimansi05@gmail.com) |
 | 🛠️ **Repository** | [github.com/mansisonani07/Campusiq_Erp_System](https://github.com/mansisonani07/Campusiq_Erp_System) |
 | 🐛 **Bug Reports** | [GitHub Issues](https://github.com/mansisonani07/Campusiq_Erp_System/issues) |
 | 💬 **Discussions** | [GitHub Discussions](https://github.com/mansisonani07/Campusiq_Erp_System/discussions) |
@@ -1408,6 +1405,6 @@ git push origin feat/hostel-qr-check-in
 [![Supabase](https://img.shields.io/badge/Supabase-Postgres_15-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com/)
 [![Vercel](https://img.shields.io/badge/Vercel-Edge-000?style=flat-square&logo=vercel)](https://vercel.com/)
 
-*© 2025 CampusIQ · MIT License*
+*© 2026 CampusIQ · MIT License*
 
 </div>
