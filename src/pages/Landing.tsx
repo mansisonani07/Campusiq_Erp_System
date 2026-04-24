@@ -50,17 +50,7 @@ export default function Landing() {
                 <Link to="/login" className="btn-primary inline-flex items-center gap-2">Open portal <ArrowRight size={15} /></Link>
                 <Link to="/admissions" className="btn-ghost inline-flex items-center gap-2"><Play size={13} /> Apply for admission</Link>
               </div>
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mt-9 text-sm text-slate-500 dark:text-slate-400">
-                <div className="flex items-center gap-2"><Shield size={15} className="text-emerald-500" /> FERPA-ready</div>
-                <div className="flex items-center gap-2"><Globe size={15} className="text-cyan-500" /> 28 countries</div>
-                <div className="flex items-center gap-2"><Lock size={15} className="text-blue-500" /> SOC 2 Type II</div>
-                <div className="flex items-center gap-2"><Zap size={15} className="text-amber-500" /> 99.99% uptime</div>
-              </div>
-            </motion.div>
-
-            <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.75, delay: 0.12 }} className="relative">
-              <div className="absolute -inset-10 bg-gradient-to-br from-cyan-500/20 via-blue-600/20 to-purple-500/10 rounded-[40px] blur-3xl" />
-              {/* mock dashboard */}
+              
               <div className="relative glass-card rounded-3xl p-5 elev-3">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
