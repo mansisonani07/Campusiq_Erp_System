@@ -19,8 +19,8 @@ export default function Contact() {
             <div className="mt-8 space-y-3.5">
               {[
                 { i: Mail, l: 'sales@campusiq.edu', s: 'Email us' },
-                { i: Phone, l: '+1 (415) 555-0178', s: 'Mon–Fri, 9am–7pm PT' },
-                { i: MapPin, l: 'Bangalore · Singapore · New York', s: 'Offices worldwide' },
+                { i: Phone, l: '+123456789', s: 'Mon–Fri, 9am–7pm PT' },
+                { i: MapPin, l: 'india', s: 'Offices worldwide' },
               ].map(x => (
                 <div key={x.l} className="flex items-center gap-3 p-3.5 rounded-2xl surface-solid hover-lift">
                   <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white flex items-center justify-center shadow-md"><x.i size={17} /></div>

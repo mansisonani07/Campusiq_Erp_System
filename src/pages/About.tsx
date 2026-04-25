@@ -12,14 +12,14 @@ export default function About() {
         <div className="relative max-w-5xl mx-auto px-4 lg:px-8 py-20">
           <div className="chip bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 inline-flex"><Sparkles size={11} /> About us</div>
           <h1 className="heading-display text-4xl sm:text-5xl text-slate-900 dark:text-white mt-5">We build the <span className="text-gradient-brand">academic OS</span> of the modern era.</h1>
-          <p className="text-slate-500 mt-5 max-w-2xl text-[15.5px] leading-relaxed">CampusIQ was founded in 2019 by educators and engineers who were tired of duct-taping spreadsheets and legacy ERPs. Today, 320+ institutions across 28 countries run their daily operations on us.</p>
+          <p className="text-slate-500 mt-5 max-w-2xl text-[15.5px] leading-relaxed">CampusIQ was founded in  by educators and engineers who were tired of duct-taping spreadsheets and legacy ERPs. Today, 0 institutions across 0 countries run their daily operations on us.</p>
         </div>
       </section>
       <section className="max-w-5xl mx-auto px-4 lg:px-8 pb-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger">
           {[
-            { i: Users, t: '280+', s: 'Team members worldwide', c: 'from-cyan-500 to-teal-500' },
-            { i: Globe, t: '28', s: 'Countries served', c: 'from-blue-500 to-indigo-600' },
+            { i: Users, t: '2', s: 'Team members worldwide', c: 'from-cyan-500 to-teal-500' },
+            { i: Globe, t: '0', s: 'Countries served', c: 'from-blue-500 to-indigo-600' },
             { i: Shield, t: 'SOC 2', s: 'Type II certified', c: 'from-emerald-500 to-teal-600' },
             { i: Zap, t: '99.99%', s: 'Uptime SLA', c: 'from-amber-500 to-orange-500' },
           ].map(x => (
@@ -34,7 +34,7 @@ export default function About() {
           <div className="surface-solid rounded-2xl p-7">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-rose-500 to-pink-600 text-white flex items-center justify-center mb-4"><Heart size={20} /></div>
             <h2 className="heading-display text-2xl text-slate-900 dark:text-white">Our mission</h2>
-            <p className="text-slate-500 mt-3 leading-relaxed text-[14.5px]">Make world-class academic software accessible to every institution — from boutique colleges to 100,000-student universities — without the cost and complexity of legacy enterprise systems.</p>
+            <p className="text-slate-500 mt-3 leading-relaxed text-[14.5px]">Make world-class academic software accessible to every institution — from boutique colleges to 1-student universities — without the cost and complexity of legacy enterprise systems.</p>
           </div>
           <div className="surface-solid rounded-2xl p-7">
             <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white flex items-center justify-center mb-4"><Target size={20} /></div>

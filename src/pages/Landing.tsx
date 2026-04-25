@@ -86,7 +86,7 @@ export default function Landing() {
                   <div className="rounded-2xl p-3.5 bg-white/60 dark:bg-slate-900/40 border border-white/60 dark:border-slate-700/40 flex items-center justify-between">
                     <div>
                       <div className="text-[9.5px] uppercase tracking-widest text-slate-500 font-bold">Fee collection</div>
-                      <div className="text-lg font-black text-slate-900 dark:text-white">₹1.84 Cr</div>
+                      <div className="text-lg font-black text-slate-900 dark:text-white">₹0 Cr</div>
                       <div className="text-[10px] text-slate-500">August cycle</div>
                     </div>
                     <Donut value={72} total={100} size={64} stroke={8} />
@@ -121,7 +121,7 @@ export default function Landing() {
       {/* MARQUEE */}
       <section className="border-y border-slate-200 dark:border-slate-800/60 bg-white/70 dark:bg-[#0a0f1e]/70 backdrop-blur-md overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 lg:px-8 py-9">
-          <div className="text-[10.5px] uppercase tracking-[0.28em] text-slate-500 font-bold text-center mb-6">Trusted by 320+ institutions across 28 countries</div>
+          <div className="text-[10.5px] uppercase tracking-[0.28em] text-slate-500 font-bold text-center mb-6">Trusted by 0 institutions across 0 countries</div>
           <div className="flex overflow-hidden">
             <div className="marquee-row flex gap-14 shrink-0 pr-14 items-center">
               {['Northfield Institute', 'Aravind College', 'BlueSky University', 'Ridgeview Polytechnic', 'Harborline Academy', 'St. Claremont', 'Sunridge University', 'Orbit Tech Institute', 'Kingsway College', 'Helix International'].map(n => (
@@ -195,8 +195,8 @@ export default function Landing() {
       <section className="max-w-7xl mx-auto px-4 lg:px-8 py-24">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger">
           {[
-            { v: '320+', l: 'Institutions', s: 'Colleges and institutes' },
-            { v: '4.8M', l: 'Students', s: 'Active platform users' },
+            { v: '0', l: 'Institutions', s: 'Colleges and institutes' },
+            { v: '1', l: 'Students', s: 'Active platform users' },
             { v: '99.99%', l: 'Uptime', s: 'Multi-region redundancy' },
             { v: '1.8s', l: 'Avg load', s: 'P50 dashboard render' },
           ].map(s => (

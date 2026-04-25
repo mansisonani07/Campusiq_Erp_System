@@ -28,7 +28,7 @@ export default function Admissions() {
         <div className="relative max-w-5xl mx-auto px-4 lg:px-8 py-16">
           <div className="text-center mb-10 fade-up">
             <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-cyan-500 via-teal-500 to-blue-600 text-white flex items-center justify-center shadow-xl shadow-cyan-500/30"><GraduationCap size={28} /></div>
-            <div className="chip bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 inline-flex mt-5"><Sparkles size={10} /> Admissions 2025 · Now open</div>
+            <div className="chip bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 inline-flex mt-5"><Sparkles size={10} /> Admissions 2026 · Now open</div>
             <h1 className="heading-display text-4xl sm:text-5xl text-slate-900 dark:text-white mt-5">Start your journey.</h1>
             <p className="text-slate-500 mt-3 text-[15.5px]">Apply online. Track status directly from your CampusIQ account.</p>
           </div>

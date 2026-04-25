@@ -4,8 +4,8 @@ import { CheckCircle2, Sparkles, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const TIERS = [
-  { n: 'Starter', p: '$99', per: 'per month', desc: 'Single department pilot', feats: ['Up to 500 students', 'Core modules', 'Email support', '99% SLA'] },
-  { n: 'Institute', p: '$499', per: 'per month', desc: 'Full college edition', feats: ['Up to 10,000 students', 'All modules', '24×7 support', '99.9% SLA', 'Dedicated CSM'], featured: true },
+  { n: 'Starter', p: '$0', per: 'per month', desc: 'Single department pilot', feats: ['Up to 500 students', 'Core modules', 'Email support', '99% SLA'] },
+  { n: 'Institute', p: '$0', per: 'per month', desc: 'Full college edition', feats: ['Up to 10,000 students', 'All modules', '24×7 support', '99.9% SLA', 'Dedicated CSM'], featured: true },
   { n: 'Enterprise', p: 'Custom', per: 'annual contract', desc: 'Universities & multi-campus', feats: ['Unlimited students', 'White-labeling', 'On-prem optional', '99.99% SLA', 'SAML + SSO', 'Custom integrations'] },
 ];
 
